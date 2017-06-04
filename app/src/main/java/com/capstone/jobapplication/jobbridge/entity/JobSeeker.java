@@ -1,5 +1,6 @@
 package com.capstone.jobapplication.jobbridge.entity;
 
+
 import android.databinding.BaseObservable;
 
 /**

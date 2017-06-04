@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.capstone.jobapplication.jobbridge.R;
 
+
 /**
  * Created by Aicun on 5/31/2017.
  */

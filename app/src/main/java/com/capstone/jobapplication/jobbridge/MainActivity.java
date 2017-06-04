@@ -1,80 +1,165 @@
 package com.capstone.jobapplication.jobbridge;
 
-import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.Window;
 
 import com.capstone.jobapplication.jobbridge.fragments.AboutFragment;
 import com.capstone.jobapplication.jobbridge.fragments.InterestFragment;
 import com.capstone.jobapplication.jobbridge.fragments.JobsFragment;
+import com.capstone.jobapplication.jobbridge.fragments.TabFragment;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
-    private Toolbar toolbar;
-    private TabLayout tabLayout;
     private ViewPager viewPager;
+    private List<Fragment> tabs = new ArrayList<Fragment>();
+
+    private FragmentPagerAdapter pageAdapter;
+
+    private List<ChangeColorIconWithText> tabIndicators = new ArrayList<ChangeColorIconWithText>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        initView();
+        initData();
+        viewPager.setAdapter(pageAdapter);
+        initEvent();
+    }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    private void initEvent()
+    {
+        viewPager.addOnPageChangeListener (this);
+    }
 
+    private void initData() {
+        tabs.add(new JobsFragment());
+        tabs.add(new InterestFragment());
+        tabs.add(new TabFragment());
+        tabs.add(new AboutFragment());
+
+        pageAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return tabs.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return tabs.size();
+            }
+        };
+    }
+
+    private void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
 
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-    }
+        ChangeColorIconWithText one = (ChangeColorIconWithText) findViewById(R.id.id_indicator_one);
+        tabIndicators.add(one);
+        ChangeColorIconWithText two = (ChangeColorIconWithText) findViewById(R.id.id_indicator_two);
+        tabIndicators.add(two);
+        ChangeColorIconWithText three = (ChangeColorIconWithText) findViewById(R.id.id_indicator_three);
+        tabIndicators.add(three);
+        ChangeColorIconWithText four = (ChangeColorIconWithText) findViewById(R.id.id_indicator_four);
+        tabIndicators.add(four);
 
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new JobsFragment(), "jobs");
-        adapter.addFragment(new InterestFragment(), "Interest");
-        adapter.addFragment(new AboutFragment(), "About");
-        viewPager.setAdapter(adapter);
-    }
-}
+        one.setOnClickListener(this);
+        two.setOnClickListener(this);
+        three.setOnClickListener(this);
+        four.setOnClickListener(this);
 
-class ViewPagerAdapter extends FragmentPagerAdapter {
-
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
-
-    public ViewPagerAdapter(FragmentManager fm) {
-        super(fm);
+        one.setIconAlpha(1.0f);
     }
 
     @Override
-    public Fragment getItem(int position) {
-        return mFragmentList.get(position);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
     @Override
-    public int getCount() {
-        return mFragmentList.size();
-    }
-
-    public void addFragment(Fragment fragment, String title) {
-        mFragmentList.add(fragment);
-        mFragmentTitleList.add(title);
+    public boolean onMenuOpened(int featureId, Menu menu) {
+        if(featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+            if(menu.getClass().getSimpleName().equals("MenuBuilder")) {
+                try {
+                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible",Boolean.TYPE);
+                    method.setAccessible(true);
+                    method.invoke(menu,true);
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return super.onMenuOpened(featureId, menu);
     }
 
     @Override
-    public CharSequence getPageTitle(int position) {
-        return mFragmentTitleList.get(position);
+    public void onClick(View v) {
+        resetOtherTabs();
+
+        switch (v.getId())
+        {
+            case R.id.id_indicator_one:
+                tabIndicators.get(0).setIconAlpha(1.0f);
+                viewPager.setCurrentItem(0, false);
+                break;
+            case R.id.id_indicator_two:
+                tabIndicators.get(1).setIconAlpha(1.0f);
+                viewPager.setCurrentItem(1, false);
+                break;
+            case R.id.id_indicator_three:
+                tabIndicators.get(2).setIconAlpha(1.0f);
+                viewPager.setCurrentItem(2, false);
+                break;
+            case R.id.id_indicator_four:
+                tabIndicators.get(3).setIconAlpha(1.0f);
+                viewPager.setCurrentItem(3, false);
+                break;
+        }
+    }
+
+    private void resetOtherTabs()
+    {
+        for (int i = 0; i < tabIndicators.size(); i++)
+        {
+            tabIndicators.get(i).setIconAlpha(0);
+        }
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (positionOffset > 0)
+        {
+            ChangeColorIconWithText left = tabIndicators.get(position);
+            ChangeColorIconWithText right = tabIndicators.get(position + 1);
+            left.setIconAlpha(1 - positionOffset);
+            right.setIconAlpha(positionOffset);
+        }
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

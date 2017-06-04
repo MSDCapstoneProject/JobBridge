@@ -1,9 +1,17 @@
 <resources>
-    <string name="app_name">JobBridge</string>
     <string name="jobs">Jobs</string>
     <string name="about">about</string>
     <string name="interest">interest</string>
     <string name="profile">Profile</string>
     <string name="SignUp">Sign Up</string>
     <string name="submit">Submit</string>
+
+    <string name="app_name">Job Bridge</string>
+    <string name="action_search">Search</string>
+    <string name="action_add">add</string>
+    <string name="menu_a">func a</string>
+    <string name="menu_b">func b</string>
+    <string name="menu_c">func c</string>
+    <string name="menu_d">func d</string>
+    <string name="map">map</string>
 </resources>

@@ -31,7 +31,6 @@ public class ProfileActivity extends AppCompatActivity {
         jobSeeker.setPhone("2222");
         jobSeeker.setSin("1222");
         jobSeeker.setStatus("S");
-        binding.setJobSeeker(jobSeeker);
 
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
