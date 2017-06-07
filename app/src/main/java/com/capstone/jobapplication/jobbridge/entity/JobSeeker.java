@@ -8,15 +8,24 @@ import android.databinding.BaseObservable;
  */
 
 public class JobSeeker extends BaseObservable {
+    private int id;
     private String firstName;
-    private String LastName;
+    private String lastName;
     private String address;
     private String email;
     private String phone;
     private String sin;
-    private String birthDate;
+    private String DOB;
     private String status;
     private String gender;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getAddress() {
         return address;
@@ -50,12 +59,12 @@ public class JobSeeker extends BaseObservable {
         this.sin = sin;
     }
 
-    public String getBirthDate() {
-        return birthDate;
+    public String getDOB() {
+        return DOB;
     }
 
-    public void setBirthDate(String birthDate) {
-        this.birthDate = birthDate;
+    public void setDOB(String birthDate) {
+        this.DOB = birthDate;
     }
 
     public String getStatus() {
@@ -83,10 +92,10 @@ public class JobSeeker extends BaseObservable {
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        LastName = lastName;
+        this.lastName = lastName;
     }
 }

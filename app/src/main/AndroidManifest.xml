@@ -16,12 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ProfileActivity"></activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyABWe_ihVpkE_dbe0QlB7S7GQ6SS8Vf1DQ"/>
     </application>
-
-    <meta-data
-        android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyAiKb9oz7RKZ-DUJc9DDujq-EH7bBP8_Zs"/>
-
-    <activity android:name=".ProfileActivity"></activity>
-
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
 </manifest>

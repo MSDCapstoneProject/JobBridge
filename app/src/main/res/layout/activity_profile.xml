@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/margin_left"
+    android:layout_marginRight="@dimen/margin_right"
+    android:layout_marginTop="@dimen/margin_top"
+    android:layout_marginBottom="@dimen/margin_bottom"
+
     tools:context="com.capstone.jobapplication.jobbridge.ProfileActivity">
 
     <data>
@@ -15,8 +20,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginTop="4dp"
             android:orientation="horizontal"
             >
 
@@ -149,7 +152,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
-                android:text="@{jobSeeker.birthDate}"
+                android:text="@{jobSeeker.DOB}"
                 />
         </LinearLayout>
 
@@ -202,7 +205,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="200dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:orientation="horizontal">
@@ -214,7 +217,7 @@
                 android:layout_marginTop="@dimen/micro_padding"
                 android:text="@string/submit"
                 android:layout_weight="1"
-                android:onClick="register"/>
+                android:onClick="submit"/>
         </LinearLayout>
 
     </LinearLayout>
