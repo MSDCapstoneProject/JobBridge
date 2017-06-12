@@ -14,4 +14,17 @@
     <string name="menu_c">func c</string>
     <string name="menu_d">func d</string>
     <string name="map">map</string>
+    <string name="apply">Apply Now</string>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Unknown</item>
+    </string-array>
+
+    <string-array name="status">
+        <item>Canadian Citizenship</item>
+        <item>Work Permit Holder</item>
+        <item>International Student</item>
+    </string-array>
 </resources>

@@ -14,9 +14,9 @@ import java.net.URL;
  * Created by Aicun on 5/24/2017.
  */
 
-public class HttpClientPost extends AsyncTask {
+public class HttpClientPost extends AsyncTask<String, Void, String> {
 
-    private static String urlPrefix = "http://192.168.0.14:3000";
+    private static String urlPrefix = "http://192.168.0.10:3000";
     private String path = "";
 
     public HttpClientPost(String path) {
@@ -24,7 +24,7 @@ public class HttpClientPost extends AsyncTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] params) {
+    protected String doInBackground(String... params) {
         URL url = null;
         HttpURLConnection urlConnection = null;
         try {
@@ -32,7 +32,7 @@ public class HttpClientPost extends AsyncTask {
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
-            urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestMethod("POST");
             urlConnection.connect();
             OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
@@ -40,7 +40,15 @@ public class HttpClientPost extends AsyncTask {
             out.write(json);
             out.flush();
             out.close();
-            return "";
+
+            BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+            byte[] contents = new byte[1024];
+            int bytesRead = 0;
+            String strFileContents = null;
+            while ((bytesRead = in.read(contents)) != -1) {
+                strFileContents += new String(contents, 0, bytesRead);
+            }
+            return strFileContents;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -48,8 +56,9 @@ public class HttpClientPost extends AsyncTask {
             urlConnection.disconnect();
         }
     }
+
     @Override
-    protected void onPostExecute(Object o) {
-        super.onPostExecute(o);
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
     }
 }

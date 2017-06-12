@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="@dimen/margin_bottom"
+    android:layout_marginLeft="@dimen/margin_left"
+    android:layout_marginRight="@dimen/margin_right"
+    android:layout_marginTop="@dimen/margin_top"
+    tools:context="com.capstone.jobapplication.jobbridge.JobDetailActivity">
+
+    <data>
+        <variable
+            name="job"
+            type="com.capstone.jobapplication.jobbridge.entity.Job" />
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/job_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{job.title}"/>
+
+            <TextView
+                android:id="@+id/job_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{job.employer.name}"/>
+
+            <TextView
+                android:id="@+id/job_wage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{job.wage}"/>
+
+            <TextView
+                android:id="@+id/job_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{job.description}"/>
+
+            <TextView
+                android:id="@+id/job_jobType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{job.jobType}"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/apply"
+                android:textSize="@dimen/text_size" />
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

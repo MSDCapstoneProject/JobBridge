@@ -14,7 +14,7 @@ import java.net.URL;
 
 public class HttpClientGet extends AsyncTask {
 
-    private static String urlPrefix = "http://192.168.0.14:3000";
+    private static String urlPrefix = "http://192.168.0.10:3000";
     private String path = "";
 
     public HttpClientGet(String path) {

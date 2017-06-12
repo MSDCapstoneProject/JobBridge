@@ -12,5 +12,6 @@
     <dimen name="margin_right">5dp</dimen>
     <dimen name="margin_top">5dp</dimen>
     <dimen name="margin_bottom">5dp</dimen>
+    <dimen name="text_size">20sp</dimen>
 
 </resources>
