@@ -1,11 +1,10 @@
 package com.capstone.jobapplication.jobbridge;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -54,12 +53,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pageAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
+
                 return tabs.get(position);
             }
 
             @Override
             public int getCount() {
                 return tabs.size();
+            }
+
+            @Override
+            public int getItemPosition(Object object) {
+                return super.getItemPosition(object);
             }
         };
     }

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.capstone.jobapplication.jobbridge">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,12 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ProfileActivity"></activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:windowSoftInputMode="stateUnchanged" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyABWe_ihVpkE_dbe0QlB7S7GQ6SS8Vf1DQ"/>
+            android:value="AIzaSyABWe_ihVpkE_dbe0QlB7S7GQ6SS8Vf1DQ" />
+
+        <activity
+            android:name=".JobDetailActivity"
+            android:windowSoftInputMode="stateUnchanged"/>
     </application>
-    
-    <uses-permission android:name="android.permission.INTERNET"/>
-    
+
 </manifest>
