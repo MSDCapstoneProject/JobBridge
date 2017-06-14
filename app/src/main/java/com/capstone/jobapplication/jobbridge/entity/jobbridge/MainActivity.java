@@ -1,4 +1,4 @@
-package com.capstone.jobapplication.jobbridge;
+package com.capstone.jobapplication.jobbridge.entity.jobbridge;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,11 +9,10 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 
-import com.capstone.jobapplication.jobbridge.fragments.AboutFragment;
-import com.capstone.jobapplication.jobbridge.fragments.InterestFragment;
-import com.capstone.jobapplication.jobbridge.fragments.JobsFragment;
-import com.capstone.jobapplication.jobbridge.fragments.TabFragment;
-import com.google.firebase.iid.FirebaseInstanceId;
+import com.capstone.jobapplication.jobbridge.entity.jobbridge.fragments.AboutFragment;
+import com.capstone.jobapplication.jobbridge.entity.jobbridge.fragments.InterestFragment;
+import com.capstone.jobapplication.jobbridge.entity.jobbridge.fragments.JobsFragment;
+import com.capstone.jobapplication.jobbridge.entity.jobbridge.fragments.TabFragment;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.lang.reflect.InvocationTargetException;
@@ -37,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         // [START subscribe_topics]
         FirebaseMessaging.getInstance().subscribeToTopic("news");
-        FirebaseInstanceId.getInstance().getToken();
         // [END subscribe_topics]
 
         initView();
