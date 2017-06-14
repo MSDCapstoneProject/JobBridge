@@ -8,7 +8,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.util.Log;
 
-import com.capstone.jobapplication.jobbridge.entity.jobbridge.entity.Job;
+import com.capstone.jobapplication.jobbridge.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -68,7 +68,7 @@ public class MyFirebaseMessagingService  extends FirebaseMessagingService {
 
     /**
      * Schedule a job using FirebaseJobDispatcher.
-     */
+
     private void scheduleJob() {
         // [START dispatch_job]
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
@@ -79,7 +79,7 @@ public class MyFirebaseMessagingService  extends FirebaseMessagingService {
         dispatcher.schedule(myJob);
         // [END dispatch_job]
     }
-
+*/
     /**
      * Handle time allotted to BroadcastReceivers.
      */
