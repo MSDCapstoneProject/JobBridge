@@ -2,17 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.capstone.jobapplication.jobbridge">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!--폰번호를 위한 퍼미션-->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <!--팬텍R3 누가7.0 커스텀롬에서 폰 유심카드용 퍼미션-->
-    <uses-permission android:name="android.premission.READ_SMS" />
-    <!--진동사용하기 위한 퍼미션 -->
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <!--화면이 꺼져 있을때 깨우는 퍼미션-->
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,20 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <!-- [START fcm_default_icon] -->
-        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
-             See README(https://goo.gl/l4GJaQ) for more. -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_stat_ic_notification" />
-        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
-             notification message. See README(https://goo.gl/6BKBk7) for more. -->
-        <meta-data
-            android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />
-        <!-- [END fcm_default_icon] -->
-
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,31 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ProfileActivity"
-            android:windowSoftInputMode="stateUnchanged" />
+        <activity android:name=".ProfileActivity"></activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyABWe_ihVpkE_dbe0QlB7S7GQ6SS8Vf1DQ" />
-        <!-- [START firebase_service] -->
-        <service
-            android:name=".MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
-        <!-- [END firebase_service] -->
-        <!-- [START firebase_iid_service] -->
-        <service
-            android:name=".MyFirebaseInstanceIDService">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-        <!-- [END firebase_iid_service] -->
-        <activity
-            android:name=".JobDetailActivity"
-            android:windowSoftInputMode="stateUnchanged"/>
+            android:value="AIzaSyABWe_ihVpkE_dbe0QlB7S7GQ6SS8Vf1DQ"/>
     </application>
-
+    
+    <uses-permission android:name="android.permission.INTERNET"/>
+    
 </manifest>
