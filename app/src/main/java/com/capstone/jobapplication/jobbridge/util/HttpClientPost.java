@@ -17,7 +17,6 @@ import java.net.URL;
 public class HttpClientPost extends AsyncTask<String, Void, String> {
 
     private static String urlPrefix = "http://192.168.0.10:3000";
-    //private static String urlPrefix = "http://142.156.81.209:3000";
     private String path = "";
 
     public HttpClientPost(String path) {

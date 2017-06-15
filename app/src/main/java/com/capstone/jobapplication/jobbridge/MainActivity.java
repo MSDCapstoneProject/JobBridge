@@ -13,8 +13,6 @@ import com.capstone.jobapplication.jobbridge.fragments.AboutFragment;
 import com.capstone.jobapplication.jobbridge.fragments.InterestFragment;
 import com.capstone.jobapplication.jobbridge.fragments.JobsFragment;
 import com.capstone.jobapplication.jobbridge.fragments.TabFragment;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -34,11 +32,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // [START subscribe_topics]
-        FirebaseMessaging.getInstance().subscribeToTopic("news");
-        FirebaseInstanceId.getInstance().getToken();
-        // [END subscribe_topics]
 
         initView();
         initData();
