@@ -1,13 +1,14 @@
 package com.capstone.jobapplication.jobbridge.fragments;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.capstone.jobapplication.jobbridge.FcmActivity;
 import com.capstone.jobapplication.jobbridge.ProfileActivity;
 import com.capstone.jobapplication.jobbridge.R;
 
@@ -43,6 +44,10 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.signup:
                 break;
+            case R.id.setting:
+                Intent intentSetting = new Intent(getActivity(), FcmActivity.class);
+                startActivity(intentSetting);
+                break;
             default:
                 break;
         }
@@ -51,5 +56,6 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
     private void setOnListener() {
         layout.findViewById(R.id.profile).setOnClickListener(this);
         layout.findViewById(R.id.signup).setOnClickListener(this);
+        layout.findViewById(R.id.setting).setOnClickListener(this);
     }
 }
