@@ -15,6 +15,11 @@
     <string name="menu_d">func d</string>
     <string name="map">map</string>
     <string name="apply">Apply Now</string>
+    <string name="search">job title, keywords, or company</string>
+    <string name="searchJobs">Search</string>
+    <string name="filter">Filter</string>
+    <string name="filter_wage">wage starts at</string>
+    <string name="update">Update</string>
 
     <string-array name="gender">
         <item>Male</item>

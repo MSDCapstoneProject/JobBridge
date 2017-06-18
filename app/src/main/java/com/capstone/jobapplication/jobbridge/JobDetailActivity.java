@@ -5,11 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.capstone.jobapplication.jobbridge.databinding.ActivityJobDetailBinding;
 import com.capstone.jobapplication.jobbridge.entity.Job;
-import com.capstone.jobapplication.jobbridge.util.JobsCache;
+import com.capstone.jobapplication.jobbridge.util.CacheData;
 
 public class JobDetailActivity extends AppCompatActivity {
 
@@ -23,7 +22,7 @@ public class JobDetailActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         int jobKey = (int) bundle.get("JobKey");
-        Job job = JobsCache.getJob(jobKey);
+        Job job = CacheData.getJob(jobKey);
         job.setDescription(Html.fromHtml(job.getDescription()).toString());
         binding.setJob(job);
     }
