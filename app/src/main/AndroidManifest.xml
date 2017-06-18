@@ -27,6 +27,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABWe_ihVpkE_dbe0QlB7S7GQ6SS8Vf1DQ" />
+        <activity android:name=".FcmActivity"></activity>
         <!-- [START firebase_service] -->
         <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
