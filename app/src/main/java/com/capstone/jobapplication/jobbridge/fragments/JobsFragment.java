@@ -180,7 +180,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         String jobType = jobTypeFilterSpinner.getSelectedItem().toString();
         List<Job> filteredJobs = new ArrayList<>();
         for(Job job: searchedJobs) {
-            if(Float.valueOf(job.getWage())>wage && jobType.equalsIgnoreCase(job.getJobType())) {
+            if(Float.valueOf(job.getWage())>=wage && jobType.equalsIgnoreCase(job.getJobType())) {
                 filteredJobs.add(job);
             }
         }
