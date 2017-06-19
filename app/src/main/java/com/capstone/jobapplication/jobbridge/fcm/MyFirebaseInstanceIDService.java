@@ -1,4 +1,4 @@
-package com.capstone.jobapplication.jobbridge;
+package com.capstone.jobapplication.jobbridge.fcm;
 
 
 import android.util.Log;
@@ -34,6 +34,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         Log.d(TAG, "moonsun Refreshed token: " + refreshedToken);
 
         sendRegistrationToServer(refreshedToken);
+
     }
     // [END refresh_token]
 
