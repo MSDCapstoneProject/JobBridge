@@ -12,6 +12,7 @@ import android.view.Window;
 import com.capstone.jobapplication.jobbridge.fragments.AboutFragment;
 import com.capstone.jobapplication.jobbridge.fragments.InterestFragment;
 import com.capstone.jobapplication.jobbridge.fragments.JobsFragment;
+import com.capstone.jobapplication.jobbridge.fragments.JobsListFragment;
 import com.capstone.jobapplication.jobbridge.fragments.TabFragment;
 
 import java.lang.reflect.InvocationTargetException;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initData() {
+        //tabs.add(new JobsListFragment());
         tabs.add(new JobsFragment());
         tabs.add(new InterestFragment());
         tabs.add(new TabFragment());
@@ -53,7 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         pageAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-
                 return tabs.get(position);
             }
 

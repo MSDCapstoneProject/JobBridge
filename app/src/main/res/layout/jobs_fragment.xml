@@ -1,50 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:id="@+id/jobList">
+    android:orientation="vertical">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/jobs_filter"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"/>
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/company"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" >
-        </TextView>
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/search"
+                android:textColor="@color/text_search_color"
+                android:textSize="@dimen/text_search_size" />
 
-        <TextView
-            android:id="@+id/location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" >
-        </TextView>
+            <Button
+                android:id="@+id/searchJobs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1.5"
+                android:onClick="searchJobs"
+                android:text="@string/searchJobs" />
 
-        <TextView
-            android:id="@+id/wage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp" >
-        </TextView>
+            <Button
+                android:id="@+id/filterJobs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1.5"
+                android:onClick="filterJobs"
+                android:text="@string/filter" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/postTime"
-            android:layout_width="wrap_content"
+
+        <LinearLayout
+            android:id="@+id/jobs_filter_parameters"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp" >
-        </TextView>
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/filter_wage" />
+
+                <TextView
+                    android:id="@+id/filter_wage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <SeekBar
+                android:id="@+id/filter_wage_selector"
+                android:layout_width="match_parent"
+                android:layout_height="30sp"
+                android:max="35"
+                android:progress="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Job Type" />
+
+                <Spinner
+                    android:id="@+id/filter_jobType"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"></Spinner>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/filter_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/update"
+                android:textSize="@dimen/text_size" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/job_list_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
-
 </RelativeLayout>

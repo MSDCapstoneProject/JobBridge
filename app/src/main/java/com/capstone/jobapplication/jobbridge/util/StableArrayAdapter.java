@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.capstone.jobapplication.jobbridge.R;
 import com.capstone.jobapplication.jobbridge.entity.Job;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -42,7 +41,7 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
 
         View rowView = convertView;
         if (rowView == null) {
-            rowView = inflater.inflate(R.layout.jobs_fragment, parent,false);
+            rowView = inflater.inflate(R.layout.jobs_list_fragment, parent,false);
             // configure view holder
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.title = (TextView) rowView.findViewById(R.id.title);

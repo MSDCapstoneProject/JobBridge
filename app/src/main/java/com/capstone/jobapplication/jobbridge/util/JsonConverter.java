@@ -30,10 +30,9 @@ public class JsonConverter {
         return gson.toJson(o);
     }
 
-    public static List<Job> convertFromJsonList(String json) {
+    public static List convertFromJsonList(String json,Type type) {
         json = formatJsonList(json);
-        Type listType = new TypeToken<ArrayList<Job>>(){}.getType();
-        List<Job> yourClassList = gson.fromJson(json, listType);
+        List yourClassList = gson.fromJson(json, type);
         return yourClassList;
     }
 

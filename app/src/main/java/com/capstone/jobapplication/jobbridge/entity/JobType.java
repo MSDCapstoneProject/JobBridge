@@ -6,7 +6,8 @@ package com.capstone.jobapplication.jobbridge.entity;
 
 public class JobType {
     private int id;
-    private String typeName;
+    private String description;
+    private String internalCode;
 
     public int getId() {
         return id;
@@ -16,11 +17,19 @@ public class JobType {
         this.id = id;
     }
 
-    public String getTypeName() {
-        return typeName;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTypeName(String typeName) {
-        this.typeName = typeName;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getInternalCode() {
+        return internalCode;
+    }
+
+    public void setInternalCode(String internalCode) {
+        this.internalCode = internalCode;
     }
 }

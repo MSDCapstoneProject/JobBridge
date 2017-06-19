@@ -12,7 +12,7 @@ import java.net.URL;
  * Created by Aicun on 5/24/2017.
  */
 
-public class HttpClientGet extends AsyncTask {
+public class HttpClientGet extends AsyncTask<String,Void,String> {
 
     private static String urlPrefix = "http://192.168.0.10:3000";
     private String path = "";
@@ -22,7 +22,7 @@ public class HttpClientGet extends AsyncTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] params) {
+    protected String doInBackground(String[] params) {
         URL url = null;
         HttpURLConnection urlConnection = null;
         try {
@@ -46,7 +46,7 @@ public class HttpClientGet extends AsyncTask {
     }
 
     @Override
-    protected void onPostExecute(Object o) {
+    protected void onPostExecute(String o) {
         super.onPostExecute(o);
     }
 }
