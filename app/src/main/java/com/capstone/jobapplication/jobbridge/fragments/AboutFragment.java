@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.capstone.jobapplication.jobbridge.FcmActivity;
 import com.capstone.jobapplication.jobbridge.ProfileActivity;
 import com.capstone.jobapplication.jobbridge.R;
+import com.capstone.jobapplication.jobbridge.fcm.FcmActivity;
 
 /**
  * Created by Aicun on 5/31/2017.
@@ -46,6 +46,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                 break;
             case R.id.setting:
                 Intent intentSetting = new Intent(getActivity(), FcmActivity.class);
+                //Intent intentSetting = new Intent(getActivity(), MyNoticeActivity.class);
                 startActivity(intentSetting);
                 break;
             default:

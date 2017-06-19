@@ -1,4 +1,4 @@
-package com.capstone.jobapplication.jobbridge;
+package com.capstone.jobapplication.jobbridge.fcm;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.capstone.jobapplication.jobbridge.MainActivity;
+import com.capstone.jobapplication.jobbridge.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
