@@ -51,8 +51,8 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String jobsJsonData = getJobsJsonData();
-        String jobTypesJsonData = getJobTypesJsonData();
+        String jobsJsonData = getJsonData("/jobs");
+        String jobTypesJsonData = getJsonData("/jobTypes");
         if (jobsJsonData != null) {
             Type listType = new TypeToken<ArrayList<Job>>(){}.getType();
             jobLists = JsonConverter.convertFromJsonList(jobsJsonData, listType);
@@ -136,25 +136,11 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         getFragmentManager().beginTransaction().replace(R.id.job_list_fragment, jobsListFragment).commit();
     }
 
-    private String getJobsJsonData() {
+    private String getJsonData(String path) {
         String jsonData = null;
         try {
-            HttpClientGet client = new HttpClientGet("/jobs");
-            AsyncTask task = client.execute();
-            jsonData = (String) task.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return jsonData;
-    }
-
-    private String getJobTypesJsonData() {
-        String jsonData = null;
-        try {
-            HttpClientGet client = new HttpClientGet("/jobtypes");
-            AsyncTask task = client.execute();
-            jsonData = (String) task.get();
+            HttpClientGet client = new HttpClientGet(path);
+            jsonData = client.getJsonData();
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -188,6 +174,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         JobsListFragment jobsListFragment = new JobsListFragment();
         jobsListFragment.setJobLists(filteredJobs);
         getFragmentManager().beginTransaction().replace(R.id.job_list_fragment, jobsListFragment).commit();
+        filter.setVisibility(View.GONE);
     }
 
     private boolean contains(String source, String keyWord) {

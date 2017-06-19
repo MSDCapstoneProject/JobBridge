@@ -23,7 +23,7 @@ public class ChangeColorIconWithText extends View
 
 	private int mColor = 0xFF45C01A;
 	private Bitmap mIconBitmap;
-	private String mText = "微信";
+	private String mText = "Job Bridge";
 	private int mTextSize = (int) TypedValue.applyDimension(
 			TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics());
 
@@ -48,7 +48,7 @@ public class ChangeColorIconWithText extends View
 	}
 
 	/**
-	 * 获取自定义属性的值
+	 * get customized attrs
 	 * 
 	 * @param context
 	 * @param attrs
@@ -130,7 +130,7 @@ public class ChangeColorIconWithText extends View
 	}
 
 	/**
-	 * 绘制变色的文本
+	 * draw changeable color text
 	 * 
 	 * @param canvas
 	 * @param alpha
@@ -146,7 +146,7 @@ public class ChangeColorIconWithText extends View
 	}
 
 	/**
-	 * 绘制原文本
+	 * draw text
 	 * 
 	 * @param canvas
 	 * @param alpha
@@ -162,7 +162,7 @@ public class ChangeColorIconWithText extends View
 	}
 
 	/**
-	 * 在内存中绘制可变色的Icon
+	 * draw changeable color icon in memory
 	 */
 	private void setupTargetBitmap(int alpha)
 	{

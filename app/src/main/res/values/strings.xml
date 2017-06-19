@@ -1,7 +1,7 @@
 <resources>
-    <string name="jobs">Jobs</string>
+    <string name="jobs">Posts</string>
     <string name="about">about</string>
-    <string name="interest">interest</string>
+    <string name="interest">My Jobs</string>
     <string name="profile">Profile</string>
     <string name="SignUp">Sign Up</string>
     <string name="submit">Submit</string>

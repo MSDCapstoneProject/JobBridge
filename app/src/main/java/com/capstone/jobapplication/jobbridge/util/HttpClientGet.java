@@ -49,4 +49,16 @@ public class HttpClientGet extends AsyncTask<String,Void,String> {
     protected void onPostExecute(String o) {
         super.onPostExecute(o);
     }
+
+    public String getJsonData() {
+        String jsonData = null;
+        try {
+            AsyncTask task = execute();
+            jsonData = (String) task.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return jsonData;
+    }
 }
