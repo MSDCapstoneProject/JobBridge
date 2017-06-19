@@ -65,10 +65,12 @@
                 android:text="@{job.jobType}"/>
 
             <Button
+                android:id="@+id/job_apply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/apply"
-                android:textSize="@dimen/text_size" />
+                android:textSize="@dimen/text_size"
+                android:onClick="applyJob"/>
         </LinearLayout>
     </ScrollView>
 

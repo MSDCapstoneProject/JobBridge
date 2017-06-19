@@ -5,11 +5,13 @@ import android.util.Log;
 import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.entity.JobSeeker;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Aicun on 6/6/2017.
@@ -18,6 +20,7 @@ import java.util.List;
 public class JsonConverter {
 
     private static Gson gson = new Gson();
+    private static Gson gonWithNulls = new GsonBuilder().serializeNulls().create();
 
     public static <T>  T convertFromJson (String json, Class clazz) {
         json = formatJson(json);
@@ -34,6 +37,10 @@ public class JsonConverter {
         json = formatJsonList(json);
         List yourClassList = gson.fromJson(json, type);
         return yourClassList;
+    }
+
+    public static String convertFromMap(Map keyValue, Type type) {
+       return gson.toJson(keyValue,type);
     }
 
     private static String formatJsonList(String json) {

@@ -1,16 +1,28 @@
 package com.capstone.jobapplication.jobbridge;
 
 import android.databinding.DataBindingUtil;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.capstone.jobapplication.jobbridge.databinding.ActivityJobDetailBinding;
 import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.util.CacheData;
+import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
+import com.capstone.jobapplication.jobbridge.util.JsonConverter;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class JobDetailActivity extends AppCompatActivity {
+
+    private Job job;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +34,23 @@ public class JobDetailActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         int jobKey = (int) bundle.get("JobKey");
-        Job job = CacheData.getJob(jobKey);
+        job = CacheData.getJob(jobKey);
         job.setDescription(Html.fromHtml(job.getDescription()).toString());
         binding.setJob(job);
+    }
+
+    public void applyJob(View view) throws ExecutionException, InterruptedException {
+        Map<String,String> keyValue = new HashMap<>();
+        keyValue.put("EmployerId",String.valueOf(job.getEmployer().getId()));
+        keyValue.put("JobId",String.valueOf(job.getId()));
+        keyValue.put("JobSeekerId","1");
+
+        Type mapType = new TypeToken<HashMap<String, String>>() {}.getType();
+        String jsonForJobApply = JsonConverter.convertFromMap(keyValue,mapType);
+        HttpClientPost post = new HttpClientPost("/jobApplications/add");
+        AsyncTask task = post.execute(jsonForJobApply);
+        String result = (String) task.get();
+        System.out.println(result);
     }
 
     @Override
