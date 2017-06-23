@@ -45,12 +45,8 @@ public class JobDetailActivity extends AppCompatActivity {
         keyValue.put("JobId",String.valueOf(job.getId()));
         keyValue.put("JobSeekerId","1");
 
-        Type mapType = new TypeToken<HashMap<String, String>>() {}.getType();
-        String jsonForJobApply = JsonConverter.convertFromMap(keyValue,mapType);
         HttpClientPost post = new HttpClientPost("/jobApplications/add");
-        AsyncTask task = post.execute(jsonForJobApply);
-        String result = (String) task.get();
-        System.out.println(result);
+        String retrunValue = post.doPost(keyValue);
     }
 
     @Override

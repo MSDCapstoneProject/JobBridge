@@ -15,6 +15,7 @@ import java.net.URL;
 public class HttpClientGet extends AsyncTask<String,Void,String> {
 
     private static String urlPrefix = "http://192.168.0.10:3000";
+    //private static String urlPrefix = "http://142.156.86.79:3000";
     private String path = "";
 
     public HttpClientGet(String path) {
@@ -28,6 +29,7 @@ public class HttpClientGet extends AsyncTask<String,Void,String> {
         try {
             url = new URL(urlPrefix+path);
             urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setConnectTimeout(15);
             BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
             byte[] contents = new byte[1024];
 

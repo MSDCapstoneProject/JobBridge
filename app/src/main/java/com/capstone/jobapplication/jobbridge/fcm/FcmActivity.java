@@ -35,7 +35,7 @@ public class FcmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_setting);
 
-        pushSW = (Switch) findViewById(R.id.switchPush) ;
+        pushSW = (Switch) findViewById(R.id.switchPush);
         newJobPush = (CheckBox) findViewById(R.id.newjob);
         applyStatusPush = (CheckBox) findViewById(R.id.applystatus);
 
@@ -53,22 +53,22 @@ public class FcmActivity extends AppCompatActivity {
         chjobsP = pref.getBoolean("TOPICJOBS", false);
         chstatusP = pref.getBoolean("TOPICSTATUS", false);
 
-        if(switchP){
+        if (switchP) {
             pushSW.setChecked(true);
 
-        }else{
+        } else {
             pushSW.setChecked(false);
 
         }
-        if(chjobsP){
+        if (chjobsP) {
             newJobPush.setChecked(true);
-        }else{
+        } else {
             newJobPush.setChecked(false);
         }
 
-        if(chstatusP){
+        if (chstatusP) {
             applyStatusPush.setChecked(true);
-        }else{
+        } else {
             applyStatusPush.setChecked(false);
         }
 
@@ -76,21 +76,20 @@ public class FcmActivity extends AppCompatActivity {
 
     /**
      * onSwitchChanged
-     *
+     * <p>
      * when user allow push notifications, user can choose options.
-     *
-     * */
+     */
 
     public void onSwitchChanged(View view) {
         boolean on = ((Switch) view).isChecked();
-        if(on){
+        if (on) {
             setPreference(PUSHSWITCH, true);
             newJobPush.setEnabled(true);
             applyStatusPush.setEnabled(true);
 
             // TODO: add token and topics into mysql database
 
-        }else{
+        } else {
             newJobPush.setChecked(false);
             applyStatusPush.setChecked(false);
             newJobPush.setEnabled(false);
@@ -102,12 +101,13 @@ public class FcmActivity extends AppCompatActivity {
             FirebaseMessaging.getInstance().unsubscribeFromTopic("jobs");
             FirebaseMessaging.getInstance().unsubscribeFromTopic("applystatus");
 
-           // TODO: delete token and topics from mysql database
+            // TODO: delete token and topics from mysql database
 
 
         }
 
     }
+
     public void onCheckboxClicked(View view) {
         boolean checked = ((CheckBox) view).isChecked();
 
@@ -146,19 +146,16 @@ public class FcmActivity extends AppCompatActivity {
         }
     }
 
+    private void setPreference(String key, boolean chstatus) {
 
-
-
-        private void setPreference(String key, boolean chstatus){
-
-        editor.putBoolean(key, chstatus );
+        editor.putBoolean(key, chstatus);
         editor.commit();
     }
-    private void saveInSp(String key,boolean value){
+
+    private void saveInSp(String key, boolean value) {
         SharedPreferences preferences = getApplicationContext().getSharedPreferences("USERSETTING", android.content.Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putBoolean(key, value);
         editor.commit();
     }
-
 }

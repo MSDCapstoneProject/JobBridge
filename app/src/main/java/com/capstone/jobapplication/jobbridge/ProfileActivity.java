@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         String jsonData = null;
         try {
-            HttpClientGet client = new HttpClientGet("/jobSeekers/1");
+            HttpClientGet client = new HttpClientGet("/jobSeekers/3");
             AsyncTask task = client.execute();
             jsonData = (String) task.get();
         } catch (Exception e) {

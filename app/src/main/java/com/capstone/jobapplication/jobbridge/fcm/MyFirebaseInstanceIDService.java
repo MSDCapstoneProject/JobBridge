@@ -2,11 +2,16 @@ package com.capstone.jobapplication.jobbridge.fcm;
 
 
 import android.util.Log;
+import android.widget.Toast;
 
+import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -34,7 +39,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         Log.d(TAG, "moonsun Refreshed token: " + refreshedToken);
 
         sendRegistrationToServer(refreshedToken);
-
     }
     // [END refresh_token]
 
@@ -47,24 +51,16 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
      * @param token The new token.
      */
     private void sendRegistrationToServer(String token) {
-        // TODO: Implement this method to send token to your app server.
+        Map<String,String> keyValue = new HashMap<>();
+        keyValue.put("token",token);
+        keyValue.put("jobSeekersId","3");
 
-        //자신의 앱서버를 활용한 기능을 추가할 수 있다.
-        //이 코드는 토큰을 자신의 앱서버 DB추가해서 푸시알림을 별로도 할 수 있도록 하기 위한 목적이다.
-        OkHttpClient client = new OkHttpClient();
-        RequestBody body = new FormBody.Builder()
-                .add("token", token)
-                .build();
-        Log.d(TAG, "================ Token: " + body);
-        //request
-        Request request = new Request.Builder()
-                .url("http://localhost:3000/userTokens/add")
-                .post(body)
-                .build();
-
+        HttpClientPost post = new HttpClientPost("/jobSeekerTokens/add");
         try {
-            client.newCall(request).execute();
-        } catch (IOException e) {
+            String returnValue = post.doPost(keyValue);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

@@ -83,6 +83,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         filter.setVisibility(View.GONE);
         wageFilterSeekBar = (SeekBar) view.findViewById(R.id.filter_wage_selector);
         wageFilterTextView = (TextView) view.findViewById(R.id.filter_wage);
+        wageFilterTextView.setText(String.format("$%d /h", MINIMUM_WAGE));
 
         jobTypeFilterSpinner = (Spinner) view.findViewById(R.id.filter_jobType);
         ArrayAdapter<CharSequence> adapter = new ArrayAdapter(getContext(),android.R.layout.simple_list_item_1, jobTypeNames);
