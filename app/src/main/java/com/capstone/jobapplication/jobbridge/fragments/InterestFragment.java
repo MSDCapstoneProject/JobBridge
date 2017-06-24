@@ -1,5 +1,6 @@
 package com.capstone.jobapplication.jobbridge.fragments;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.capstone.jobapplication.jobbridge.JobApplicationDetailActivity;
+import com.capstone.jobapplication.jobbridge.JobDetailActivity;
 import com.capstone.jobapplication.jobbridge.R;
 import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.entity.JobApplication;
@@ -56,6 +59,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
             Type listType = new TypeToken<ArrayList<JobApplication>>(){}.getType();
             appliedJobs = JsonConverter.convertFromJsonList(jsonData, listType);
             for (JobApplication appliedJob : appliedJobs) {
+                CacheData.addJobApplication(appliedJob.getId(),appliedJob);
                 Map<String,String> map = new HashMap<>();
                 map.put("jobTitle",appliedJob.getJob().getTitle());
                 map.put("company",appliedJob.getEmployer().getName());
@@ -73,7 +77,10 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        JobApplication jobApplication = appliedJobs.get(position);
+        Intent intent = new Intent(getActivity(), JobApplicationDetailActivity.class);
+        intent.putExtra("jobApplicationId",jobApplication.getId());
+        startActivity(intent);
     }
 
     private String getJsonData(String path) {

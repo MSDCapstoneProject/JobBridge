@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.capstone.jobapplication.jobbridge.JobApplicationDetailActivity;
 import com.capstone.jobapplication.jobbridge.JobDetailActivity;
 import com.capstone.jobapplication.jobbridge.MainActivity;
 import com.capstone.jobapplication.jobbridge.R;
@@ -58,12 +59,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         if(customData.size() > 0) {
             for (Map.Entry entry : customData.entrySet()) {
                 String key = (String) entry.getKey();
+                String id = (String) entry.getValue();
                 switch (key) {
                     case NEW_JOB:
-                        String jobId = (String) entry.getValue();
-                        send(JobDetailActivity.class,message, "jobId",Integer.parseInt(jobId));
+                        send(JobDetailActivity.class,message, "jobId",Integer.parseInt(id));
                         break;
                     case JOB_APPLICATION_UPDATE:
+                        send(JobApplicationDetailActivity.class,message, "jobApplicationId",Integer.parseInt(id));
                         break;
                 }
             }

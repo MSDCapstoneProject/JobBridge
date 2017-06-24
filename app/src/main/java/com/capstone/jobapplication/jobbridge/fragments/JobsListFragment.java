@@ -23,10 +23,6 @@ public class JobsListFragment extends ListFragment{
 
     private List<Job> jobLists = new ArrayList<>();
 
-    public List<Job> getJobLists() {
-        return jobLists;
-    }
-
     public void setJobLists(List<Job> jobLists) {
         this.jobLists = jobLists;
     }
