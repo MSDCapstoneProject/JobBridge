@@ -32,6 +32,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:design:26.0.0-alpha1'
     compile 'com.google.android.gms:play-services:11.0.1'
+    //compile 'com.google.android.gms:play-services:9.4.0'
+
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.android.support:multidex:1.0.1'
     compile 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
