@@ -28,6 +28,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABWe_ihVpkE_dbe0QlB7S7GQ6SS8Vf1DQ" />
         <activity android:name=".fcm.FcmActivity"></activity>
+        <activity android:name=".map.LocationFragment"></activity>
         <!-- [START firebase_service] -->
         <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>

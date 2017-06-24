@@ -7,17 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.ProfileActivity;
 import com.capstone.jobapplication.jobbridge.R;
 import com.capstone.jobapplication.jobbridge.fcm.FcmActivity;
-import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
-import com.google.firebase.iid.FirebaseInstanceId;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ExecutionException;
+import com.capstone.jobapplication.jobbridge.map.LocationFragment;
 
 /**
  * Created by Aicun on 5/31/2017.
@@ -58,6 +52,10 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                 //Intent intentSetting = new Intent(getActivity(), MyNoticeActivity.class);
                 startActivity(intentSetting);
                 break;
+            case R.id.map:
+                Intent intentMap = new Intent(getActivity(), LocationFragment.class);
+                startActivity(intentMap);
+                break;
             default:
                 break;
         }
@@ -67,5 +65,6 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         layout.findViewById(R.id.profile).setOnClickListener(this);
         layout.findViewById(R.id.signup).setOnClickListener(this);
         layout.findViewById(R.id.setting).setOnClickListener(this);
+        layout.findViewById(R.id.map).setOnClickListener(this);
     }
 }
