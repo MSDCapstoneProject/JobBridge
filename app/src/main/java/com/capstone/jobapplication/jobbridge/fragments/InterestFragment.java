@@ -49,7 +49,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
         itemsListView = (ListView) view.findViewById(R.id.appliedJobsListView);
         itemsListView.setOnItemClickListener(this);
 
-        String jsonData = getJsonData("/jobApplications/1");
+        String jsonData = getJsonData("/jobApplications/3");
 
         List<Map<String,String>> data = new ArrayList<>();
         if (jsonData != null) {

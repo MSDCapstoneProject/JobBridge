@@ -169,4 +169,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onPageScrollStateChanged(int state) {
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initView();
+        initData();
+        viewPager.setAdapter(pageAdapter);
+        initEvent();
+    }
 }

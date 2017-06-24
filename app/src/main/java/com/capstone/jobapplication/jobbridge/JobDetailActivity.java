@@ -33,9 +33,10 @@ public class JobDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle bundle = getIntent().getExtras();
-        int jobKey = (int) bundle.get("JobKey");
+        int jobKey = (int) bundle.get("jobId");
         job = CacheData.getJob(jobKey);
         job.setDescription(Html.fromHtml(job.getDescription()).toString());
+        updateJobViewCount(job.getId());
         binding.setJob(job);
     }
 
@@ -43,7 +44,7 @@ public class JobDetailActivity extends AppCompatActivity {
         Map<String,String> keyValue = new HashMap<>();
         keyValue.put("EmployerId",String.valueOf(job.getEmployer().getId()));
         keyValue.put("JobId",String.valueOf(job.getId()));
-        keyValue.put("JobSeekerId","1");
+        keyValue.put("JobSeekerId","3");
 
         HttpClientPost post = new HttpClientPost("/jobApplications/add");
         String retrunValue = post.doPost(keyValue);
@@ -57,5 +58,18 @@ public class JobDetailActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateJobViewCount(int jobId) {
+        Map<String,String> keyValue = new HashMap<>();
+        keyValue.put("jobId",String.valueOf(job.getId()));
+        HttpClientPost post = new HttpClientPost("/jobs/view");
+        try {
+            post.doPost(keyValue);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

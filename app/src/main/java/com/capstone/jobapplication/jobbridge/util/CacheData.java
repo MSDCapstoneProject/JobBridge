@@ -33,4 +33,8 @@ public class CacheData {
     public static void addJobType(int key, JobType type) {
         jobTypesCache.put(key,type);
     }
+
+    public static boolean isEmpty() {
+        return jobsCache.isEmpty() || jobTypesCache.isEmpty();
+    }
 }

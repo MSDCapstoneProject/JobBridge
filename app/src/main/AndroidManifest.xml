@@ -27,6 +27,14 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyABWe_ihVpkE_dbe0QlB7S7GQ6SS8Vf1DQ" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
         <activity android:name=".fcm.FcmActivity"></activity>
         <!-- [START firebase_service] -->
         <service android:name=".fcm.MyFirebaseMessagingService">

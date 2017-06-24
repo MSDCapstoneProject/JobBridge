@@ -21,6 +21,8 @@ import java.util.List;
 
 public class JobsListFragment extends ListFragment{
 
+    private List<Job> jobLists = new ArrayList<>();
+
     public List<Job> getJobLists() {
         return jobLists;
     }
@@ -28,8 +30,6 @@ public class JobsListFragment extends ListFragment{
     public void setJobLists(List<Job> jobLists) {
         this.jobLists = jobLists;
     }
-
-    private List<Job> jobLists = new ArrayList<>();
 
     public JobsListFragment() {
     }
@@ -50,7 +50,7 @@ public class JobsListFragment extends ListFragment{
     public void onListItemClick(ListView listView, View view, int position, long id) {
         Job job = (Job) listView.getAdapter().getItem(position);
         Intent intent = new Intent(getActivity(), JobDetailActivity.class);
-        intent.putExtra("JobKey",job.getId());
+        intent.putExtra("jobId",job.getId());
         startActivity(intent);
     }
 }

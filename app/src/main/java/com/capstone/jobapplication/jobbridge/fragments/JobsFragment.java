@@ -51,29 +51,12 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        String jobsJsonData = getJsonData("/jobs");
-        String jobTypesJsonData = getJsonData("/jobTypes");
-        if (jobsJsonData != null) {
-            Type listType = new TypeToken<ArrayList<Job>>(){}.getType();
-            jobLists = JsonConverter.convertFromJsonList(jobsJsonData, listType);
-            searchedJobs = jobLists;
-            for (Job job : jobLists) {
-                CacheData.addJob(job.getId(), job);
-            }
-        }
-        if(jobTypesJsonData !=null) {
-            Type listType = new TypeToken<ArrayList<JobType>>(){}.getType();
-            List<JobType> jobTypes = JsonConverter.convertFromJsonList(jobTypesJsonData, listType);
-            for (JobType type : jobTypes) {
-                CacheData.addJobType(type.getId(), type);
-                jobTypeNames.add(type.getDescription());
-            }
-        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        loadJobData();
         view = inflater.inflate(R.layout.jobs_fragment, container, false);
         Button searchJobs = (Button) view.findViewById(R.id.searchJobs);
         Button filterJobs = (Button) view.findViewById(R.id.filterJobs);
@@ -214,5 +197,27 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
 
+    }
+
+    private void loadJobData() {
+        if(!CacheData.isEmpty()) return;
+        String jobsJsonData = getJsonData("/jobs");
+        String jobTypesJsonData = getJsonData("/jobTypes");
+        if (jobsJsonData != null) {
+            Type listType = new TypeToken<ArrayList<Job>>(){}.getType();
+            jobLists = JsonConverter.convertFromJsonList(jobsJsonData, listType);
+            searchedJobs = jobLists;
+            for (Job job : jobLists) {
+                CacheData.addJob(job.getId(), job);
+            }
+        }
+        if(jobTypesJsonData !=null) {
+            Type listType = new TypeToken<ArrayList<JobType>>(){}.getType();
+            List<JobType> jobTypes = JsonConverter.convertFromJsonList(jobTypesJsonData, listType);
+            for (JobType type : jobTypes) {
+                CacheData.addJobType(type.getId(), type);
+                jobTypeNames.add(type.getDescription());
+            }
+        }
     }
 }

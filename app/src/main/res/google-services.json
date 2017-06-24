@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "791679679548",
+    "firebase_url": "https://jobbridge-1496291625312.firebaseio.com",
+    "project_id": "jobbridge-1496291625312",
+    "storage_bucket": "jobbridge-1496291625312.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791679679548:android:d859da3d50074cc8",
+        "android_client_info": {
+          "package_name": "com.capstone.jobapplication.jobbridge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791679679548-c5sndj558r2f9pmu678aoon9h1gvrtnk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDA-UD7MwZyCKyazd7KUdR2XQSo8Hr8MQs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
