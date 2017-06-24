@@ -36,6 +36,7 @@
             android:resource="@color/colorAccent" />
 
         <activity android:name=".fcm.FcmActivity"></activity>
+        <activity android:name=".map.LocationFragment"></activity>
         <!-- [START firebase_service] -->
         <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
