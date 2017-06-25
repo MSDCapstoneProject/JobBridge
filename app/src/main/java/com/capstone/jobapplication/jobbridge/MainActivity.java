@@ -19,11 +19,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private ViewPager viewPager;
     private List<Fragment> tabs = new ArrayList<Fragment>();
+    private boolean saveToHistory;
+    private Stack<Integer> pageHistory;
+    private int currentPage;
 
     private FragmentPagerAdapter pageAdapter;
 
@@ -34,19 +38,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initView();
         initData();
+        initView();
         viewPager.setAdapter(pageAdapter);
         initEvent();
     }
 
-    private void initEvent()
-    {
-        viewPager.addOnPageChangeListener (this);
+    private void initEvent() {
+        viewPager.addOnPageChangeListener(this);
     }
 
     private void initData() {
-        //tabs.add(new JobsListFragment());
+        pageHistory = new Stack<>();
+        saveToHistory = true;
         tabs.add(new JobsFragment());
         tabs.add(new InterestFragment());
         tabs.add(new TabFragment());
@@ -98,17 +102,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
-        if(featureId == Window.FEATURE_ACTION_BAR && menu != null) {
-            if(menu.getClass().getSimpleName().equals("MenuBuilder")) {
+        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+            if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
                 try {
-                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible",Boolean.TYPE);
+                    Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
                     method.setAccessible(true);
-                    method.invoke(menu,true);
-                } catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                } catch (IllegalAccessException e) {
+                    method.invoke(menu, true);
+                } catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
                     e.printStackTrace();
                 }
             }
@@ -120,39 +120,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         resetOtherTabs();
 
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.id_indicator_one:
                 tabIndicators.get(0).setIconAlpha(1.0f);
                 viewPager.setCurrentItem(0, false);
+                currentPage = 0;
                 break;
             case R.id.id_indicator_two:
                 tabIndicators.get(1).setIconAlpha(1.0f);
                 viewPager.setCurrentItem(1, false);
+                currentPage = 1;
                 break;
             case R.id.id_indicator_three:
                 tabIndicators.get(2).setIconAlpha(1.0f);
                 viewPager.setCurrentItem(2, false);
+                currentPage = 2;
                 break;
             case R.id.id_indicator_four:
                 tabIndicators.get(3).setIconAlpha(1.0f);
                 viewPager.setCurrentItem(3, false);
+                currentPage = 3;
                 break;
         }
     }
 
-    private void resetOtherTabs()
-    {
-        for (int i = 0; i < tabIndicators.size(); i++)
-        {
+    private void resetOtherTabs() {
+        for (int i = 0; i < tabIndicators.size(); i++) {
             tabIndicators.get(i).setIconAlpha(0);
         }
     }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (positionOffset > 0)
-        {
+        if (positionOffset > 0) {
             ChangeColorIconWithText left = tabIndicators.get(position);
             ChangeColorIconWithText right = tabIndicators.get(position + 1);
             left.setIconAlpha(1 - positionOffset);
@@ -162,7 +162,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onPageSelected(int position) {
-
+        if (saveToHistory) {
+            pageHistory.push(Integer.valueOf(currentPage));
+        }
     }
 
     @Override
@@ -171,11 +173,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        initView();
-        initData();
-        viewPager.setAdapter(pageAdapter);
-        initEvent();
+    public void onBackPressed() {
+        if (pageHistory.empty())
+            super.onBackPressed();
+        else {
+            saveToHistory = false;
+            viewPager.setCurrentItem(pageHistory.pop().intValue());
+            saveToHistory = true;
+        }
     }
 }

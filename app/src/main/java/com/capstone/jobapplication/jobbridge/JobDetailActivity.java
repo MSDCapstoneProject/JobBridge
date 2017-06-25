@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.databinding.ActivityJobDetailBinding;
 import com.capstone.jobapplication.jobbridge.entity.Job;
@@ -48,6 +49,11 @@ public class JobDetailActivity extends AppCompatActivity {
 
         HttpClientPost post = new HttpClientPost("/jobApplications/add");
         String retrunValue = post.doPost(keyValue);
+        if(retrunValue.contains("applied")) {
+            Toast.makeText(this, "You have successfully applied for this job", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this,"Sorry, you failed to applied for this job. Try again later", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
