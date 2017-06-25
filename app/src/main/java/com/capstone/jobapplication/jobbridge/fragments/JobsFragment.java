@@ -73,11 +73,12 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         jobTypeFilterSpinner.setAdapter(adapter);
 
+        //job list
         JobsListFragment jobsListFragment = new JobsListFragment();
         jobsListFragment.setJobLists(jobLists);
-
         getFragmentManager().beginTransaction().add(R.id.job_list_fragment, jobsListFragment).commit();
 
+        //click search button to search jobs
         searchJobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,6 +86,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             }
         });
 
+        // click filter button to show filter criteria
         filterJobs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +94,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             }
         });
 
+        // click update button to update filter result
         filterUpdate.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -112,6 +115,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         return view;
     }
 
+    //search job according to key word and update job list fragement
     private void searchJobs() {
         String keyWord = search.getText().toString();
         searchedJobs = searchJobs(keyWord);
@@ -121,7 +125,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     }
 
     private String getJsonData(String path) {
-        String jsonData = null;
+        String jsonData;
         try {
             HttpClientGet client = new HttpClientGet(path);
             jsonData = client.getJsonData();
@@ -132,6 +136,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         return jsonData;
     }
 
+    // search jobs from local cache
     private List<Job> searchJobs(String keyWord) {
         List<Job> jobs = new ArrayList<Job>();
         for (Job job : jobLists) {
@@ -145,6 +150,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         return jobs;
     }
 
+    //filter jobs base on criteria
     private void updateJobsSearch() {
         float wage = wageFilterSeekBar.getProgress() + MINIMUM_WAGE;
         String jobType = jobTypeFilterSpinner.getSelectedItem().toString();
@@ -179,7 +185,6 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             if (source.regionMatches(true, i, keyWord, 0, length))
                 return true;
         }
-
         return false;
     }
 
@@ -199,6 +204,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     }
 
+    //get jobs and jobTypes from server and save in local cache
     private void loadJobData() {
         if(!CacheData.isEmpty()) return;
         String jobsJsonData = getJsonData("/jobs");

@@ -22,6 +22,13 @@ public class JsonConverter {
     private static Gson gson = new Gson();
     private static Gson gonWithNulls = new GsonBuilder().serializeNulls().create();
 
+    /**
+     *
+     * @param json json String to be converted
+     * @param clazz the target class to convert into
+     * @param <T> return type
+     * @return target class instance
+     */
     public static <T>  T convertFromJson (String json, Class clazz) {
         json = formatJson(json);
         Log.i("JSON DATA",json);
@@ -29,16 +36,33 @@ public class JsonConverter {
         return instance;
     }
 
+    /**
+     *
+     * @param o instance to be converted into json
+     * @return json string
+     */
     public static String convertFromObject(Object o) {
         return gson.toJson(o);
     }
 
+    /**
+     *
+     * @param json json string
+     * @param type target List type
+     * @return
+     */
     public static List convertFromJsonList(String json,Type type) {
         json = formatJsonList(json);
         List yourClassList = gson.fromJson(json, type);
         return yourClassList;
     }
 
+    /**
+     *
+     * @param keyValue map to be converted into json
+     * @param type type of map
+     * @return json string
+     */
     public static String convertFromMap(Map keyValue, Type type) {
        return gson.toJson(keyValue,type);
     }

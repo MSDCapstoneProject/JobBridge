@@ -30,6 +30,11 @@ public class JobApplicationDetailActivity extends AppCompatActivity {
         int jobApplicationId = (int) bundle.get("jobApplicationId");
         jobApplication = CacheData.getJobApplication(jobApplicationId);
 
+        //// TODO: 6/25/2017 when the jobApplication is not in local cache 
+        if(jobApplication == null) {
+
+        }
+
         Button action = (Button) findViewById(R.id.job_application_action);
         String text = actionText(jobApplication.getApplicationStatus());
         action.setText(text);

@@ -52,6 +52,20 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
         itemsListView = (ListView) view.findViewById(R.id.appliedJobsListView);
         itemsListView.setOnItemClickListener(this);
 
+        setListViewAdapter();
+
+        return view;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JobApplication jobApplication = appliedJobs.get(position);
+        Intent intent = new Intent(getActivity(), JobApplicationDetailActivity.class);
+        intent.putExtra("jobApplicationId",jobApplication.getId());
+        startActivity(intent);
+    }
+
+    private void setListViewAdapter() {
         String jsonData = getJsonData("/jobApplications/3");
 
         List<Map<String,String>> data = new ArrayList<>();
@@ -72,15 +86,6 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
         int[] to= {R.id.jobTitle,R.id.company,R.id.location,R.id.applicationStatus};
         SimpleAdapter adapter = new SimpleAdapter(getContext(),data,R.layout.listview_applied_jobs,from,to);
         itemsListView.setAdapter(adapter);
-        return view;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        JobApplication jobApplication = appliedJobs.get(position);
-        Intent intent = new Intent(getActivity(), JobApplicationDetailActivity.class);
-        intent.putExtra("jobApplicationId",jobApplication.getId());
-        startActivity(intent);
     }
 
     private String getJsonData(String path) {

@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(1);
 
         ChangeColorIconWithText one = (ChangeColorIconWithText) findViewById(R.id.id_indicator_one);
         tabIndicators.add(one);
