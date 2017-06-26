@@ -4,7 +4,9 @@ import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.entity.JobApplication;
 import com.capstone.jobapplication.jobbridge.entity.JobType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Aicun on 6/11/2017.
@@ -53,6 +55,18 @@ public class CacheData {
     }
 
     public static boolean isEmpty() {
-        return jobsCache.isEmpty() || jobTypesCache.isEmpty();
+        return jobsCache.isEmpty() || jobTypesCache.isEmpty() || appliedJobsCache.isEmpty();
+    }
+
+    public static List<Job> cachedJobs () {
+        return new ArrayList<Job>(jobsCache.values());
+    }
+
+    public static List<JobType> cachedJobTypes () {
+        return new ArrayList<JobType>(jobTypesCache.values());
+    }
+
+    public static List<JobApplication> cachedJobApplications () {
+        return new ArrayList<JobApplication>(appliedJobsCache.values());
     }
 }

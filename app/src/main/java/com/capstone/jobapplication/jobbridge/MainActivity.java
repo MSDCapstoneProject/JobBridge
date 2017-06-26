@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void initView() {
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(0);
 
         ChangeColorIconWithText one = (ChangeColorIconWithText) findViewById(R.id.id_indicator_one);
         tabIndicators.add(one);
@@ -182,5 +182,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             viewPager.setCurrentItem(pageHistory.pop().intValue());
             saveToHistory = true;
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //// TODO: 6/26/2017 refresh data when activity is resumed
+
     }
 }

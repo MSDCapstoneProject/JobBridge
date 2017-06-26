@@ -7,12 +7,20 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.databinding.ActivityJobApplicationDetailBinding;
 import com.capstone.jobapplication.jobbridge.databinding.ActivityJobDetailBinding;
 import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.entity.JobApplication;
 import com.capstone.jobapplication.jobbridge.util.CacheData;
+import com.capstone.jobapplication.jobbridge.util.HttpClientGet;
+import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
+import com.capstone.jobapplication.jobbridge.util.JsonConverter;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class JobApplicationDetailActivity extends AppCompatActivity {
 
@@ -28,12 +36,11 @@ public class JobApplicationDetailActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         int jobApplicationId = (int) bundle.get("jobApplicationId");
-        jobApplication = CacheData.getJobApplication(jobApplicationId);
 
-        //// TODO: 6/25/2017 when the jobApplication is not in local cache 
-        if(jobApplication == null) {
+        String jsonData = getJsonData("/jobapplications?jobApplicationId="+jobApplicationId);
+        jobApplication = JsonConverter.convertFromJson(jsonData,JobApplication.class);
+        CacheData.addJobApplication(jobApplicationId,jobApplication);
 
-        }
 
         Button action = (Button) findViewById(R.id.job_application_action);
         String text = actionText(jobApplication.getApplicationStatus());
@@ -57,11 +64,14 @@ public class JobApplicationDetailActivity extends AppCompatActivity {
         switch (status) {
             case "denied":
             case "accepted":
-            case "cancelled":
                 onBackPressed();
                 break;
+            case "canceled":
+                updateJobApplicationStatus(jobApplication.getId(),"applied");
+                break;
             case "applied":
-                //// TODO: 6/24/2017 to cancel application
+                //cancel application
+                updateJobApplicationStatus(jobApplication.getId(),"canceled");
                 break;
             default:
                 onBackPressed();
@@ -72,12 +82,39 @@ public class JobApplicationDetailActivity extends AppCompatActivity {
         switch (jobApplicationStatus) {
             case "denied":
             case "accepted":
-            case "cancelled":
                 return "OK";
+            case "canceled":
+                return "Apply Now";
             case "applied":
                 return "Cancel";
             default:
                 return "OK";
         }
     }
+
+    private String getJsonData(String path) {
+        String jsonData;
+        try {
+            HttpClientGet client = new HttpClientGet(path);
+            jsonData = client.getJsonData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return jsonData;
+    }
+
+    private void updateJobApplicationStatus(int jobApplicationId, String status) {
+        Map<String,String> keyValue = new HashMap<>();
+        keyValue.put("jobApplicationId",String.valueOf(jobApplicationId));
+        keyValue.put("applicationStatus",status);
+        HttpClientPost post = new HttpClientPost("/jobApplications/update");
+        try {
+            String result =post.doPost(keyValue);
+            Toast.makeText(this,result,Toast.LENGTH_SHORT);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

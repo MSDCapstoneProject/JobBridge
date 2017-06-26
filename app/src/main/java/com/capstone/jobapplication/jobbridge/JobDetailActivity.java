@@ -77,7 +77,7 @@ public class JobDetailActivity extends AppCompatActivity {
     //each time a job seeker views the detail of the job, the job view count +1
     private void updateJobViewCount(int jobId) {
         Map<String,String> keyValue = new HashMap<>();
-        keyValue.put("jobId",String.valueOf(job.getId()));
+        keyValue.put("jobId",String.valueOf(jobId));
         HttpClientPost post = new HttpClientPost("/jobs/view");
         try {
             post.doPost(keyValue);

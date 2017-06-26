@@ -22,7 +22,8 @@ import java.util.concurrent.ExecutionException;
 
 public class HttpClientPost extends AsyncTask<String, Void, String> {
 
-    private static String urlPrefix = "http://192.168.0.10:3000";
+    private static String urlPrefix = "https://jobbridge.herokuapp.com";
+    //private static String urlPrefix = "http://192.168.0.10:3000";
     //private static String urlPrefix = "http://142.156.86.79:3000";
     private String path = "";
 
