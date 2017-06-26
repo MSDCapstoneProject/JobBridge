@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginBottom="@dimen/margin_bottom"
+    android:layout_marginLeft="@dimen/margin_left"
+    android:layout_marginRight="@dimen/margin_right"
+    android:layout_marginTop="@dimen/margin_top"
+    tools:context="com.capstone.jobapplication.jobbridge.JobApplicationDetailActivity">
+
+    <data>
+        <variable
+            name="jobApplication"
+            type="com.capstone.jobapplication.jobbridge.entity.JobApplication" />
+    </data>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            style="@style/AppTheme"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/job_application_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{jobApplication.job.title}"/>
+
+            <TextView
+                android:id="@+id/job_application_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{jobApplication.employer.name}"/>
+
+            <TextView
+                android:id="@+id/job_application_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{jobApplication.job.jobLocation}"/>
+
+            <TextView
+                android:id="@+id/job_application_startDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{jobApplication.job.startDate}"/>
+
+            <TextView
+                android:id="@+id/job_application_endDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{jobApplication.job.endDate}"/>
+
+            <TextView
+                android:id="@+id/job_application_wage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{jobApplication.job.wage}"/>
+
+            <TextView
+                android:id="@+id/job_application_appliedDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{jobApplication.appliedOn}"/>
+
+            <TextView
+                android:id="@+id/job_application_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/text_size"
+                android:text="@{jobApplication.applicationStatus}"/>
+
+            <Button
+                android:id="@+id/job_application_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_size"
+                android:onClick="action"/>
+        </LinearLayout>
+    </ScrollView>
+
+</layout>

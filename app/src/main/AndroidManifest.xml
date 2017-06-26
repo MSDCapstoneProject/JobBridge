@@ -52,8 +52,15 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyD9HyRKeWfipvel61dRZaffJPVCj_7tOAI" />
-        <activity android:name=".fcm.FcmActivity"></activity>
-        <activity android:name=".map.LocationFragment"></activity>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_notification" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <activity android:name=".fcm.FcmActivity" />
+        <activity android:name=".map.LocationFragment" />
         <!-- [START firebase_service] -->
         <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
@@ -71,6 +78,7 @@
         <activity
             android:name=".JobDetailActivity"
             android:windowSoftInputMode="stateUnchanged" />
+        <activity android:name=".JobApplicationDetailActivity"></activity>
     </application>
 
 </manifest>

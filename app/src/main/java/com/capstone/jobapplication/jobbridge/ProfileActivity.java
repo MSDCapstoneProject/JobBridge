@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.databinding.ActivityProfileBinding;
 import com.capstone.jobapplication.jobbridge.entity.JobSeeker;
@@ -44,17 +45,12 @@ public class ProfileActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         statusSpinner.setAdapter(statusAdapter);
 
-        String jsonData = null;
-        try {
-            HttpClientGet client = new HttpClientGet("/jobSeekers/3");
-            AsyncTask task = client.execute();
-            jsonData = (String) task.get();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        String jsonData = getProfileData();
         jobSeeker = JsonConverter.convertFromJson(jsonData, JobSeeker.class);
         binding.setJobSeeker(jobSeeker);
-
+        
+        
+        // google address service
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
@@ -69,7 +65,6 @@ public class ProfileActivity extends AppCompatActivity {
                 System.out.println(status.getStatusMessage());
             }
         });
-
         autocompleteFragment.setText(jobSeeker.getAddress());
 
         int genderPosition = adapter.getPosition(jobSeeker.getGender());
@@ -97,6 +92,19 @@ public class ProfileActivity extends AppCompatActivity {
         HttpClientPost client = new HttpClientPost("/jobSeekers/update");
         AsyncTask task = client.execute(json);
         String result = (String) task.get();
-        System.out.println(result);
+        Toast.makeText(this,result,Toast.LENGTH_SHORT);
+    }
+    
+    private String getProfileData() {
+        String jsonData = null;
+        try {
+            // // TODO: 6/25/2017  should be changed into real job server's id 
+            HttpClientGet client = new HttpClientGet("/jobSeekers/3");
+            AsyncTask task = client.execute();
+            jsonData = (String) task.get();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonData;
     }
 }

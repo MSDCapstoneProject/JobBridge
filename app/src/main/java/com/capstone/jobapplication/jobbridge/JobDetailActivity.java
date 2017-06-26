@@ -7,15 +7,18 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.databinding.ActivityJobDetailBinding;
 import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.util.CacheData;
+import com.capstone.jobapplication.jobbridge.util.HttpClientGet;
 import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
 import com.capstone.jobapplication.jobbridge.util.JsonConverter;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -33,9 +36,15 @@ public class JobDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Bundle bundle = getIntent().getExtras();
-        int jobKey = (int) bundle.get("JobKey");
+        int jobKey = (int) bundle.get("jobId");
         job = CacheData.getJob(jobKey);
+
+        // new job is not loaded in local cache
+        if(job == null) {
+            job = getJobFromServer(jobKey);
+        }
         job.setDescription(Html.fromHtml(job.getDescription()).toString());
+        updateJobViewCount(job.getId());
         binding.setJob(job);
     }
 
@@ -43,10 +52,16 @@ public class JobDetailActivity extends AppCompatActivity {
         Map<String,String> keyValue = new HashMap<>();
         keyValue.put("EmployerId",String.valueOf(job.getEmployer().getId()));
         keyValue.put("JobId",String.valueOf(job.getId()));
-        keyValue.put("JobSeekerId","1");
+        //// TODO: 6/25/2017 should be changed into real job server's id
+        keyValue.put("JobSeekerId","3");
 
         HttpClientPost post = new HttpClientPost("/jobApplications/add");
         String retrunValue = post.doPost(keyValue);
+        if(retrunValue.contains("applied")) {
+            Toast.makeText(this, "You have successfully applied for this job", Toast.LENGTH_SHORT).show();
+        }else {
+            Toast.makeText(this,"Sorry, you failed to applied for this job. Try again later", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -57,5 +72,29 @@ public class JobDetailActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    //each time a job seeker views the detail of the job, the job view count +1
+    private void updateJobViewCount(int jobId) {
+        Map<String,String> keyValue = new HashMap<>();
+        keyValue.put("jobId",String.valueOf(job.getId()));
+        HttpClientPost post = new HttpClientPost("/jobs/view");
+        try {
+            post.doPost(keyValue);
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Job getJobFromServer(int jobId) {
+        String path = "/jobs/"+jobId;
+        HttpClientGet client = new HttpClientGet(path);
+        String jobJsonData = client.getJsonData();
+        Job jobFromServer = null;
+        if (jobJsonData != null) {
+            jobFromServer = JsonConverter.convertFromJson(jobJsonData, Job.class);
+            CacheData.addJob(job.getId(), job);
+        }
+        return jobFromServer;
     }
 }

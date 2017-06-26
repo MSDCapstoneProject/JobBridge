@@ -1,5 +1,6 @@
 package com.capstone.jobapplication.jobbridge.fragments;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import com.capstone.jobapplication.jobbridge.JobApplicationDetailActivity;
+import com.capstone.jobapplication.jobbridge.JobDetailActivity;
 import com.capstone.jobapplication.jobbridge.R;
 import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.entity.JobApplication;
@@ -49,13 +52,28 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
         itemsListView = (ListView) view.findViewById(R.id.appliedJobsListView);
         itemsListView.setOnItemClickListener(this);
 
-        String jsonData = getJsonData("/jobApplications/1");
+        setListViewAdapter();
+
+        return view;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        JobApplication jobApplication = appliedJobs.get(position);
+        Intent intent = new Intent(getActivity(), JobApplicationDetailActivity.class);
+        intent.putExtra("jobApplicationId",jobApplication.getId());
+        startActivity(intent);
+    }
+
+    private void setListViewAdapter() {
+        String jsonData = getJsonData("/jobApplications/3");
 
         List<Map<String,String>> data = new ArrayList<>();
         if (jsonData != null) {
             Type listType = new TypeToken<ArrayList<JobApplication>>(){}.getType();
             appliedJobs = JsonConverter.convertFromJsonList(jsonData, listType);
             for (JobApplication appliedJob : appliedJobs) {
+                CacheData.addJobApplication(appliedJob.getId(),appliedJob);
                 Map<String,String> map = new HashMap<>();
                 map.put("jobTitle",appliedJob.getJob().getTitle());
                 map.put("company",appliedJob.getEmployer().getName());
@@ -68,12 +86,6 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
         int[] to= {R.id.jobTitle,R.id.company,R.id.location,R.id.applicationStatus};
         SimpleAdapter adapter = new SimpleAdapter(getContext(),data,R.layout.listview_applied_jobs,from,to);
         itemsListView.setAdapter(adapter);
-        return view;
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
     }
 
     private String getJsonData(String path) {
