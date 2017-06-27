@@ -188,6 +188,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
         super.onResume();
         //// TODO: 6/26/2017 refresh data when activity is resumed
-
+         List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for( Fragment fragment : fragments) {
+            fragment.onResume();;
+        }
     }
 }

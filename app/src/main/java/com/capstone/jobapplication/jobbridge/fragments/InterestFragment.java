@@ -56,6 +56,12 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setListViewAdapter();
+    }
+
+    @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         JobApplication jobApplication = appliedJobs.get(position);
         Intent intent = new Intent(getActivity(), JobApplicationDetailActivity.class);

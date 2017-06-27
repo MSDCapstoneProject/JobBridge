@@ -111,7 +111,11 @@ public class JobApplicationDetailActivity extends AppCompatActivity {
         HttpClientPost post = new HttpClientPost("/jobApplications/update");
         try {
             String result =post.doPost(keyValue);
-            Toast.makeText(this,result,Toast.LENGTH_SHORT);
+            Toast.makeText(this,"Job status has changed to "+status,Toast.LENGTH_SHORT).show();
+
+            jobApplication.setApplicationStatus(status);
+            CacheData.addJobApplication(jobApplicationId,jobApplication);
+
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }

@@ -204,25 +204,30 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
 
     }
 
-    //get jobs and jobTypes from server and save in local cache
+    //get jobs and jobTypes
     private void loadJobData() {
-        if(!CacheData.isEmpty()) return;
-        String jobsJsonData = getJsonData("/jobs");
-        String jobTypesJsonData = getJsonData("/jobTypes");
-        if (jobsJsonData != null) {
-            Type listType = new TypeToken<ArrayList<Job>>(){}.getType();
-            jobLists = JsonConverter.convertFromJsonList(jobsJsonData, listType);
-            searchedJobs = jobLists;
-            for (Job job : jobLists) {
-                CacheData.addJob(job.getId(), job);
+        if (!CacheData.isEmpty()) {
+            jobLists = CacheData.cachedJobs();
+        } else {
+            String jobsJsonData = getJsonData("/jobs");
+            String jobTypesJsonData = getJsonData("/jobTypes");
+            if (jobsJsonData != null) {
+                Type listType = new TypeToken<ArrayList<Job>>() {
+                }.getType();
+                jobLists = JsonConverter.convertFromJsonList(jobsJsonData, listType);
+                searchedJobs = jobLists;
+                for (Job job : jobLists) {
+                    CacheData.addJob(job.getId(), job);
+                }
             }
-        }
-        if(jobTypesJsonData !=null) {
-            Type listType = new TypeToken<ArrayList<JobType>>(){}.getType();
-            List<JobType> jobTypes = JsonConverter.convertFromJsonList(jobTypesJsonData, listType);
-            for (JobType type : jobTypes) {
-                CacheData.addJobType(type.getId(), type);
-                jobTypeNames.add(type.getDescription());
+            if (jobTypesJsonData != null) {
+                Type listType = new TypeToken<ArrayList<JobType>>() {
+                }.getType();
+                List<JobType> jobTypes = JsonConverter.convertFromJsonList(jobTypesJsonData, listType);
+                for (JobType type : jobTypes) {
+                    CacheData.addJobType(type.getId(), type);
+                    jobTypeNames.add(type.getDescription());
+                }
             }
         }
     }
