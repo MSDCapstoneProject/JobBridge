@@ -1,6 +1,7 @@
 package com.capstone.jobapplication.jobbridge;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.fragments.AboutFragment;
 import com.capstone.jobapplication.jobbridge.fragments.InterestFragment;
@@ -168,20 +170,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     @Override
     public void onPageScrollStateChanged(int state) {
 
     }
 
+    boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
-        if (pageHistory.empty())
+        //resetOtherTabs();
+        if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
-        else {
-            saveToHistory = false;
-            viewPager.setCurrentItem(pageHistory.pop().intValue());
-            saveToHistory = true;
+            return;
         }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 
     @Override

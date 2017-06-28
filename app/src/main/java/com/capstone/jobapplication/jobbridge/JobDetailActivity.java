@@ -1,5 +1,6 @@
 package com.capstone.jobapplication.jobbridge;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -96,5 +97,11 @@ public class JobDetailActivity extends AppCompatActivity {
             CacheData.addJob(job.getId(), job);
         }
         return jobFromServer;
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
