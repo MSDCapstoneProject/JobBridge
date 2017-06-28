@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="text_search_color">#a4a6aa</color>
+    <color name="icon_text">#ff45c01a</color>
 </resources>

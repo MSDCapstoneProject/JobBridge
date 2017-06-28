@@ -1,5 +1,6 @@
 package com.capstone.jobapplication.jobbridge.fragments;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -83,6 +85,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             @Override
             public void onClick(View v) {
                 searchJobs();
+                hideSoftInput();
             }
         });
 
@@ -91,6 +94,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             @Override
             public void onClick(View v) {
                 filter.setVisibility(filter.getVisibility() == View.VISIBLE ? View.GONE : View.VISIBLE);
+                hideSoftInput();
             }
         });
 
@@ -100,6 +104,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             @Override
             public void onClick(View v) {
                 updateJobsSearch();
+                hideSoftInput();
             }
         });
 
@@ -229,6 +234,14 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                     jobTypeNames.add(type.getDescription());
                 }
             }
+        }
+    }
+
+    private void hideSoftInput() {
+        View view = getActivity().getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.capstone.jobapplication.jobbridge;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.fragments.AboutFragment;
@@ -122,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         resetOtherTabs();
-
+        hideSoftInput();
         switch (v.getId()) {
             case R.id.id_indicator_one:
                 tabIndicators.get(0).setIconAlpha(1.0f);
@@ -155,6 +157,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        hideSoftInput();
         if (positionOffset > 0) {
             ChangeColorIconWithText left = tabIndicators.get(position);
             ChangeColorIconWithText right = tabIndicators.get(position + 1);
@@ -204,6 +207,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          List<Fragment> fragments = getSupportFragmentManager().getFragments();
         for( Fragment fragment : fragments) {
             fragment.onResume();;
+        }
+    }
+
+    private void hideSoftInput() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }

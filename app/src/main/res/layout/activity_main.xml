@@ -18,7 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/tab_bg"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
 
         <com.capstone.jobapplication.jobbridge.ChangeColorIconWithText
             android:id="@+id/id_indicator_one"
@@ -29,7 +30,7 @@
             hyman:icon="@drawable/ic_menu_start_conversation"
             hyman:text="@string/jobs"
             hyman:text_size="12sp"
-            hyman:color="#ff45c01a"/>
+            hyman:color="@color/icon_text"/>
 
         <com.capstone.jobapplication.jobbridge.ChangeColorIconWithText
             android:id="@+id/id_indicator_two"
@@ -40,7 +41,7 @@
             hyman:icon="@drawable/ic_menu_friendslist"
             hyman:text="@string/interest"
             hyman:text_size="12sp"
-            hyman:color="#ff45c01a" />
+            hyman:color="@color/icon_text" />
 
         <com.capstone.jobapplication.jobbridge.ChangeColorIconWithText
             android:id="@+id/id_indicator_three"
@@ -51,7 +52,7 @@
             hyman:icon="@drawable/ic_menu_emoticons"
             hyman:text="@string/map"
             hyman:text_size="12sp"
-            hyman:color="#ff45c01a" />
+            hyman:color="@color/icon_text" />
 
         <com.capstone.jobapplication.jobbridge.ChangeColorIconWithText
             android:id="@+id/id_indicator_four"
@@ -62,7 +63,7 @@
             hyman:icon="@drawable/ic_menu_allfriends"
             hyman:text="@string/about"
             hyman:text_size="12sp"
-            hyman:color="#ff45c01a" />
+            hyman:color="@color/icon_text" />
     </LinearLayout>
 
 </LinearLayout>
