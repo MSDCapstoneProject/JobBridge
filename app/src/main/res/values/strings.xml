@@ -20,6 +20,7 @@
     <string name="filter">Filter</string>
     <string name="filter_wage">wage starts at</string>
     <string name="update">Update</string>
+    <string name="connector"> - </string>
 
     <string-array name="gender">
         <item>Male</item>

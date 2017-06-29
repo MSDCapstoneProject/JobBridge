@@ -1,5 +1,7 @@
 package com.capstone.jobapplication.jobbridge;
 
+import com.capstone.jobapplication.jobbridge.util.StringUtil;
+
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -12,6 +14,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        String wage = StringUtil.formatWage("13.5");
+        System.out.println(wage);
     }
 }

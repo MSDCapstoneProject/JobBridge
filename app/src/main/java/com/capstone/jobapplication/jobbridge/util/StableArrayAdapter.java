@@ -1,6 +1,7 @@
 package com.capstone.jobapplication.jobbridge.util;
 
 import android.content.Context;
+import android.graphics.drawable.GradientDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.capstone.jobapplication.jobbridge.R;
@@ -21,6 +23,13 @@ import java.util.List;
 
 public class StableArrayAdapter extends ArrayAdapter<Job> {
 
+    ListView listView;
+
+
+    int[] colors = {R.color.colorGray,R.color.colorGray,R.color.colorGray};
+
+    GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors);
+
     static class ViewHolder {
         public TextView title;
         public TextView company;
@@ -30,8 +39,9 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
     }
 
 
-    public StableArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Job> objects) {
+    public StableArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Job> objects, ListView listView) {
         super(context, resource, objects);
+        this.listView = listView;
     }
 
     @Override
@@ -57,9 +67,10 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         holder.title.setText(job.getTitle());
         holder.company.setText(job.getEmployer().getName());
         holder.location.setText(job.getJobLocation());
-        holder.wage.setText(job.getWage());
+        holder.wage.setText(StringUtil.formatWage(job.getWage()));
         holder.postTime.setText(job.getPostDate());
-
+        listView.setDivider(drawable);
+        listView.setDividerHeight(50);
         return rowView;
     }
 

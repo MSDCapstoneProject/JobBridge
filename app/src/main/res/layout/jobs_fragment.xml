@@ -18,28 +18,26 @@
 
             <EditText
                 android:id="@+id/search"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:text="@string/search"
                 android:textColor="@color/text_search_color"
                 android:textSize="@dimen/text_search_size" />
 
             <Button
                 android:id="@+id/searchJobs"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_weight="1.5"
                 android:onClick="searchJobs"
                 android:text="@string/searchJobs" />
 
             <Button
                 android:id="@+id/filterJobs"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_weight="1.5"
                 android:onClick="filterJobs"
                 android:text="@string/filter" />
         </LinearLayout>
@@ -58,54 +56,68 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:text="@string/filter_wage" />
 
                 <TextView
                     android:id="@+id/filter_wage"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" />
             </LinearLayout>
 
             <SeekBar
                 android:id="@+id/filter_wage_selector"
                 android:layout_width="match_parent"
-                android:layout_height="30sp"
+                android:layout_height="50sp"
                 android:max="35"
                 android:progress="1" />
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/separator_line"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50sp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
                     android:layout_weight="1"
                     android:text="Job Type" />
 
                 <Spinner
                     android:id="@+id/filter_jobType"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:layout_weight="2"></Spinner>
             </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:background="@color/separator_line"/>
 
             <Button
                 android:id="@+id/filter_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
                 android:text="@string/update"
-                android:textSize="@dimen/text_size" />
+                android:textSize="@dimen/text_size_button"
+                android:textColor="@color/colorWhite"/>
         </LinearLayout>
 
         <FrameLayout
             android:id="@+id/job_list_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 </RelativeLayout>
