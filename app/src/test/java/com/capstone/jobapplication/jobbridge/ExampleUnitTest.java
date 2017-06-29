@@ -2,7 +2,11 @@ package com.capstone.jobapplication.jobbridge;
 
 import com.capstone.jobapplication.jobbridge.util.StringUtil;
 
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
 import org.junit.Test;
+
+import java.util.Date;
 
 import static org.junit.Assert.*;
 
@@ -14,7 +18,10 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        String wage = StringUtil.formatWage("13.5");
-        System.out.println(wage);
+        Date dt = StringUtil.formateDateTime("2017-06-03T00:12:400Z");
+        DateTime datetime = new DateTime(dt);
+        DateTime now = new DateTime(new Date());
+        Hours hours = Hours.hoursBetween(datetime, now);
+        System.out.println(hours);
     }
 }

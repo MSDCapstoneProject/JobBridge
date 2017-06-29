@@ -1,7 +1,7 @@
 package com.capstone.jobapplication.jobbridge.util;
 
 import android.content.Context;
-import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,13 +22,10 @@ import java.util.List;
  */
 
 public class StableArrayAdapter extends ArrayAdapter<Job> {
-
+    private static int DIVIDOR_HEIGHT = 50;
     ListView listView;
 
-
-    int[] colors = {R.color.colorGray,R.color.colorGray,R.color.colorGray};
-
-    GradientDrawable drawable = new GradientDrawable(GradientDrawable.Orientation.RIGHT_LEFT, colors);
+    ColorDrawable drawable = new ColorDrawable(getContext().getResources().getColor(R.color.dividor));
 
     static class ViewHolder {
         public TextView title;
@@ -70,7 +67,7 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         holder.wage.setText(StringUtil.formatWage(job.getWage()));
         holder.postTime.setText(job.getPostDate());
         listView.setDivider(drawable);
-        listView.setDividerHeight(50);
+        listView.setDividerHeight(DIVIDOR_HEIGHT);
         return rowView;
     }
 
