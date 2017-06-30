@@ -8,6 +8,7 @@
     tools:context="com.capstone.jobapplication.jobbridge.JobDetailActivity">
 
     <data>
+
         <variable
             name="job"
             type="com.capstone.jobapplication.jobbridge.entity.Job" />
@@ -29,48 +30,162 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{job.title}"/>
+                android:fontFamily="black"
+                android:text="@{job.title}"
+                android:textSize="@dimen/text_size_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/job_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{job.employer.name}"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connector"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:id="@+id/job_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{job.jobLocation}"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/text_size_sub" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/job_wage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="@{job.wage}"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_sub"
+                    android:text="@string/connector"/>
+
+                <TextView
+                    android:id="@+id/job_jobType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="@{job.jobType}"
+                    android:textSize="@dimen/text_size_sub" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/separator_line" />
 
             <TextView
-                android:id="@+id/job_company"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{job.employer.name}"/>
+                android:layout_marginTop="10dp"
+                android:layout_gravity="left"
+                android:text="shift hours"
+                android:textSize="@dimen/text_size_sub" />
 
-            <TextView
-                android:id="@+id/job_wage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{job.wage}"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-            <TextView
+                <TextView
+                    android:id="@+id/job_start_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{job.startDate}"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_sub"
+                    android:text="@string/connector"/>
+
+                <TextView
+                    android:id="@+id/job_start_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{job.startTime}"
+                    android:textSize="@dimen/text_size_sub" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/job_end_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{job.endDate}"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_size_sub"
+                    android:text="@string/connector"/>
+
+                <TextView
+                    android:id="@+id/job_end_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{job.endTime}"
+                    android:textSize="@dimen/text_size_sub" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/separator_line" />
+
+            <WebView
                 android:id="@+id/job_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{job.description}"/>
-
-            <TextView
-                android:id="@+id/job_jobType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{job.jobType}"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
             <Button
                 android:id="@+id/job_apply"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="applyJob"
                 android:text="@string/apply"
-                android:textSize="@dimen/text_size"
-                android:onClick="applyJob"/>
+                android:textSize="@dimen/text_size" />
         </LinearLayout>
     </ScrollView>
 

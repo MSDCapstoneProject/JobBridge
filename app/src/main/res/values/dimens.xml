@@ -12,6 +12,7 @@
     <dimen name="margin_right">5dp</dimen>
     <dimen name="margin_top">5dp</dimen>
     <dimen name="margin_bottom">5dp</dimen>
+    <dimen name="text_size_title">25sp</dimen>
     <dimen name="text_size">18sp</dimen>
     <dimen name="text_size_sub">15sp</dimen>
     <dimen name="text_size_button">20sp</dimen>

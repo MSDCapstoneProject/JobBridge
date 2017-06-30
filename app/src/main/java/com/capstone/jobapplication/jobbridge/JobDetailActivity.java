@@ -2,12 +2,15 @@ package com.capstone.jobapplication.jobbridge;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.databinding.ActivityJobDetailBinding;
@@ -16,6 +19,7 @@ import com.capstone.jobapplication.jobbridge.util.CacheData;
 import com.capstone.jobapplication.jobbridge.util.HttpClientGet;
 import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
 import com.capstone.jobapplication.jobbridge.util.JsonConverter;
+import com.capstone.jobapplication.jobbridge.util.StringUtil;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -44,7 +48,11 @@ public class JobDetailActivity extends AppCompatActivity {
         if(job == null) {
             job = getJobFromServer(jobKey);
         }
-        job.setDescription(Html.fromHtml(job.getDescription()).toString());
+        String formattedWage = StringUtil.formatWage(job.getWage());
+        job.setWage(formattedWage);
+        WebView desc = (WebView) findViewById(R.id.job_description);
+        desc.setBackgroundColor(Color.TRANSPARENT);
+        desc.loadDataWithBaseURL("",job.getDescription(),"text/html","UTF-8","");
         updateJobViewCount(job.getId());
         binding.setJob(job);
     }

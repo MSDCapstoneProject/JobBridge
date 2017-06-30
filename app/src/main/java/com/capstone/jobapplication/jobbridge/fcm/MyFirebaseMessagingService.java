@@ -29,7 +29,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "MyFirebaseMsgService";
 
     private static final String NEW_JOB = "jobId"; // new job notification
-    private static final String JOB_APPLICATION_UPDATE = "jobApplicationsId"; //job application status update notification
+    private static final String JOB_APPLICATION_UPDATE = "jobApplicationId"; //job application status update notification
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
