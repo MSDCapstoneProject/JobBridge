@@ -1,6 +1,7 @@
 package com.capstone.jobapplication.jobbridge.fragments;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,7 +35,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
 
     private ListView itemsListView;
     private List<JobApplication> appliedJobs;
-
+    private static int DIVIDOR_HEIGHT = 50;
     public InterestFragment() {
     }
 
@@ -49,6 +50,9 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
         View view = inflater.inflate(R.layout.interest_fragment, container, false);
         itemsListView = (ListView) view.findViewById(R.id.appliedJobsListView);
         itemsListView.setOnItemClickListener(this);
+        ColorDrawable drawable = new ColorDrawable(getResources().getColor(R.color.dividor));
+        itemsListView.setDivider(drawable);
+        itemsListView.setDividerHeight(DIVIDOR_HEIGHT);
 
         setListViewAdapter();
 

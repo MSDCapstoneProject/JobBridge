@@ -68,6 +68,7 @@ public class JobDetailActivity extends AppCompatActivity {
         String retrunValue = post.doPost(keyValue);
         if(retrunValue.contains("applied")) {
             Toast.makeText(this, "You have successfully applied for this job", Toast.LENGTH_SHORT).show();
+            CacheData.reSetAppliedJobsCache();
         }else {
             Toast.makeText(this,"Sorry, you failed to applied for this job. Try again later", Toast.LENGTH_SHORT).show();
         }
