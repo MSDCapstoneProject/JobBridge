@@ -31,6 +31,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -103,7 +104,7 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
         getRoute(where);
         getRoute(where2);
 
-        
+
     }
 
     public void getRoute(LatLng point) {
@@ -144,7 +145,7 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
             FetchUrl.execute(url);
             //move map camera
             mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
         }
 
     }
@@ -161,8 +162,20 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
         // Sensor enabled
         String sensor = "sensor=false";
 
-        // Building the parameters to the web service
-        String parameters = str_origin + "&" + str_dest + "&" + sensor;
+        //when use transit mode, add mode, and current time
+        //mode
+        String mode = "transit_mode=train|tram|subway";
+
+        //time
+        Date departure = new Date(); //get current time
+        long departure_time= departure.getTime();
+        String currentTime = "departure_time"+ departure_time;
+
+        // Building the parameters to the web service==> driving mode
+        //String parameters = str_origin + "&" + str_dest + "&" + sensor;
+
+        //Building the parameters to the web service==> transit mode
+        String parameters = str_origin + "&" + str_dest + "&" + sensor+ "&" + mode+ "&" + currentTime;
 
         // Output format
         String output = "json";
@@ -309,7 +322,7 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
                 lineOptions.width(10);
-                lineOptions.color(Color.RED);
+                lineOptions.color(Color.BLUE);
 
                 Log.d("onPostExecute","onPostExecute lineoptions decoded");
 
