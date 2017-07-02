@@ -34,7 +34,7 @@ import java.util.Map;
 public class InterestFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     private ListView itemsListView;
-    private List<JobApplication> appliedJobs;
+    private List<JobApplication> appliedJobs = new ArrayList<>();
     private static int DIVIDOR_HEIGHT = 50;
     public InterestFragment() {
     }
@@ -54,6 +54,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
         itemsListView.setDivider(drawable);
         itemsListView.setDividerHeight(DIVIDOR_HEIGHT);
 
+        loadData();
         setListViewAdapter();
 
         return view;
@@ -62,6 +63,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
     @Override
     public void onResume() {
         super.onResume();
+        loadData();
         setListViewAdapter();
     }
 
@@ -74,21 +76,6 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     private void setListViewAdapter() {
-
-        if (CacheData.isEmpty()) {
-            String jsonData = getJsonData("/jobapplications?jobSeekerId=3");
-            if (jsonData != null) {
-                Type listType = new TypeToken<ArrayList<JobApplication>>() {
-                }.getType();
-                appliedJobs = JsonConverter.convertFromJsonList(jsonData, listType);
-                for (JobApplication appliedJob : appliedJobs) {
-                    CacheData.addJobApplication(appliedJob.getId(), appliedJob);
-                }
-            }
-        } else {
-            appliedJobs = CacheData.cachedJobApplications();
-        }
-
         List<Map<String, String>> data = new ArrayList<>();
 
         for (JobApplication appliedJob : appliedJobs) {
@@ -104,6 +91,28 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
         int[] to = {R.id.jobTitle, R.id.company, R.id.location, R.id.applicationStatus};
         SimpleAdapter adapter = new SimpleAdapter(getContext(), data, R.layout.listview_applied_jobs, from, to);
         itemsListView.setAdapter(adapter);
+    }
+
+    private void loadData(){
+        if (!!CacheData.isEmpty()) {
+            appliedJobs = CacheData.cachedJobApplications();
+        } else {
+            loadDateFromServer();
+        }
+    }
+
+    private void loadDateFromServer() {
+        String jsonData = getJsonData("/jobapplications?jobSeekerId=3");
+        if (jsonData != null) {
+            Type listType = new TypeToken<ArrayList<JobApplication>>() {
+            }.getType();
+            appliedJobs = JsonConverter.convertFromJsonList(jsonData, listType);
+            if(appliedJobs != null) {
+                for (JobApplication appliedJob : appliedJobs) {
+                    CacheData.addJobApplication(appliedJob.getId(), appliedJob);
+                }
+            }
+        }
     }
 
     private String getJsonData(String path) {

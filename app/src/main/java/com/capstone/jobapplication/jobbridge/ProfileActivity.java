@@ -47,7 +47,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         String jsonData = getProfileData();
         jobSeeker = JsonConverter.convertFromJson(jsonData, JobSeeker.class);
-        binding.setJobSeeker(jobSeeker);
+        if(jobSeeker!=null)
+            binding.setJobSeeker(jobSeeker);
         
         
         // google address service

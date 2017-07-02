@@ -48,13 +48,15 @@ public class JobDetailActivity extends AppCompatActivity {
         if(job == null) {
             job = getJobFromServer(jobKey);
         }
-        String formattedWage = StringUtil.formatWage(job.getWage());
-        job.setWage(formattedWage);
-        WebView desc = (WebView) findViewById(R.id.job_description);
-        desc.setBackgroundColor(Color.TRANSPARENT);
-        desc.loadDataWithBaseURL("",job.getDescription(),"text/html","UTF-8","");
-        updateJobViewCount(job.getId());
-        binding.setJob(job);
+        if(job != null) {
+            String formattedWage = StringUtil.formatWage(job.getWage());
+            job.setWage(formattedWage);
+            WebView desc = (WebView) findViewById(R.id.job_description);
+            desc.setBackgroundColor(Color.TRANSPARENT);
+            desc.loadDataWithBaseURL("", job.getDescription(), "text/html", "UTF-8", "");
+            updateJobViewCount(job.getId());
+            binding.setJob(job);
+        }
     }
 
     public void applyJob(View view) throws ExecutionException, InterruptedException {
@@ -103,7 +105,8 @@ public class JobDetailActivity extends AppCompatActivity {
         Job jobFromServer = null;
         if (jobJsonData != null) {
             jobFromServer = JsonConverter.convertFromJson(jobJsonData, Job.class);
-            CacheData.addJob(job.getId(), job);
+            if(jobFromServer != null)
+                CacheData.addJob(job.getId(), job);
         }
         return jobFromServer;
     }

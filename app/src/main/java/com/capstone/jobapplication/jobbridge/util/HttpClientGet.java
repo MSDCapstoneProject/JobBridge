@@ -1,6 +1,7 @@
 package com.capstone.jobapplication.jobbridge.util;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.net.HttpURLConnection;
@@ -57,6 +58,8 @@ public class HttpClientGet extends AsyncTask<String, Void, String> {
         try {
             AsyncTask task = execute();
             jsonData = (String) task.get();
+            if(jsonData!=null && jsonData.startsWith("null{\"status\""))
+                jsonData = null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

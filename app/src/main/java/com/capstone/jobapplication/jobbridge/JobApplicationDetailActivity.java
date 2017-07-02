@@ -17,6 +17,7 @@ import com.capstone.jobapplication.jobbridge.util.CacheData;
 import com.capstone.jobapplication.jobbridge.util.HttpClientGet;
 import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
 import com.capstone.jobapplication.jobbridge.util.JsonConverter;
+import com.capstone.jobapplication.jobbridge.util.StringUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,14 +40,21 @@ public class JobApplicationDetailActivity extends AppCompatActivity {
 
         String jsonData = getJsonData("/jobapplications?jobApplicationId="+jobApplicationId);
         jobApplication = JsonConverter.convertFromJson(jsonData,JobApplication.class);
-        CacheData.addJobApplication(jobApplicationId,jobApplication);
 
+        if(jobApplication != null) {
+            CacheData.addJobApplication(jobApplicationId,jobApplication);
+            String jobType = CacheData.getJobType(jobApplication.getJob().getJobTypeId()).getDescription();
+            jobApplication.getJob().setJobType(jobType);
 
-        Button action = (Button) findViewById(R.id.job_application_action);
-        String text = actionText(jobApplication.getApplicationStatus());
-        action.setText(text);
+            String formattedWage = StringUtil.formatWage(jobApplication.getJob().getWage());
+            jobApplication.getJob().setWage(formattedWage);
 
-        binding.setJobApplication(jobApplication);
+            Button action = (Button) findViewById(R.id.job_application_action);
+            String text = actionText(jobApplication.getApplicationStatus());
+            action.setText(text);
+
+            binding.setJobApplication(jobApplication);
+        }
     }
 
     @Override
