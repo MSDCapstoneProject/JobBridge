@@ -129,18 +129,6 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         getFragmentManager().beginTransaction().replace(R.id.job_list_fragment, jobsListFragment).commit();
     }
 
-    private String getJsonData(String path) {
-        String jsonData;
-        try {
-            HttpClientGet client = new HttpClientGet(path);
-            jsonData = client.getJsonData();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-        return jsonData;
-    }
-
     // search jobs from local cache
     private List<Job> searchJobs(String keyWord) {
         List<Job> jobs = new ArrayList<Job>();
@@ -214,27 +202,47 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         if (!CacheData.isEmpty()) {
             jobLists = CacheData.cachedJobs();
         } else {
-            String jobsJsonData = getJsonData("/jobs");
-            String jobTypesJsonData = getJsonData("/jobTypes");
-            if (jobsJsonData != null) {
-                Type listType = new TypeToken<ArrayList<Job>>() {
-                }.getType();
-                jobLists = JsonConverter.convertFromJsonList(jobsJsonData, listType);
+
+        }
+    }
+
+    private void loadJobDataFromServer() {
+        String jobsJsonData = getJsonData("/jobs");
+        String jobTypesJsonData = getJsonData("/jobTypes");
+        if (jobsJsonData != null) {
+            Type listType = new TypeToken<ArrayList<Job>>() {
+            }.getType();
+            jobLists = JsonConverter.convertFromJsonList(jobsJsonData, listType);
+            if(jobLists != null) {
                 searchedJobs = jobLists;
                 for (Job job : jobLists) {
                     CacheData.addJob(job.getId(), job);
                 }
             }
-            if (jobTypesJsonData != null) {
-                Type listType = new TypeToken<ArrayList<JobType>>() {
-                }.getType();
-                List<JobType> jobTypes = JsonConverter.convertFromJsonList(jobTypesJsonData, listType);
+        }
+        if (jobTypesJsonData != null) {
+            Type listType = new TypeToken<ArrayList<JobType>>() {
+            }.getType();
+            List<JobType> jobTypes = JsonConverter.convertFromJsonList(jobTypesJsonData, listType);
+            if(jobTypes != null) {
                 for (JobType type : jobTypes) {
                     CacheData.addJobType(type.getId(), type);
                     jobTypeNames.add(type.getDescription());
                 }
             }
         }
+    }
+
+    private String getJsonData(String path) {
+        String jsonData;
+        try {
+            HttpClientGet client = new HttpClientGet(path);
+            jsonData = client.getJsonData();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return jsonData;
     }
 
     private void hideSoftInput() {

@@ -8,6 +8,7 @@
     tools:context="com.capstone.jobapplication.jobbridge.JobApplicationDetailActivity">
 
     <data>
+
         <variable
             name="jobApplication"
             type="com.capstone.jobapplication.jobbridge.entity.JobApplication" />
@@ -29,71 +30,185 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{jobApplication.job.title}"/>
+                android:fontFamily="black"
+                android:text="@{jobApplication.job.title}"
+                android:textSize="@dimen/text_size_title" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/job_application_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jobApplication.employer.name}"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connector"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:id="@+id/job_application_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jobApplication.job.jobLocation}"
+                    android:textColor="@color/colorGray"
+                    android:textSize="@dimen/text_size_sub" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/job_application_wage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jobApplication.job.wage}"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connector"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:id="@+id/job_application_jobType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jobApplication.job.jobType}"
+                    android:textSize="@dimen/text_size_sub" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/separator_line" />
 
             <TextView
-                android:id="@+id/job_application_company"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{jobApplication.employer.name}"/>
+                android:layout_gravity="left"
+                android:layout_marginTop="10dp"
+                android:text="shift hours"
+                android:textSize="@dimen/text_size_sub" />
 
-            <TextView
-                android:id="@+id/job_application_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{jobApplication.job.jobLocation}"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/job_application_startDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{jobApplication.job.startDate}"/>
+                <TextView
+                    android:id="@+id/job_application_startDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jobApplication.job.startDate}"
+                    android:textSize="@dimen/text_size_sub" />
 
-            <TextView
-                android:id="@+id/job_application_endDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{jobApplication.job.endDate}"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connector"
+                    android:textSize="@dimen/text_size_sub" />
 
-            <TextView
-                android:id="@+id/job_application_wage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{jobApplication.job.wage}"/>
+                <TextView
+                    android:id="@+id/job_application_startTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jobApplication.job.startTime}"
+                    android:textSize="@dimen/text_size_sub" />
+            </LinearLayout>
 
-            <TextView
-                android:id="@+id/job_application_appliedDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{jobApplication.appliedOn}"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/job_application_endDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jobApplication.job.endDate}"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connector"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:id="@+id/job_application_endTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{jobApplication.job.endTime}"
+                    android:textSize="@dimen/text_size_sub" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:text="applied date"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
+                    android:id="@+id/job_application_appliedDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@{jobApplication.appliedOn}"
+                    android:textSize="@dimen/text_size" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/job_application_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textSize="@dimen/text_size"
-                android:text="@{jobApplication.applicationStatus}"/>
+                android:textColor="@color/color_highlight"
+                android:text="@{jobApplication.applicationStatus}"
+                android:textSize="@dimen/text_size" />
 
             <Button
                 android:id="@+id/job_application_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size"
-                android:onClick="action"/>
+                android:onClick="action"
+                android:textSize="@dimen/text_size" />
         </LinearLayout>
     </ScrollView>
 

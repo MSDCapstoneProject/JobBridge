@@ -17,9 +17,9 @@ public class Job {
     private String postDate;
     private String expiryDate;
     private String status;
-    private int employerId;
-    private int jobTypeId;
-    private int jobCategoryId;
+    private int EmployerId;
+    private int JobTypeId;
+    private int JobCategoryId;
 
     private Employer Employer;
     private String jobType;
@@ -122,27 +122,27 @@ public class Job {
     }
 
     public int getEmployerId() {
-        return employerId;
+        return EmployerId;
     }
 
     public void setEmployerId(int employerId) {
-        this.employerId = employerId;
+        this.EmployerId = employerId;
     }
 
     public int getJobTypeId() {
-        return jobTypeId;
+        return JobTypeId;
     }
 
     public void setJobTypeId(int jobTypeId) {
-        this.jobTypeId = jobTypeId;
+        this.JobTypeId = jobTypeId;
     }
 
     public int getJobCategoryId() {
-        return jobCategoryId;
+        return JobCategoryId;
     }
 
     public void setJobCategoryId(int jobCategoryId) {
-        this.jobCategoryId = jobCategoryId;
+        this.JobCategoryId = jobCategoryId;
     }
 
     public Employer getEmployer() {

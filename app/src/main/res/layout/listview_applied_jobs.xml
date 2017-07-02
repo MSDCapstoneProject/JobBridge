@@ -41,7 +41,7 @@
         android:id="@+id/applicationStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/color_status"
+        android:textColor="@color/color_highlight"
         android:textSize="@dimen/text_size" />
 
 </LinearLayout>

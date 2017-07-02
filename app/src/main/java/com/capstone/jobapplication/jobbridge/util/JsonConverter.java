@@ -6,6 +6,7 @@ import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.entity.JobSeeker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -30,10 +31,14 @@ public class JsonConverter {
      * @return target class instance
      */
     public static <T>  T convertFromJson (String json, Class clazz) {
-        json = formatJson(json);
-        Log.i("JSON DATA",json);
-        T instance = (T) gson.fromJson(json,clazz);
-        return instance;
+        try {
+            json = formatJson(json);
+            T instance = (T) gson.fromJson(json,clazz);
+            return instance;
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
@@ -52,9 +57,14 @@ public class JsonConverter {
      * @return
      */
     public static List convertFromJsonList(String json,Type type) {
-        json = formatJsonList(json);
-        List yourClassList = gson.fromJson(json, type);
-        return yourClassList;
+        try {
+            json = formatJsonList(json);
+            List yourClassList = gson.fromJson(json, type);
+            return yourClassList;
+        } catch (JsonSyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     /**
