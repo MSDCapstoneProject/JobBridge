@@ -18,7 +18,10 @@ import java.util.Locale;
 public class GenerateDistance {
     private static final int maxResult = 1;
 
-
+    /**
+     * find latitude and longitude with postal code or address
+     *
+     */
     public static LatLng reverseGeocoding(Context context, String locationName){
         if(!Geocoder.isPresent()){
             Log.w("MAP", "Geocoder implementation not present !");
@@ -47,6 +50,10 @@ public class GenerateDistance {
         }
         return null;
     }
+/**
+ * find address with latitude and longitude
+ *
+ */
 
     public static String findAdress(Context context, LatLng latLng){
         StringBuilder address = new StringBuilder();
