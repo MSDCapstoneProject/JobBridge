@@ -194,6 +194,21 @@
                     android:textSize="@dimen/text_size" />
             </LinearLayout>
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/separator_line" />
+
+            <WebView
+                android:id="@+id/job_application_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/separator_line" />
+
             <TextView
                 android:id="@+id/job_application_status"
                 android:layout_width="wrap_content"
@@ -207,6 +222,30 @@
                 android:id="@+id/job_application_action"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:elevation="1dp"
+                android:onClick="action"
+                android:textSize="@dimen/text_size" />
+            <Button
+                android:id="@+id/job_application_addCalendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:visibility="gone"
+                android:onClick="action"
+                android:textSize="@dimen/text_size" />
+            <Button
+                android:id="@+id/job_application_showMap"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:visibility="gone"
                 android:onClick="action"
                 android:textSize="@dimen/text_size" />
         </LinearLayout>

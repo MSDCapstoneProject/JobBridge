@@ -84,6 +84,8 @@ public class JsonConverter {
     }
 
     private static String formatJson(String json) {
+        if(json == null)
+            return null;
         int start = json.indexOf("{");
         int end = json.lastIndexOf("}");
         return json.substring(start,end+1);

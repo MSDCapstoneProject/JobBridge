@@ -47,32 +47,33 @@ public class ProfileActivity extends AppCompatActivity {
 
         String jsonData = getProfileData();
         jobSeeker = JsonConverter.convertFromJson(jsonData, JobSeeker.class);
-        if(jobSeeker!=null)
+        if(jobSeeker!=null) {
             binding.setJobSeeker(jobSeeker);
-        
-        
-        // google address service
-        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
-                getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
-            @Override
-            public void onPlaceSelected(Place place) {
-                address = place.getAddress().toString();
-            }
 
-            @Override
-            public void onError(Status status) {
-                System.out.println(status.getStatusMessage());
-            }
-        });
-        autocompleteFragment.setText(jobSeeker.getAddress());
+            // google address service
+            PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                    getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
-        int genderPosition = adapter.getPosition(jobSeeker.getGender());
-        genderSpinner.setSelection(genderPosition);
+            autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
+                @Override
+                public void onPlaceSelected(Place place) {
+                    address = place.getAddress().toString();
+                }
 
-        int statusPosition = adapter.getPosition(jobSeeker.getGender());
-        statusSpinner.setSelection(statusPosition);
+                @Override
+                public void onError(Status status) {
+                    System.out.println(status.getStatusMessage());
+                }
+            });
+            autocompleteFragment.setText(jobSeeker.getAddress());
+
+            int genderPosition = adapter.getPosition(jobSeeker.getGender());
+            genderSpinner.setSelection(genderPosition);
+
+            int statusPosition = adapter.getPosition(jobSeeker.getGender());
+            statusSpinner.setSelection(statusPosition);
+        }
     }
 
     @Override

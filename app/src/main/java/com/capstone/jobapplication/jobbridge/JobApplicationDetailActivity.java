@@ -1,11 +1,13 @@
 package com.capstone.jobapplication.jobbridge;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -48,6 +50,10 @@ public class JobApplicationDetailActivity extends AppCompatActivity {
 
             String formattedWage = StringUtil.formatWage(jobApplication.getJob().getWage());
             jobApplication.getJob().setWage(formattedWage);
+
+            WebView desc = (WebView) findViewById(R.id.job_application_description);
+            desc.setBackgroundColor(Color.TRANSPARENT);
+            desc.loadDataWithBaseURL("", jobApplication.getJob().getDescription(), "text/html", "UTF-8", "");
 
             Button action = (Button) findViewById(R.id.job_application_action);
             String text = actionText(jobApplication.getApplicationStatus());

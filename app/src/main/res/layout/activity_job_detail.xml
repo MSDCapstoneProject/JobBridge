@@ -184,6 +184,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="applyJob"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:text="@string/apply"
                 android:textSize="@dimen/text_size" />
         </LinearLayout>
