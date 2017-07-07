@@ -236,7 +236,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:visibility="gone"
-                android:onClick="action"
+                android:onClick="addToCalendar"
+                android:text="Add to Calendar"
                 android:textSize="@dimen/text_size" />
             <Button
                 android:id="@+id/job_application_showMap"
@@ -246,7 +247,8 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:visibility="gone"
-                android:onClick="action"
+                android:onClick="showMap"
+                android:text="Show Map"
                 android:textSize="@dimen/text_size" />
         </LinearLayout>
     </ScrollView>

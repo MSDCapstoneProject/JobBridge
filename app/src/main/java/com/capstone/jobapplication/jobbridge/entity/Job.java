@@ -7,7 +7,12 @@ package com.capstone.jobapplication.jobbridge.entity;
 public class Job {
     private int id;
     private String title;
-    private String jobLocation;
+    private transient String jobLocation;
+    private String street;
+    private String city;
+    private String province;
+    private String country;
+    private String postalCode;
     private String startDate;
     private String endDate;
     private String startTime;
@@ -17,11 +22,11 @@ public class Job {
     private String postDate;
     private String expiryDate;
     private String status;
-    private int EmployerId;
-    private int JobTypeId;
-    private int JobCategoryId;
+    private int employerId;
+    private int jobTypeId;
+    private int jobCategoryId;
 
-    private Employer Employer;
+    private Employer employer;
     private String jobType;
     private String jobCategory;
 
@@ -47,6 +52,46 @@ public class Job {
 
     public void setJobLocation(String location) {
         this.jobLocation = location;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getStartDate() {
@@ -122,35 +167,35 @@ public class Job {
     }
 
     public int getEmployerId() {
-        return EmployerId;
+        return employerId;
     }
 
     public void setEmployerId(int employerId) {
-        this.EmployerId = employerId;
+        this.employerId = employerId;
     }
 
     public int getJobTypeId() {
-        return JobTypeId;
+        return jobTypeId;
     }
 
     public void setJobTypeId(int jobTypeId) {
-        this.JobTypeId = jobTypeId;
+        this.jobTypeId = jobTypeId;
     }
 
     public int getJobCategoryId() {
-        return JobCategoryId;
+        return jobCategoryId;
     }
 
     public void setJobCategoryId(int jobCategoryId) {
-        this.JobCategoryId = jobCategoryId;
+        this.jobCategoryId = jobCategoryId;
     }
 
     public Employer getEmployer() {
-        return Employer;
+        return employer;
     }
 
     public void setEmployer(Employer employer) {
-        this.Employer = employer;
+        this.employer = employer;
     }
 
     public String getJobType() {

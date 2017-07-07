@@ -18,6 +18,7 @@ import com.capstone.jobapplication.jobbridge.entity.JobApplication;
 import com.capstone.jobapplication.jobbridge.util.CacheData;
 import com.capstone.jobapplication.jobbridge.util.HttpClientGet;
 import com.capstone.jobapplication.jobbridge.util.JsonConverter;
+import com.capstone.jobapplication.jobbridge.util.StringUtil;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -82,7 +83,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
             Map<String, String> map = new HashMap<>();
             map.put("jobTitle", appliedJob.getJob().getTitle());
             map.put("company", appliedJob.getEmployer().getName());
-            map.put("location", appliedJob.getJob().getJobLocation());
+            map.put("location", StringUtil.formatLocation(appliedJob.getJob().getCity(),appliedJob.getJob().getProvince()));
             map.put("applicationStatus", appliedJob.getApplicationStatus());
             data.add(map);
         }
@@ -94,7 +95,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     private void loadData(){
-        if (!!CacheData.isEmpty()) {
+        if (!CacheData.isEmpty()) {
             appliedJobs = CacheData.cachedJobApplications();
         } else {
             loadDateFromServer();
@@ -102,7 +103,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     private void loadDateFromServer() {
-        String jsonData = getJsonData("/jobapplications?jobSeekerId=3");
+        String jsonData = getJsonData("/jobApplications?jobSeekerId=3");
         if (jsonData != null) {
             Type listType = new TypeToken<ArrayList<JobApplication>>() {
             }.getType();

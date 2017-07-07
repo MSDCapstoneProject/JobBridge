@@ -11,9 +11,9 @@ public class JobApplication {
     private int employerId;
     private int jobSeekerId;
     private int jobId;
-    private Employer Employer;
-    private Job Job;
-    private JobSeeker JobSeeker;
+    private Employer employer;
+    private Job job;
+    private JobSeeker jobSeeker;
 
     public int getId() {
         return id;
@@ -64,26 +64,26 @@ public class JobApplication {
     }
 
     public com.capstone.jobapplication.jobbridge.entity.Employer getEmployer() {
-        return Employer;
+        return employer;
     }
 
     public void setEmployer(com.capstone.jobapplication.jobbridge.entity.Employer employer) {
-        Employer = employer;
+        this.employer = employer;
     }
 
     public com.capstone.jobapplication.jobbridge.entity.Job getJob() {
-        return Job;
+        return job;
     }
 
     public void setJob(com.capstone.jobapplication.jobbridge.entity.Job job) {
-        Job = job;
+        this.job = job;
     }
 
     public com.capstone.jobapplication.jobbridge.entity.JobSeeker getJobSeeker() {
-        return JobSeeker;
+        return jobSeeker;
     }
 
     public void setJobSeeker(com.capstone.jobapplication.jobbridge.entity.JobSeeker jobSeeker) {
-        JobSeeker = jobSeeker;
+        this.jobSeeker = jobSeeker;
     }
 }

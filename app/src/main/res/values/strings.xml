@@ -21,6 +21,12 @@
     <string name="filter_wage">wage starts at</string>
     <string name="update">Update</string>
     <string name="connector">\t-\t</string>
+    <string name="set_reminder_time">Remind Me</string>
+    <string name="confirm">Confirm</string>
+    <string name="hours">Hours early</string>
+    <string name="reminde_me">Remind me hour(s) before this event</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
 
     <string-array name="gender">
         <item>Male</item>
@@ -32,5 +38,12 @@
         <item>Canadian Citizenship</item>
         <item>Work Permit Holder</item>
         <item>International Student</item>
+    </string-array>
+
+    <string-array name="hours">
+        <item>1</item>
+        <item>2</item>
+        <item>5</item>
+        <item>10</item>
     </string-array>
 </resources>

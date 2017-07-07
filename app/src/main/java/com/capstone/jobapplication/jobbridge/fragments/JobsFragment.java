@@ -202,7 +202,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         if (!CacheData.isEmpty()) {
             jobLists = CacheData.cachedJobs();
         } else {
-
+            loadJobDataFromServer();
         }
     }
 

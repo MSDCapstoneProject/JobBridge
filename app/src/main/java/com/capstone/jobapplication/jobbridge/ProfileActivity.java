@@ -66,7 +66,7 @@ public class ProfileActivity extends AppCompatActivity {
                     System.out.println(status.getStatusMessage());
                 }
             });
-            autocompleteFragment.setText(jobSeeker.getAddress());
+            autocompleteFragment.setText(getAddress(jobSeeker));
 
             int genderPosition = adapter.getPosition(jobSeeker.getGender());
             genderSpinner.setSelection(genderPosition);
@@ -108,5 +108,10 @@ public class ProfileActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return jsonData;
+    }
+
+    private String getAddress(JobSeeker jobSeeker) {
+        String[] objs = {jobSeeker.getStreet(),jobSeeker.getCity(),jobSeeker.getProvince(),jobSeeker.getCountry(),jobSeeker.getPostalCode()};
+        return String.format("%s, %s, %s, %s, %s",objs);
     }
 }

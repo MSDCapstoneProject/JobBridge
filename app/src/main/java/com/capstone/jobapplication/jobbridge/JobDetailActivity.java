@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.capstone.jobapplication.jobbridge.databinding.ActivityJobDetailBinding;
 import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.util.CacheData;
+import com.capstone.jobapplication.jobbridge.util.CalendarUtil;
 import com.capstone.jobapplication.jobbridge.util.HttpClientGet;
 import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
 import com.capstone.jobapplication.jobbridge.util.JsonConverter;
@@ -51,6 +52,7 @@ public class JobDetailActivity extends AppCompatActivity {
         if(job != null) {
             String formattedWage = StringUtil.formatWage(job.getWage());
             job.setWage(formattedWage);
+            job.setJobLocation(StringUtil.formatLocation(job.getCity(),job.getProvince()));
             WebView desc = (WebView) findViewById(R.id.job_description);
             desc.setBackgroundColor(Color.TRANSPARENT);
             desc.loadDataWithBaseURL("", job.getDescription(), "text/html", "UTF-8", "");
@@ -61,10 +63,10 @@ public class JobDetailActivity extends AppCompatActivity {
 
     public void applyJob(View view) throws ExecutionException, InterruptedException {
         Map<String,String> keyValue = new HashMap<>();
-        keyValue.put("EmployerId",String.valueOf(job.getEmployer().getId()));
-        keyValue.put("JobId",String.valueOf(job.getId()));
+        keyValue.put("employerId",String.valueOf(job.getEmployer().getId()));
+        keyValue.put("jobId",String.valueOf(job.getId()));
         //// TODO: 6/25/2017 should be changed into real job server's id
-        keyValue.put("JobSeekerId","3");
+        keyValue.put("jobSeekerId","3");
 
         HttpClientPost post = new HttpClientPost("/jobApplications/add");
         String retrunValue = post.doPost(keyValue);

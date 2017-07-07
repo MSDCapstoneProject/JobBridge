@@ -18,10 +18,7 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        Date dt = StringUtil.formateDateTime("2017-06-03T00:12:400Z");
-        DateTime datetime = new DateTime(dt);
-        DateTime now = new DateTime(new Date());
-        Hours hours = Hours.hoursBetween(datetime, now);
-        System.out.println(hours);
+        String[] objs = {"16 cedarwoods","Kitchener","ON","CA","N2C 2L4"};
+        System.out.println(String.format("%s, %s, %s, %s, %s",objs));
     }
 }

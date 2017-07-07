@@ -63,7 +63,7 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         Job job = getItem(position);
         holder.title.setText(job.getTitle());
         holder.company.setText(job.getEmployer().getName());
-        holder.location.setText(job.getJobLocation());
+        holder.location.setText(StringUtil.formatLocation(job.getCity(),job.getProvince()));
         holder.wage.setText(StringUtil.formatWage(job.getWage()));
         holder.postTime.setText(job.getPostDate());
         listView.setDivider(drawable);

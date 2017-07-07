@@ -11,7 +11,12 @@ public class JobSeeker extends BaseObservable {
     private int id;
     private String firstName;
     private String lastName;
-    private String address;
+    private transient String address;
+    private String street;
+    private String city;
+    private String province;
+    private String country;
+    private String postalCode;
     private String email;
     private String phone;
     private String sin;
@@ -33,6 +38,46 @@ public class JobSeeker extends BaseObservable {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public String getEmail() {

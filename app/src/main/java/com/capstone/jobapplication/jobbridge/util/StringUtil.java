@@ -14,7 +14,7 @@ import java.util.Locale;
 
 public class StringUtil {
 
-    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSSZ");
+    static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public static String formatStringCurrency(String wage) {
         Locale locale = Locale.getDefault();
@@ -31,7 +31,7 @@ public class StringUtil {
 
     public static String formatWage(String wage) {
         String formattedWage = formatStringCurrency(wage);
-        return String.format("%1s/h",formattedWage);
+        return String.format("%1s/h", formattedWage);
     }
 
     public static Date formateDateTime(String dateTimeString) {
@@ -44,4 +44,11 @@ public class StringUtil {
         return dt;
     }
 
+    public static String formatLocation(String city, String province) {
+        return String.format("%s, %s", city, province);
+    }
+
+    public static String formatAddress(String street, String city, String province, String country, String postalCode) {
+        return String.format("%s, %s, %s, %s, %s", street, city, province, country, postalCode);
+    }
 }
