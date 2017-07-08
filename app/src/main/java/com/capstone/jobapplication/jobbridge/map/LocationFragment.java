@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.capstone.jobapplication.jobbridge.R;
 import com.capstone.jobapplication.jobbridge.util.GenerateDistance;
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -43,7 +45,8 @@ import java.util.List;
 public class LocationFragment extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-
+    private TextView distanceValue;
+    private TextView durationValue;
     //
     ArrayList<LatLng> MarkerPoints;
     GoogleApiClient mGoogleApiClient;
@@ -56,6 +59,8 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        distanceValue = (TextView)findViewById(R.id.distance_value);
+        durationValue = (TextView)findViewById(R.id.duration_value);
         // Initializing
         MarkerPoints = new ArrayList<>();
 
@@ -164,7 +169,7 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
 
         //when use transit mode, add mode, and current time
         //mode
-        String mode = "transit_mode=train|tram|subway";
+        //String mode = "transit_mode=train|tram|subway";
 
         //time
         Date departure = new Date(); //get current time
@@ -172,10 +177,10 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
         String currentTime = "departure_time"+ departure_time;
 
         // Building the parameters to the web service==> driving mode
-        //String parameters = str_origin + "&" + str_dest + "&" + sensor;
+        String parameters = str_origin + "&" + str_dest + "&" + sensor;
 
         //Building the parameters to the web service==> transit mode
-        String parameters = str_origin + "&" + str_dest + "&" + sensor+ "&" + mode+ "&" + currentTime;
+        //String parameters = str_origin + "&" + str_dest + "&" + sensor+ "&" + mode+ "&" + currentTime;
 
         // Output format
         String output = "json";
@@ -263,6 +268,39 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
 
         }
     }
+    public void getDistAndDuration(JSONObject jObj){
+        try{
+            JSONArray array = jObj.getJSONArray("routes");
+            JSONObject rou = array.getJSONObject(0);
+            JSONArray legs = rou.getJSONArray("legs");
+            JSONObject steps = legs.getJSONObject(0);
+            JSONObject distance = steps.getJSONObject("distance");
+            JSONObject duration = steps.getJSONObject("duration");
+            
+            final String textDist = distance.getString("text");
+            final String textDur = duration.getString("text");
+
+            Log.i("moon DISTANCE", ""+textDist);
+            Log.i("moon TIME", ""+textDur);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+
+//stuff that updates ui
+                    setRouteDistanceAndDuration(textDist, textDur);
+
+                }
+            });
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+    private void setRouteDistanceAndDuration(String distance, String duration){
+        distanceValue.setText(distance);
+        durationValue.setText(duration);
+    }
     /**
      * A class to parse the Google Places in JSON format
      */
@@ -278,6 +316,11 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
 
             try {
                 jObject = new JSONObject(jsonData[0]);
+
+                //display distance and duration
+                getDistAndDuration(jObject);
+
+
                 Log.d("ParserTask",jsonData[0].toString());
                 DataParser parser = new DataParser();
                 Log.d("ParserTask", parser.toString());
@@ -299,6 +342,8 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
         protected void onPostExecute(List<List<HashMap<String, String>>> result) {
             ArrayList<LatLng> points;
             PolylineOptions lineOptions = null;
+            String distance = "";
+            String duration = "";
 
             // Traversing through all the routes
             for (int i = 0; i < result.size(); i++) {
@@ -323,8 +368,6 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
                 lineOptions.addAll(points);
                 lineOptions.width(10);
                 lineOptions.color(Color.BLUE);
-
-                Log.d("onPostExecute","onPostExecute lineoptions decoded");
 
             }
 
