@@ -20,7 +20,7 @@
     <string name="filter">Filter</string>
     <string name="filter_wage">wage starts at</string>
     <string name="update">Update</string>
-    <string name="connector">\t-\t</string>
+    <string name="connector">\t - \t</string>
     <string name="set_reminder_time">Remind Me</string>
     <string name="confirm">Confirm</string>
     <string name="hours">Hours early</string>

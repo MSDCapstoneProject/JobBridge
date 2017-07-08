@@ -70,7 +70,7 @@ public class JobDetailActivity extends AppCompatActivity {
 
         HttpClientPost post = new HttpClientPost("/jobApplications/add");
         String retrunValue = post.doPost(keyValue);
-        if(retrunValue.contains("applied")) {
+        if(retrunValue.contains("\"jobApplicationStatusId\":1")) {
             Toast.makeText(this, "You have successfully applied for this job", Toast.LENGTH_SHORT).show();
             CacheData.reSetAppliedJobsCache();
         }else {
@@ -108,7 +108,8 @@ public class JobDetailActivity extends AppCompatActivity {
         if (jobJsonData != null) {
             jobFromServer = JsonConverter.convertFromJson(jobJsonData, Job.class);
             if(jobFromServer != null)
-                CacheData.addJob(job.getId(), job);
+                jobFromServer.setJobAddress();
+                CacheData.addJob(jobFromServer.getId(), jobFromServer);
         }
         return jobFromServer;
     }

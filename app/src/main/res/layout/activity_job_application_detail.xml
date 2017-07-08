@@ -186,10 +186,16 @@
                     android:textSize="@dimen/text_size_sub" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/connector"
+                    android:textSize="@dimen/text_size_sub" />
+
+                <TextView
                     android:id="@+id/job_application_appliedDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="right"
                     android:text="@{jobApplication.appliedOn}"
                     android:textSize="@dimen/text_size" />
             </LinearLayout>

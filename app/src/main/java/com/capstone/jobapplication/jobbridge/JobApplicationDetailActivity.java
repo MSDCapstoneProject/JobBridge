@@ -58,9 +58,10 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
             CacheData.addJobApplication(jobApplicationId, jobApplication);
             String jobType = CacheData.getJobType(jobApplication.getJob().getJobTypeId()).getDescription();
             jobApplication.getJob().setJobType(jobType);
-
+            jobApplication.getJob().setJobLocation(StringUtil.formatLocation(jobApplication.getJob().getCity(),jobApplication.getJob().getProvince()));
             String formattedWage = StringUtil.formatWage(jobApplication.getJob().getWage());
             jobApplication.getJob().setWage(formattedWage);
+            jobApplication.getJob().setJobAddress();
 
             WebView desc = (WebView) findViewById(R.id.job_application_description);
             desc.setBackgroundColor(Color.TRANSPARENT);
@@ -200,7 +201,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         values.put(CalendarContract.Events.DTSTART, start.getTime());
         values.put(CalendarContract.Events.DTEND, end.getTime());
         values.put(CalendarContract.Events.TITLE, jobApplication.getJob().getTitle());
-        values.put(CalendarContract.Events.DESCRIPTION, StringUtil.formatAddress(jobApplication.getJob().getStreet(), jobApplication.getJob().getCity(), jobApplication.getJob().getProvince(), jobApplication.getJob().getCountry(), jobApplication.getJob().getPostalCode()));
+        values.put(CalendarContract.Events.DESCRIPTION, jobApplication.getJob().getJobAddress());
         values.put(CalendarContract.Events.HAS_ALARM, 1);
 
         CalendarUtil.addEventToCalendar(this,values,reminderDialogFragment.remindMinutes);

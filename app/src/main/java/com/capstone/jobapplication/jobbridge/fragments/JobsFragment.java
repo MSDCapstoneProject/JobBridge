@@ -216,6 +216,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             if(jobLists != null) {
                 searchedJobs = jobLists;
                 for (Job job : jobLists) {
+                    job.setJobAddress();
                     CacheData.addJob(job.getId(), job);
                 }
             }

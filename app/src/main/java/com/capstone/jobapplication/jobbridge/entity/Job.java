@@ -1,5 +1,7 @@
 package com.capstone.jobapplication.jobbridge.entity;
 
+import com.capstone.jobapplication.jobbridge.util.StringUtil;
+
 /**
  * Created by Aicun on 6/9/2017.
  */
@@ -8,6 +10,7 @@ public class Job {
     private int id;
     private String title;
     private transient String jobLocation;
+    private transient String jobAddress;
     private String street;
     private String city;
     private String province;
@@ -52,6 +55,15 @@ public class Job {
 
     public void setJobLocation(String location) {
         this.jobLocation = location;
+    }
+
+
+    public String getJobAddress() {
+        return jobAddress;
+    }
+
+    public void setJobAddress() {
+        this.jobAddress = StringUtil.formatAddress(street,city,province,country,postalCode);
     }
 
     public String getStreet() {
