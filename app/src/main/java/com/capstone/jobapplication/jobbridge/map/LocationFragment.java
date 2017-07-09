@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.capstone.jobapplication.jobbridge.R;
@@ -47,13 +49,15 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
     private GoogleMap mMap;
     private TextView distanceValue;
     private TextView durationValue;
-    //
+    //google map
     ArrayList<LatLng> MarkerPoints;
     GoogleApiClient mGoogleApiClient;
     Location mLastLocation;
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
-    //
+    //driving instruction
+    private ListView mListView;
+    private ArrayAdapter arrayAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,7 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
         setContentView(R.layout.activity_map);
         distanceValue = (TextView)findViewById(R.id.distance_value);
         durationValue = (TextView)findViewById(R.id.duration_value);
+        mListView = (ListView) findViewById(R.id.driving_instruction);
         // Initializing
         MarkerPoints = new ArrayList<>();
 
@@ -96,7 +101,7 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
         //mMap.setMinZoomPreference(6.0f);
 
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(where));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(where, 14.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(where, 10.0f));
 
         //see route
 
@@ -270,24 +275,41 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
     }
     public void getDistAndDuration(JSONObject jObj){
         try{
-            JSONArray array = jObj.getJSONArray("routes");
-            JSONObject rou = array.getJSONObject(0);
-            JSONArray legs = rou.getJSONArray("legs");
-            JSONObject steps = legs.getJSONObject(0);
-            JSONObject distance = steps.getJSONObject("distance");
-            JSONObject duration = steps.getJSONObject("duration");
-            
+            JSONArray jRoutes  = jObj.getJSONArray("routes");
+            JSONObject jRoute = jRoutes .getJSONObject(0);
+            JSONArray legs = jRoute.getJSONArray("legs");
+            JSONObject leg  = legs.getJSONObject(0);
+            JSONObject distance = leg.getJSONObject("distance");
+            JSONObject duration = leg.getJSONObject("duration");
+            JSONArray jSteps = null;
+            JSONObject jStep;
+            JSONArray steps = leg.getJSONArray("steps");
+
+            JSONObject jLeg;
+
             final String textDist = distance.getString("text");
             final String textDur = duration.getString("text");
 
-            Log.i("moon DISTANCE", ""+textDist);
-            Log.i("moon TIME", ""+textDur);
+            final String[] listItems = new String[steps.length()];
+            //Log.i("moon size", steps.length()+"");
+            for (int k = 0; k < steps.length(); k++) {
+                JSONObject step = steps.getJSONObject(k);
+                String instruction = step.getString("html_instructions").replaceAll("<(.*?)*>", "");
+
+                //Log.i("moon html_instruction", instruction);
+                listItems[k] = instruction;
+            }
+            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
+
+
+            //Log.i("moon DISTANCE", ""+textDist);
+           // Log.i("moon TIME", ""+textDur);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-
-//stuff that updates ui
                     setRouteDistanceAndDuration(textDist, textDur);
+                    mListView.setAdapter(arrayAdapter);
+
 
                 }
             });
