@@ -52,7 +52,7 @@ public class JobDetailActivity extends AppCompatActivity {
         if(job != null) {
             String formattedWage = StringUtil.formatWage(job.getWage());
             job.setWage(formattedWage);
-            job.setJobLocation(StringUtil.formatLocation(job.getCity(),job.getProvince()));
+            job.setJobLocation();
             WebView desc = (WebView) findViewById(R.id.job_description);
             desc.setBackgroundColor(Color.TRANSPARENT);
             desc.loadDataWithBaseURL("", job.getDescription(), "text/html", "UTF-8", "");
@@ -114,9 +114,9 @@ public class JobDetailActivity extends AppCompatActivity {
         return jobFromServer;
     }
 
-    @Override
+   /* @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-    }
+    }*/
 }

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         public TextView location;
         public TextView wage;
         public TextView postTime;
+        public ImageView shiftType;
     }
 
 
@@ -56,6 +58,7 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
             viewHolder.location = (TextView) rowView.findViewById(R.id.location);
             viewHolder.wage = (TextView) rowView.findViewById(R.id.wage);
             viewHolder.postTime = (TextView) rowView.findViewById(R.id.postTime);
+            //viewHolder.shiftType = (ImageView) rowView.findViewById(R.id.shiftType);
             rowView.setTag(viewHolder);
         }
 
@@ -66,6 +69,8 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         holder.location.setText(StringUtil.formatLocation(job.getCity(),job.getProvince()));
         holder.wage.setText(StringUtil.formatWage(job.getWage()));
         holder.postTime.setText(job.getPostDate());
+        boolean isNightShift = StringUtil.isNightShift(job.getStartTime());
+        //holder.shiftType.setImageResource(isNightShift ? R.drawable.nightshift : R.drawable.dayshift);
         listView.setDivider(drawable);
         listView.setDividerHeight(DIVIDOR_HEIGHT);
         return rowView;

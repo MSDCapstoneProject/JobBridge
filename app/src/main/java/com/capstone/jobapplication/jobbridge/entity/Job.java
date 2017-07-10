@@ -24,7 +24,7 @@ public class Job {
     private String description;
     private String postDate;
     private String expiryDate;
-    private String status;
+    //private String status;
     private int employerId;
     private int jobTypeId;
     private int jobCategoryId;
@@ -53,8 +53,8 @@ public class Job {
         return jobLocation;
     }
 
-    public void setJobLocation(String location) {
-        this.jobLocation = location;
+    public void setJobLocation() {
+        this.jobLocation = StringUtil.formatLocation(this.city,this.province);
     }
 
 
@@ -170,13 +170,13 @@ public class Job {
         this.expiryDate = expiryDate;
     }
 
-    public String getStatus() {
+    /*public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
+    }*/
 
     public int getEmployerId() {
         return employerId;

@@ -58,7 +58,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
             CacheData.addJobApplication(jobApplicationId, jobApplication);
             String jobType = CacheData.getJobType(jobApplication.getJob().getJobTypeId()).getDescription();
             jobApplication.getJob().setJobType(jobType);
-            jobApplication.getJob().setJobLocation(StringUtil.formatLocation(jobApplication.getJob().getCity(),jobApplication.getJob().getProvince()));
+            jobApplication.getJob().setJobLocation();
             String formattedWage = StringUtil.formatWage(jobApplication.getJob().getWage());
             jobApplication.getJob().setWage(formattedWage);
             jobApplication.getJob().setJobAddress();

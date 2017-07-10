@@ -27,6 +27,7 @@
     <string name="reminde_me">Remind me hour(s) before this event</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="markerShowDetail"><u>Show Detail</u></string>
 
     <string-array name="gender">
         <item>Male</item>

@@ -16,8 +16,7 @@ import android.widget.Toast;
 import com.capstone.jobapplication.jobbridge.fragments.AboutFragment;
 import com.capstone.jobapplication.jobbridge.fragments.InterestFragment;
 import com.capstone.jobapplication.jobbridge.fragments.JobsFragment;
-import com.capstone.jobapplication.jobbridge.fragments.JobsListFragment;
-import com.capstone.jobapplication.jobbridge.fragments.TabFragment;
+import com.capstone.jobapplication.jobbridge.fragments.JobsMapFragment;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -29,8 +28,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ViewPager viewPager;
     private List<Fragment> tabs = new ArrayList<Fragment>();
-    private boolean saveToHistory;
-    private Stack<Integer> pageHistory;
+    //private boolean saveToHistory;
+    //private Stack<Integer> pageHistory;
     private int currentPage;
 
     private FragmentPagerAdapter pageAdapter;
@@ -53,11 +52,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initData() {
-        pageHistory = new Stack<>();
-        saveToHistory = true;
+        /*pageHistory = new Stack<>();
+        saveToHistory = true;*/
         tabs.add(new JobsFragment());
         tabs.add(new InterestFragment());
-        tabs.add(new TabFragment());
+        tabs.add(new JobsMapFragment());
         tabs.add(new AboutFragment());
 
         pageAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
@@ -164,13 +163,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             left.setIconAlpha(1 - positionOffset);
             right.setIconAlpha(positionOffset);
         }
+        currentPage = position;
     }
 
     @Override
     public void onPageSelected(int position) {
-        if (saveToHistory) {
+        /*if (saveToHistory) {
             pageHistory.push(Integer.valueOf(currentPage));
-        }
+        }*/
+        currentPage = position;
     }
 
 
@@ -180,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
         //resetOtherTabs();
@@ -195,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
@@ -203,16 +205,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-         List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        for( Fragment fragment : fragments) {
-            fragment.onResume();;
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragments) {
+            if (fragment != null)
+                fragment.onResume();
         }
     }
 
     private void hideSoftInput() {
         View view = this.getCurrentFocus();
         if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }

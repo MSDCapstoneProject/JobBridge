@@ -51,4 +51,19 @@ public class StringUtil {
     public static String formatAddress(String street, String city, String province, String country, String postalCode) {
         return String.format("%s, %s, %s, %s, %s", street, city, province, country, postalCode);
     }
+
+    public static boolean isNightShift(String startTime) {
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
+        try {
+            Date start = parser.parse(startTime);
+            Date base = parser.parse("18:00");
+
+            if (start.after(base)) {
+                return true;
+            }
+        } catch (ParseException e) {
+            return false;
+        }
+        return false;
+    }
 }
