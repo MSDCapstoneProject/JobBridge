@@ -205,11 +205,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onResume() {
         super.onResume();
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+       /* List<Fragment> fragments = getSupportFragmentManager().getFragments();
         for (Fragment fragment : fragments) {
             if (fragment != null)
                 fragment.onResume();
-        }
+        }*/
     }
 
     private void hideSoftInput() {

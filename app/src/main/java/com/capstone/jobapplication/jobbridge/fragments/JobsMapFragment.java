@@ -215,7 +215,12 @@ public class JobsMapFragment extends Fragment implements GoogleApiClient.Connect
         googleMap.clear();
         List<Job> jobs = CacheData.cachedJobs();
         for (Job job : jobs) {
-            LatLng position = getLocationFromAddress(job.getJobAddress());
+            LatLng position = job.getPosition();
+            if(position == null) {
+                position = getLocationFromAddress(job.getJobAddress());
+                job.setPosition(position);
+                CacheData.addJob(job.getId(),job);
+            }
             if (position != null)
                 googleMap.addMarker(new MarkerOptions()
                         .position(position)

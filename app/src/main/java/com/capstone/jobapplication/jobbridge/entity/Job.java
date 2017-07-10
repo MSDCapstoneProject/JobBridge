@@ -1,6 +1,7 @@
 package com.capstone.jobapplication.jobbridge.entity;
 
 import com.capstone.jobapplication.jobbridge.util.StringUtil;
+import com.google.android.gms.maps.model.LatLng;
 
 /**
  * Created by Aicun on 6/9/2017.
@@ -32,6 +33,16 @@ public class Job {
     private Employer employer;
     private String jobType;
     private String jobCategory;
+
+    private LatLng position;
+
+    public LatLng getPosition() {
+        return position;
+    }
+
+    public void setPosition(LatLng position) {
+        this.position = position;
+    }
 
     public int getId() {
         return id;
