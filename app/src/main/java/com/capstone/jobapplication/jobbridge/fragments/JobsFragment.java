@@ -1,7 +1,6 @@
 package com.capstone.jobapplication.jobbridge.fragments;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 
 import com.capstone.jobapplication.jobbridge.R;
 import com.capstone.jobapplication.jobbridge.entity.Job;
+import com.capstone.jobapplication.jobbridge.entity.JobRating;
 import com.capstone.jobapplication.jobbridge.entity.JobType;
 import com.capstone.jobapplication.jobbridge.util.HttpClientGet;
 import com.capstone.jobapplication.jobbridge.util.CacheData;
@@ -209,6 +209,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     private void loadJobDataFromServer() {
         String jobsJsonData = getJsonData("/jobs");
         String jobTypesJsonData = getJsonData("/jobTypes");
+        String jobRatingsJsonData = getJsonData("/jobRatings?jobSeekerId=3");
         if (jobsJsonData != null) {
             Type listType = new TypeToken<ArrayList<Job>>() {
             }.getType();
@@ -230,6 +231,17 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
                 for (JobType type : jobTypes) {
                     CacheData.addJobType(type.getId(), type);
                     jobTypeNames.add(type.getDescription());
+                }
+            }
+        }
+
+        if (jobRatingsJsonData != null) {
+            Type listType = new TypeToken<ArrayList<JobRating>>() {
+            }.getType();
+            List<JobRating> jobRatings = JsonConverter.convertFromJsonList(jobRatingsJsonData, listType);
+            if(jobRatings != null) {
+                for (JobRating rating : jobRatings) {
+                    CacheData.addJobRating(rating.getJobId(),rating);
                 }
             }
         }

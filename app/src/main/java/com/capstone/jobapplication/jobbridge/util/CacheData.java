@@ -2,11 +2,13 @@ package com.capstone.jobapplication.jobbridge.util;
 
 import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.entity.JobApplication;
+import com.capstone.jobapplication.jobbridge.entity.JobRating;
 import com.capstone.jobapplication.jobbridge.entity.JobType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Aicun on 6/11/2017.
@@ -14,9 +16,10 @@ import java.util.List;
 
 public class CacheData {
 
-    private static HashMap<Integer,Job> jobsCache = new HashMap<Integer,Job>();
-    private static HashMap<Integer,JobType> jobTypesCache = new HashMap<>();
-    private static HashMap<Integer,JobApplication> appliedJobsCache = new HashMap<>();
+    private static HashMap<Integer, Job> jobsCache = new HashMap<Integer, Job>();
+    private static HashMap<Integer, JobType> jobTypesCache = new HashMap<>();
+    private static HashMap<Integer, JobApplication> appliedJobsCache = new HashMap<>();
+    private static HashMap<Integer, JobRating> jobRatingCache = new HashMap<>();
 
     public static void reSetJobsCache() {
         jobsCache.clear();
@@ -30,43 +33,76 @@ public class CacheData {
         appliedJobsCache.clear();
     }
 
-    public static Job getJob(int key) {
-        return jobsCache.get(key);
+    public static Job getJob(int jobId) {
+        return jobsCache.get(jobId);
     }
 
-    public static void addJob(int key, Job job) {
-        jobsCache.put(key,job);
+    public static void addJob(int jobId, Job job) {
+        jobsCache.put(jobId, job);
     }
 
-    public static JobApplication getJobApplication(int key) {
-        return appliedJobsCache.get(key);
+    public static JobApplication getJobApplication(int jobApplicationId) {
+        return appliedJobsCache.get(jobApplicationId);
     }
 
-    public static void addJobApplication(int key, JobApplication jobApplication) {
-        appliedJobsCache.put(key,jobApplication);
+    public static void addJobApplication(int jobApplicationId, JobApplication jobApplication) {
+        appliedJobsCache.put(jobApplicationId, jobApplication);
     }
 
-    public static JobType getJobType(int key) {
-        return jobTypesCache.get(key);
+    public static JobType getJobType(int jobTypeId) {
+        return jobTypesCache.get(jobTypeId);
     }
 
-    public static void addJobType(int key, JobType type) {
-        jobTypesCache.put(key,type);
+    public static void addJobType(int jobTypeId, JobType type) {
+        jobTypesCache.put(jobTypeId, type);
     }
 
     public static boolean isEmpty() {
         return jobsCache.isEmpty() || jobTypesCache.isEmpty() || appliedJobsCache.isEmpty();
     }
 
-    public static List<Job> cachedJobs () {
+    public static List<Job> cachedJobs() {
         return new ArrayList<Job>(jobsCache.values());
     }
 
-    public static List<JobType> cachedJobTypes () {
+    public static List<JobType> cachedJobTypes() {
         return new ArrayList<JobType>(jobTypesCache.values());
     }
 
-    public static List<JobApplication> cachedJobApplications () {
+    public static List<JobApplication> cachedJobApplications() {
         return new ArrayList<JobApplication>(appliedJobsCache.values());
+    }
+
+    public static void addJobRating(int key, JobRating jobRating) {
+        jobRatingCache.put(key, jobRating);
+    }
+
+    public static JobRating getJobRating(int jobId) {
+        return jobRatingCache.get(jobId);
+    }
+
+    public static void updateOrAddRating(int jobId, int status,int jobSeekerId) {
+        JobRating rating = getJobRating(jobId);
+        if(rating != null) {
+            rating.setStatus(status);
+            addJobRating(jobId, rating);
+        }
+        else {
+            rating = new JobRating();
+            rating.setJobId(jobId);
+            rating.setStatus(status);
+            rating.setJobSeekerId(jobSeekerId);
+            addJobRating(jobId,rating);
+        }
+    }
+
+    public static boolean jobIsApplied(int jobId) {
+        for(Map.Entry set : appliedJobsCache.entrySet()) {
+            JobApplication app = (JobApplication) set.getValue();
+            if(app.getJobId() == jobId) {
+                return true;
+            }
+        }
+        return false;
     }
 }

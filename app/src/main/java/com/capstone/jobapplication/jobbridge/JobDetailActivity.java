@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,7 @@ import java.util.concurrent.ExecutionException;
 public class JobDetailActivity extends AppCompatActivity {
 
     private Job job;
+    private Button action;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,22 +61,30 @@ public class JobDetailActivity extends AppCompatActivity {
             updateJobViewCount(job.getId());
             binding.setJob(job);
         }
+        action = (Button) findViewById(R.id.job_apply);
+        boolean jobIsApplied = CacheData.jobIsApplied(job.getId());
+        action.setText(jobIsApplied ? "OK" : getString(R.string.apply));
     }
 
     public void applyJob(View view) throws ExecutionException, InterruptedException {
-        Map<String,String> keyValue = new HashMap<>();
-        keyValue.put("employerId",String.valueOf(job.getEmployer().getId()));
-        keyValue.put("jobId",String.valueOf(job.getId()));
-        //// TODO: 6/25/2017 should be changed into real job server's id
-        keyValue.put("jobSeekerId","3");
-
-        HttpClientPost post = new HttpClientPost("/jobApplications/add");
-        String retrunValue = post.doPost(keyValue);
-        if(retrunValue.contains("\"jobApplicationStatusId\":1")) {
-            Toast.makeText(this, "You have successfully applied for this job", Toast.LENGTH_SHORT).show();
-            CacheData.reSetAppliedJobsCache();
+        if(action.getText().equals("OK")) {
+            onBackPressed();
         }else {
-            Toast.makeText(this,"Sorry, you failed to applied for this job. Try again later", Toast.LENGTH_SHORT).show();
+            Map<String, String> keyValue = new HashMap<>();
+            keyValue.put("employerId", String.valueOf(job.getEmployer().getId()));
+            keyValue.put("jobId", String.valueOf(job.getId()));
+            //// TODO: 6/25/2017 should be changed into real job server's id
+            keyValue.put("jobSeekerId", "3");
+
+            HttpClientPost post = new HttpClientPost("/jobApplications/add");
+            String retrunValue = post.doPost(keyValue);
+            if (retrunValue.contains("\"jobApplicationStatusId\":1")) {
+                Toast.makeText(this, "You have successfully applied for this job", Toast.LENGTH_SHORT).show();
+                CacheData.reSetAppliedJobsCache();
+                action.setText("OK");
+            } else {
+                Toast.makeText(this, "Sorry, you failed to applied for this job. Try again later", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

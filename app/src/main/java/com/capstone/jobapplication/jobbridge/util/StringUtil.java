@@ -56,9 +56,10 @@ public class StringUtil {
         SimpleDateFormat parser = new SimpleDateFormat("HH:mm");
         try {
             Date start = parser.parse(startTime);
-            Date base = parser.parse("18:00");
+            Date nightStart = parser.parse("18:00");
+            Date nightEnd = parser.parse("08:00");
 
-            if (start.after(base)) {
+            if (start.after(nightStart) || start.before(nightEnd)) {
                 return true;
             }
         } catch (ParseException e) {

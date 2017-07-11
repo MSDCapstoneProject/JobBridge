@@ -32,19 +32,21 @@ import java.util.concurrent.ExecutionException;
 public class JobApplicationDetailActivity extends AppCompatActivity implements ReminderDialogFragment.NoticeDialogListener{
 
     private JobApplication jobApplication;
+    private ActivityJobApplicationDetailBinding binding;
+    private Button action;
 
     private static int CAL_ID = 1;
     private static final String APPLIED = "Applied";
     private static final String APPROVED = "Approved By Employer";
     private static final String DENIED = "Denied By Employer";
-    private static final String CANCELED = "Cancelled By User";
+    private static final String CANCELED = "Cancelled";
     private static final String CANCELED2 = "Cancelled By Employer";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityJobApplicationDetailBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_job_application_detail);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_job_application_detail);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -67,7 +69,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
             desc.setBackgroundColor(Color.TRANSPARENT);
             desc.loadDataWithBaseURL("", jobApplication.getJob().getDescription(), "text/html", "UTF-8", "");
 
-            Button action = (Button) findViewById(R.id.job_application_action);
+            action = (Button) findViewById(R.id.job_application_action);
             String text = actionText(jobApplication.getApplicationStatus());
             action.setText(text);
 
@@ -89,13 +91,13 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         String status = jobApplication.getApplicationStatus();
         switch (status) {
             case DENIED:
-            case APPROVED:
                 onBackPressed();
                 break;
             case CANCELED:
                 updateJobApplicationStatus(jobApplication.getId(), APPLIED);
                 break;
             case APPLIED:
+            case APPROVED:
                 //cancel application
                 updateJobApplicationStatus(jobApplication.getId(), CANCELED);
                 break;
@@ -109,36 +111,22 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
     }
 
     public void showMap(View view) {
-        String status = jobApplication.getApplicationStatus();
-        switch (status) {
-            case DENIED:
-            case APPROVED:
-                onBackPressed();
-                break;
-            case CANCELED:
-                updateJobApplicationStatus(jobApplication.getId(), "applied");
-                break;
-            case APPLIED:
-                //cancel application
-                updateJobApplicationStatus(jobApplication.getId(), "canceled");
-                break;
-            default:
-                onBackPressed();
-        }
+
     }
 
     private String actionText(String jobApplicationStatus) {
         switch (jobApplicationStatus) {
             case DENIED:
-            case APPROVED:
                 return "OK";
-            case CANCELED:
-                return "Apply Now";
-            case APPLIED:
+            case APPROVED:
                 Button addCalendar = (Button) findViewById(R.id.job_application_addCalendar);
                 addCalendar.setVisibility(View.VISIBLE);
                 Button showMap = (Button) findViewById(R.id.job_application_showMap);
                 showMap.setVisibility(View.VISIBLE);
+                return "Cancel";
+            case CANCELED:
+                return "Apply Now";
+            case APPLIED:
                 return "Cancel";
             default:
                 return "OK";
@@ -172,6 +160,9 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+        binding.setJobApplication(jobApplication);
+        String text = actionText(jobApplication.getApplicationStatus());
+        action.setText(text);
     }
 
     public void showNoticeDialog() {

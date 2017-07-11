@@ -15,8 +15,12 @@ import android.widget.TextView;
 
 import com.capstone.jobapplication.jobbridge.R;
 import com.capstone.jobapplication.jobbridge.entity.Job;
+import com.capstone.jobapplication.jobbridge.entity.JobRating;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Aicun on 6/9/2017.
@@ -35,6 +39,7 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         public TextView wage;
         public TextView postTime;
         public ImageView shiftType;
+        public ImageView rateJob;
     }
 
 
@@ -44,7 +49,7 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -52,25 +57,58 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         if (rowView == null) {
             rowView = inflater.inflate(R.layout.jobs_list_fragment, parent,false);
             // configure view holder
-            ViewHolder viewHolder = new ViewHolder();
+            final ViewHolder viewHolder = new ViewHolder();
             viewHolder.title = (TextView) rowView.findViewById(R.id.title);
             viewHolder.company = (TextView) rowView.findViewById(R.id.company);
             viewHolder.location = (TextView) rowView.findViewById(R.id.location);
             viewHolder.wage = (TextView) rowView.findViewById(R.id.wage);
             viewHolder.postTime = (TextView) rowView.findViewById(R.id.postTime);
-            //viewHolder.shiftType = (ImageView) rowView.findViewById(R.id.shiftType);
+            viewHolder.shiftType = (ImageView) rowView.findViewById(R.id.shiftType);
+            viewHolder.rateJob = (ImageView) rowView.findViewById(R.id.job_rate);
             rowView.setTag(viewHolder);
         }
 
-        ViewHolder holder = (ViewHolder) rowView.getTag();
-        Job job = getItem(position);
+        final ViewHolder holder = (ViewHolder) rowView.getTag();
+        final Job job = getItem(position);
         holder.title.setText(job.getTitle());
         holder.company.setText(job.getEmployer().getName());
         holder.location.setText(StringUtil.formatLocation(job.getCity(),job.getProvince()));
         holder.wage.setText(StringUtil.formatWage(job.getWage()));
         holder.postTime.setText(job.getPostDate());
-        boolean isNightShift = StringUtil.isNightShift(job.getStartTime());
-        //holder.shiftType.setImageResource(isNightShift ? R.drawable.nightshift : R.drawable.dayshift);
+        final boolean isNightShift = StringUtil.isNightShift(job.getStartTime());
+        holder.shiftType.setImageResource(isNightShift ? R.drawable.nightshift : R.drawable.dayshift);
+        final boolean isRated = isRated(job);
+        holder.rateJob.setImageResource(isRated ? R.drawable.job_like : R.drawable.job_dislike);
+        holder.rateJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JobRating rating = CacheData.getJobRating(job.getId());
+                HttpClientPost post = new HttpClientPost("/jobRatings/add");
+                Map<String,String> keyValue = new HashMap<>();
+                int status = 1;
+                if(rating!=null) {
+                    post = new HttpClientPost("/jobRatings/update");
+                    keyValue.put("id",String.valueOf(rating.getId()));
+                    status = rating.getStatus() == 1 ? 0 : 1;
+                }
+                keyValue.put("status",String.valueOf(status));
+                keyValue.put("jobId", String.valueOf(job.getId()));
+                //// TODO: 7/10/2017 change to real job seeker
+                keyValue.put("jobSeekerId","3");
+
+                try {
+                    post.doPost(keyValue);
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //// TODO: 7/10/2017 change to real job seeker 
+                CacheData.updateOrAddRating(job.getId(),status,3);
+
+                holder.rateJob.setImageResource(status == 0 ? R.drawable.job_dislike : R.drawable.job_like);
+            }
+        });
+
         listView.setDivider(drawable);
         listView.setDividerHeight(DIVIDOR_HEIGHT);
         return rowView;
@@ -84,6 +122,14 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
 
     @Override
     public boolean hasStableIds() {
+        return true;
+    }
+
+    private boolean isRated(Job job) {
+        JobRating rating = CacheData.getJobRating(job.getId());
+        if(rating == null || rating.getStatus() ==0) {
+            return false;
+        }
         return true;
     }
 }
