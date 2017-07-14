@@ -7,6 +7,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -58,6 +62,7 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
     //driving instruction
     private ListView mListView;
     private ArrayAdapter arrayAdapter;
+    private LatLng where, where2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +71,7 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
         distanceValue = (TextView)findViewById(R.id.distance_value);
         durationValue = (TextView)findViewById(R.id.duration_value);
         mListView = (ListView) findViewById(R.id.driving_instruction);
+
         // Initializing
         MarkerPoints = new ArrayList<>();
 
@@ -88,33 +94,29 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
         mMap = googleMap;
         LatLng location, location2;
         GenerateDistance gd = new GenerateDistance();
-        //LocationFragment.context = getApplicationContext();
 
+        /**
+         * TODO: Aicun => change locantion(address) From
+         *  where: LatLng of location(address)
+         *
+         * */
         //show the location with postal code
-        location = gd.reverseGeocoding(this, "N2P 0C7");
+        //location = gd.reverseGeocoding(this, "N2P 0C7");
+        location = gd.reverseGeocoding(this, "200 Old Carriage Dr Kitchener, ON N2P 1H5");
+        where = new LatLng(location.latitude, location.longitude);
 
-
-        // Add a marker in the location, and move the camera.
-        LatLng where = new LatLng(location.latitude, location.longitude);
-        //TODO: focus
-        mMap.addMarker(new MarkerOptions().position(where).title("Marker in Destination"));
-        //mMap.setMinZoomPreference(6.0f);
-
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(where));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(where, 10.0f));
-
-        //see route
-
+        /**
+         * TODO: Aicun => change locantion2
+         *where: LatLng of location(address)
+         * */
         //show the location with postal code
-        location2 = gd.reverseGeocoding(this, "N2L 5W6");
+        //location2 = gd.reverseGeocoding(this, "N2L 5W6");
+        location2 = gd.reverseGeocoding(this, "299 Doon Valley Dr, Kitchener, ON N2G 4M4");
 
-
-        // Add a marker in the location, and move the camera.
-        LatLng where2 = new LatLng(location2.latitude, location2.longitude);
+        where2 = new LatLng(location2.latitude, location2.longitude);
+        mMap.addMarker(new MarkerOptions().position(where2).title("Destination"));
         getRoute(where);
         getRoute(where2);
-
-
     }
 
     public void getRoute(LatLng point) {
@@ -137,7 +139,6 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
             options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         }
 
-
         // Add new marker to the Google Map Android API V2
         mMap.addMarker(options);
 
@@ -153,9 +154,6 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
 
             // Start downloading json data from Google Directions API
             FetchUrl.execute(url);
-            //move map camera
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(origin));
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(14));
         }
 
     }
@@ -167,8 +165,6 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
 
         // Destination of route
         String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
-
-
         // Sensor enabled
         String sensor = "sensor=false";
 
@@ -192,7 +188,6 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
 
         // Building the url to the web service
         String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters;
-
 
         return url;
     }
@@ -299,9 +294,24 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
                 //Log.i("moon html_instruction", instruction);
                 listItems[k] = instruction;
             }
-            arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
+            // Create an ArrayAdapter from List
+            final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>
+                    (this, android.R.layout.simple_list_item_1, listItems){
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent){
+                    /// Get the Item from ListView
+                    View view = super.getView(position, convertView, parent);
 
+                    TextView tv = (TextView) view.findViewById(android.R.id.text1);
 
+                    // Set the text size 16 dip for ListView each item
+                    tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,18);
+
+                    // Return the view
+                    return view;
+                }
+            };
+            //arrayAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listItems);
             //Log.i("moon DISTANCE", ""+textDist);
            // Log.i("moon TIME", ""+textDur);
             runOnUiThread(new Runnable() {
@@ -366,7 +376,7 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
             PolylineOptions lineOptions = null;
             String distance = "";
             String duration = "";
-
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
             // Traversing through all the routes
             for (int i = 0; i < result.size(); i++) {
                 points = new ArrayList<>();
@@ -375,6 +385,8 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
                 // Fetching i-th route
                 List<HashMap<String, String>> path = result.get(i);
 
+
+
                 // Fetching all the points in i-th route
                 for (int j = 0; j < path.size(); j++) {
                     HashMap<String, String> point = path.get(j);
@@ -382,9 +394,10 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
                     double lat = Double.parseDouble(point.get("lat"));
                     double lng = Double.parseDouble(point.get("lng"));
                     LatLng position = new LatLng(lat, lng);
-
+                    builder.include(position);
                     points.add(position);
                 }
+
 
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points);
@@ -396,10 +409,13 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
             // Drawing polyline in the Google Map for the i-th route
             if(lineOptions != null) {
                 mMap.addPolyline(lineOptions);
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 20));
             }
             else {
                 Log.d("onPostExecute","without Polylines drawn");
             }
         }
     }
+
 }
