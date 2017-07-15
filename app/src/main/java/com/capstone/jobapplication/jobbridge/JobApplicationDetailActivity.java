@@ -34,6 +34,8 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
     private JobApplication jobApplication;
     private ActivityJobApplicationDetailBinding binding;
     private Button action;
+    private Button addCalendar;
+    private Button showMap;
 
     private static int CAL_ID = 1;
     private static final String APPLIED = "Applied";
@@ -119,9 +121,9 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
             case DENIED:
                 return "OK";
             case APPROVED:
-                Button addCalendar = (Button) findViewById(R.id.job_application_addCalendar);
+                addCalendar = (Button) findViewById(R.id.job_application_addCalendar);
                 addCalendar.setVisibility(View.VISIBLE);
-                Button showMap = (Button) findViewById(R.id.job_application_showMap);
+                showMap = (Button) findViewById(R.id.job_application_showMap);
                 showMap.setVisibility(View.VISIBLE);
                 return "Cancel";
             case CANCELED:
@@ -196,6 +198,8 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         values.put(CalendarContract.Events.HAS_ALARM, 1);
 
         CalendarUtil.addEventToCalendar(this,values,reminderDialogFragment.remindMinutes);
+        Toast.makeText(this,"You have added this event to Google Calender",Toast.LENGTH_SHORT).show();
+        addCalendar.setVisibility(View.GONE);
     }
 
     @Override

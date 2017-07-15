@@ -1,5 +1,6 @@
 package com.capstone.jobapplication.jobbridge;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +18,7 @@ import com.capstone.jobapplication.jobbridge.fragments.AboutFragment;
 import com.capstone.jobapplication.jobbridge.fragments.InterestFragment;
 import com.capstone.jobapplication.jobbridge.fragments.JobsFragment;
 import com.capstone.jobapplication.jobbridge.fragments.JobsMapFragment;
+import com.capstone.jobapplication.jobbridge.util.LoadingDialog;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -100,13 +102,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
-        if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
+        /*if (featureId == Window.FEATURE_ACTION_BAR && menu != null) {
             if (menu.getClass().getSimpleName().equals("MenuBuilder")) {
                 try {
                     Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
@@ -116,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     e.printStackTrace();
                 }
             }
-        }
+        }*/
         return super.onMenuOpened(featureId, menu);
     }
 
