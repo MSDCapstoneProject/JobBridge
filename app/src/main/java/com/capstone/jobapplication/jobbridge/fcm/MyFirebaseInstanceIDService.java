@@ -2,7 +2,6 @@ package com.capstone.jobapplication.jobbridge.fcm;
 
 
 import android.util.Log;
-import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
 import com.google.firebase.iid.FirebaseInstanceId;

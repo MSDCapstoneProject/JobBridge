@@ -1,17 +1,11 @@
 package com.capstone.jobapplication.jobbridge.util;
 
-import android.Manifest;
 import android.content.AsyncQueryHandler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.provider.CalendarContract;
-import android.support.v4.app.ActivityCompat;
-
-import java.util.Calendar;
-import java.util.TimeZone;
 
 /**
  * Created by Aicun on 7/3/2017.

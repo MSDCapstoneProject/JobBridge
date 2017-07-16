@@ -5,9 +5,6 @@ import android.os.AsyncTask;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;

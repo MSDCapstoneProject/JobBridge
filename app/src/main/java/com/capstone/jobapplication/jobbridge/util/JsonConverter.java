@@ -1,16 +1,10 @@
 package com.capstone.jobapplication.jobbridge.util;
 
-import android.util.Log;
-
-import com.capstone.jobapplication.jobbridge.entity.Job;
-import com.capstone.jobapplication.jobbridge.entity.JobSeeker;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

@@ -12,12 +12,10 @@ import android.util.Log;
 
 import com.capstone.jobapplication.jobbridge.JobApplicationDetailActivity;
 import com.capstone.jobapplication.jobbridge.JobDetailActivity;
-import com.capstone.jobapplication.jobbridge.MainActivity;
 import com.capstone.jobapplication.jobbridge.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
