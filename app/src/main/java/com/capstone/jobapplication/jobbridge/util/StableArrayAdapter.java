@@ -38,6 +38,8 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
     private ListView listView;
 
     ColorDrawable drawable = new ColorDrawable(getContext().getResources().getColor(R.color.dividor));
+    int like = getContext().getResources().getColor(R.color.color_highlight);
+    int dislike = getContext().getResources().getColor(R.color.colorGray);
 
     static class ViewHolder {
         public TextView title;
@@ -87,8 +89,8 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         final boolean isNightShift = StringUtil.isNightShift(job.getStartTime());
         holder.shiftType.setImageResource(isNightShift ? R.drawable.nightshift : R.drawable.dayshift);
         int isRated = isRated(job);
-        holder.likeThisJob.setColorFilter(isRated == 1 ? Color.BLACK : Color.GRAY);
-        holder.dislikeThisJob.setColorFilter(isRated == 0 ? Color.BLACK : Color.GRAY);
+        holder.likeThisJob.setColorFilter(isRated == 1 ? like : dislike);
+        holder.dislikeThisJob.setColorFilter(isRated == 0 ? like : dislike);
         //holder.likeThisJob.setImageResource(isRated ? R.drawable.job_like : R.drawable.job_dislike);
         holder.likeThisJob.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +117,8 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
                 //// TODO: 7/10/2017 change to real job seeker 
                 CacheData.updateOrAddRating(job.getId(),status,3);
 
-                holder.likeThisJob.setColorFilter(Color.BLACK);
-                holder.dislikeThisJob.setColorFilter(Color.GRAY);
+                holder.likeThisJob.setColorFilter(like);
+                holder.dislikeThisJob.setColorFilter(dislike);
             }
         });
 
@@ -145,8 +147,8 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
                 //// TODO: 7/10/2017 change to real job seeker
                 CacheData.updateOrAddRating(job.getId(),status,3);
 
-                holder.dislikeThisJob.setColorFilter(Color.BLACK);
-                holder.likeThisJob.setColorFilter(Color.GRAY);
+                holder.dislikeThisJob.setColorFilter(like);
+                holder.likeThisJob.setColorFilter(dislike);
             }
         });
 
@@ -172,17 +174,5 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
             return -1;
         }
         return rating.getStatus();
-    }
-
-    private Bitmap adjust(Drawable d,int color)
-    {
-        //Need to copy to ensure that the bitmap is mutable.
-        Bitmap src = ((BitmapDrawable) d).getBitmap();
-        Bitmap bitmap = src.copy(Bitmap.Config.ARGB_8888, true);
-        for(int x = 0;x < bitmap.getWidth();x++)
-            for(int y = 0;y < bitmap.getHeight();y++)
-                    bitmap.setPixel(x, y, color);
-
-        return bitmap;
     }
 }
