@@ -35,13 +35,22 @@
                     android:textSize="@dimen/text_size" />
 
                 <ImageView
-                    android:id="@+id/job_rate"
+                    android:id="@+id/job_like"
                     android:layout_width="0dp"
                     android:layout_height="35sp"
                     android:layout_gravity="center_horizontal"
                     android:layout_weight="1"
-                    android:src="@drawable/job_dislike"
-                    android:onClick="rateThisJob"/>
+                    android:src="@drawable/icons_thumbs_up"
+                    android:onClick="likeThisJob"/>
+
+                <ImageView
+                    android:id="@+id/job_dislike"
+                    android:layout_width="0dp"
+                    android:layout_height="35sp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="1"
+                    android:src="@drawable/icons_thumbs_down"
+                    android:onClick="dislikeThisJob"/>
             </LinearLayout>
 
             <LinearLayout

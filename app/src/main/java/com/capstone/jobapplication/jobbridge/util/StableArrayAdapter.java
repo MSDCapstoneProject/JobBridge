@@ -1,7 +1,14 @@
 package com.capstone.jobapplication.jobbridge.util;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.LightingColorFilter;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,7 +35,7 @@ import java.util.concurrent.ExecutionException;
 
 public class StableArrayAdapter extends ArrayAdapter<Job> {
     private static int DIVIDOR_HEIGHT = 50;
-    ListView listView;
+    private ListView listView;
 
     ColorDrawable drawable = new ColorDrawable(getContext().getResources().getColor(R.color.dividor));
 
@@ -39,7 +46,8 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         public TextView wage;
         public TextView postTime;
         public ImageView shiftType;
-        public ImageView rateJob;
+        public ImageView likeThisJob;
+        public ImageView dislikeThisJob;
     }
 
 
@@ -64,7 +72,8 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
             viewHolder.wage = (TextView) rowView.findViewById(R.id.wage);
             viewHolder.postTime = (TextView) rowView.findViewById(R.id.postTime);
             viewHolder.shiftType = (ImageView) rowView.findViewById(R.id.shiftType);
-            viewHolder.rateJob = (ImageView) rowView.findViewById(R.id.job_rate);
+            viewHolder.likeThisJob = (ImageView) rowView.findViewById(R.id.job_like);
+            viewHolder.dislikeThisJob = (ImageView) rowView.findViewById(R.id.job_dislike);
             rowView.setTag(viewHolder);
         }
 
@@ -77,9 +86,11 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         holder.postTime.setText(job.getPostDate());
         final boolean isNightShift = StringUtil.isNightShift(job.getStartTime());
         holder.shiftType.setImageResource(isNightShift ? R.drawable.nightshift : R.drawable.dayshift);
-        final boolean isRated = isRated(job);
-        holder.rateJob.setImageResource(isRated ? R.drawable.job_like : R.drawable.job_dislike);
-        holder.rateJob.setOnClickListener(new View.OnClickListener() {
+        int isRated = isRated(job);
+        holder.likeThisJob.setColorFilter(isRated == 1 ? Color.BLACK : Color.GRAY);
+        holder.dislikeThisJob.setColorFilter(isRated == 0 ? Color.BLACK : Color.GRAY);
+        //holder.likeThisJob.setImageResource(isRated ? R.drawable.job_like : R.drawable.job_dislike);
+        holder.likeThisJob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 JobRating rating = CacheData.getJobRating(job.getId());
@@ -89,7 +100,6 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
                 if(rating!=null) {
                     post = new HttpClientPost("/jobRatings/update");
                     keyValue.put("id",String.valueOf(rating.getId()));
-                    status = rating.getStatus() == 1 ? 0 : 1;
                 }
                 keyValue.put("status",String.valueOf(status));
                 keyValue.put("jobId", String.valueOf(job.getId()));
@@ -105,7 +115,38 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
                 //// TODO: 7/10/2017 change to real job seeker 
                 CacheData.updateOrAddRating(job.getId(),status,3);
 
-                holder.rateJob.setImageResource(status == 0 ? R.drawable.job_dislike : R.drawable.job_like);
+                holder.likeThisJob.setColorFilter(Color.BLACK);
+                holder.dislikeThisJob.setColorFilter(Color.GRAY);
+            }
+        });
+
+        holder.dislikeThisJob.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                JobRating rating = CacheData.getJobRating(job.getId());
+                HttpClientPost post = new HttpClientPost("/jobRatings/add");
+                Map<String,String> keyValue = new HashMap<>();
+                int status = 0;
+                if(rating!=null) {
+                    post = new HttpClientPost("/jobRatings/update");
+                    keyValue.put("id",String.valueOf(rating.getId()));
+                }
+                keyValue.put("status",String.valueOf(status));
+                keyValue.put("jobId", String.valueOf(job.getId()));
+                //// TODO: 7/10/2017 change to real job seeker
+                keyValue.put("jobSeekerId","3");
+
+                try {
+                    post.doPost(keyValue);
+                } catch (ExecutionException | InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+                //// TODO: 7/10/2017 change to real job seeker
+                CacheData.updateOrAddRating(job.getId(),status,3);
+
+                holder.dislikeThisJob.setColorFilter(Color.BLACK);
+                holder.likeThisJob.setColorFilter(Color.GRAY);
             }
         });
 
@@ -125,11 +166,23 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
         return true;
     }
 
-    private boolean isRated(Job job) {
+    private int isRated(Job job) {
         JobRating rating = CacheData.getJobRating(job.getId());
-        if(rating == null || rating.getStatus() ==0) {
-            return false;
+        if(rating == null) {
+            return -1;
         }
-        return true;
+        return rating.getStatus();
+    }
+
+    private Bitmap adjust(Drawable d,int color)
+    {
+        //Need to copy to ensure that the bitmap is mutable.
+        Bitmap src = ((BitmapDrawable) d).getBitmap();
+        Bitmap bitmap = src.copy(Bitmap.Config.ARGB_8888, true);
+        for(int x = 0;x < bitmap.getWidth();x++)
+            for(int y = 0;y < bitmap.getHeight();y++)
+                    bitmap.setPixel(x, y, color);
+
+        return bitmap;
     }
 }
