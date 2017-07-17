@@ -53,8 +53,8 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                 startActivity(intentSetting);
                 break;
             case R.id.map:
-                Intent intentMap = new Intent(getActivity(), LocationFragment.class);
-                startActivity(intentMap);
+                /*Intent intentMap = new Intent(getActivity(), LocationFragment.class);
+                startActivity(intentMap);*/
                 break;
             default:
                 break;
