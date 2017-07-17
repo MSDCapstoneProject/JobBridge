@@ -1,10 +1,14 @@
 package com.capstone.jobapplication.jobbridge.map;
 
-import android.content.Context;
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.util.TypedValue;
@@ -16,8 +20,9 @@ import android.widget.TextView;
 
 import com.capstone.jobapplication.jobbridge.R;
 import com.capstone.jobapplication.jobbridge.util.GenerateDistance;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,7 +30,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
@@ -48,36 +52,40 @@ import java.util.List;
  * Created by Sarah on 2017-06-23.
  */
 
-public class LocationFragment extends FragmentActivity implements OnMapReadyCallback {
+public class LocationFragment extends FragmentActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap;
     private TextView distanceValue;
     private TextView durationValue;
+    private GoogleApiClient googleApiClient;
     //google map
     ArrayList<LatLng> MarkerPoints;
-    GoogleApiClient mGoogleApiClient;
-    Location mLastLocation;
-    Marker mCurrLocationMarker;
-    LocationRequest mLocationRequest;
     //driving instruction
     private ListView mListView;
-    private ArrayAdapter arrayAdapter;
-    private LatLng where, where2;
+    private LatLng fromAddress;
+    private String toAddress;
+    private SupportMapFragment mapFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        distanceValue = (TextView)findViewById(R.id.distance_value);
-        durationValue = (TextView)findViewById(R.id.duration_value);
+        distanceValue = (TextView) findViewById(R.id.distance_value);
+        durationValue = (TextView) findViewById(R.id.duration_value);
         mListView = (ListView) findViewById(R.id.driving_instruction);
 
         // Initializing
         MarkerPoints = new ArrayList<>();
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        Bundle bundle = getIntent().getExtras();
+        toAddress = (String) bundle.get("toAddress");
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+
+
+        googleApiClient = new GoogleApiClient.Builder(this).addApi(LocationServices.API)
+                .addConnectionCallbacks(this).build();
     }
 
     /**
@@ -88,22 +96,9 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        Context context;
+    public void mapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        LatLng location, location2;
-        GenerateDistance gd = new GenerateDistance();
-
-        /**
-         * TODO: Aicun => change locantion(address) From
-         *  where: LatLng of location(address)
-         *
-         * */
-        //show the location with postal code
-        //location = gd.reverseGeocoding(this, "N2P 0C7");
-        location = gd.reverseGeocoding(this, "200 Old Carriage Dr Kitchener, ON N2P 1H5");
-        where = new LatLng(location.latitude, location.longitude);
+        LatLng location;
 
         /**
          * TODO: Aicun => change locantion2
@@ -111,12 +106,11 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
          * */
         //show the location with postal code
         //location2 = gd.reverseGeocoding(this, "N2L 5W6");
-        location2 = gd.reverseGeocoding(this, "299 Doon Valley Dr, Kitchener, ON N2G 4M4");
 
-        where2 = new LatLng(location2.latitude, location2.longitude);
-        mMap.addMarker(new MarkerOptions().position(where2).title("Destination"));
-        getRoute(where);
-        getRoute(where2);
+        location = GenerateDistance.reverseGeocoding(this, toAddress);
+
+        getRoute(fromAddress);
+        getRoute(location);
     }
 
     public void getRoute(LatLng point) {
@@ -174,8 +168,8 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
 
         //time
         Date departure = new Date(); //get current time
-        long departure_time= departure.getTime();
-        String currentTime = "departure_time"+ departure_time;
+        long departure_time = departure.getTime();
+        String currentTime = "departure_time" + departure_time;
 
         // Building the parameters to the web service==> driving mode
         String parameters = str_origin + "&" + str_dest + "&" + sensor;
@@ -232,6 +226,43 @@ public class LocationFragment extends FragmentActivity implements OnMapReadyCall
             urlConnection.disconnect();
         }
         return data;
+    }
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Location from = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+        fromAddress = new LatLng(from.getLatitude(),from.getLongitude());
+        mapFragment.getMapAsync(new OnMapReadyCallback() {
+            @Override
+            public void onMapReady(GoogleMap googleMap) {
+                mapReady(googleMap);
+            }
+        });
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onStart() {
+        googleApiClient.connect();
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        googleApiClient.disconnect();
+        super.onStop();
     }
 
     // Fetches data from url passed

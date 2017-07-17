@@ -1,6 +1,7 @@
 package com.capstone.jobapplication.jobbridge;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.capstone.jobapplication.jobbridge.databinding.ActivityJobApplicationDetailBinding;
 import com.capstone.jobapplication.jobbridge.entity.JobApplication;
 import com.capstone.jobapplication.jobbridge.fragments.ReminderDialogFragment;
+import com.capstone.jobapplication.jobbridge.map.LocationFragment;
 import com.capstone.jobapplication.jobbridge.util.CacheData;
 import com.capstone.jobapplication.jobbridge.util.CalendarUtil;
 import com.capstone.jobapplication.jobbridge.util.HttpClientGet;
@@ -113,7 +115,11 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
     }
 
     public void showMap(View view) {
+        Intent intentMap = new Intent(this, LocationFragment.class);
 
+        intentMap.putExtra("toAddress",jobApplication.getJob().getJobAddress());
+
+        startActivity(intentMap);
     }
 
     private String actionText(String jobApplicationStatus) {
