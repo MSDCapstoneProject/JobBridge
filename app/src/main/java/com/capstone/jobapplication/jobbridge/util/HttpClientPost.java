@@ -19,6 +19,8 @@ import java.util.concurrent.ExecutionException;
 
 public class HttpClientPost extends AsyncTask<String, Void, String> {
 
+    private static int TIME_OUT_SECONDS = 15*1000;
+
     private static String urlPrefix = "https://jobbridge.herokuapp.com";
     //private static String urlPrefix = "http://192.168.0.10:3000";
     //private static String urlPrefix = "http://142.156.86.79:3000";
@@ -35,7 +37,7 @@ public class HttpClientPost extends AsyncTask<String, Void, String> {
         try {
             url = new URL(urlPrefix + path);
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setConnectTimeout(15);
+            urlConnection.setConnectTimeout(TIME_OUT_SECONDS);
             urlConnection.setDoOutput(true);
             urlConnection.setDoInput(true);
             urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -65,8 +67,8 @@ public class HttpClientPost extends AsyncTask<String, Void, String> {
 
     public String doPost(Map map) throws ExecutionException, InterruptedException {
         Type mapType = new TypeToken<HashMap<String, String>>() {}.getType();
-        String jsonForJobApply = JsonConverter.convertFromMap(map,mapType);
-        AsyncTask task = execute(jsonForJobApply);
+        String jsonForPost = JsonConverter.convertFromMap(map,mapType);
+        AsyncTask task = execute(jsonForPost);
         String result = (String) task.get();
         return result;
     }

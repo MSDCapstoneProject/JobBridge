@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.capstone.jobapplication.jobbridge.ProfileActivity;
 import com.capstone.jobapplication.jobbridge.R;
+import com.capstone.jobapplication.jobbridge.SubscriptionActivity;
 import com.capstone.jobapplication.jobbridge.fcm.FcmActivity;
 import com.capstone.jobapplication.jobbridge.map.LocationFragment;
 
@@ -56,6 +57,10 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
                 /*Intent intentMap = new Intent(getActivity(), LocationFragment.class);
                 startActivity(intentMap);*/
                 break;
+            case R.id.subscription:
+                Intent subscription = new Intent(getActivity(), SubscriptionActivity.class);
+                startActivity(subscription);
+                break;
             default:
                 break;
         }
@@ -66,5 +71,6 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
         layout.findViewById(R.id.signup).setOnClickListener(this);
         layout.findViewById(R.id.setting).setOnClickListener(this);
         layout.findViewById(R.id.map).setOnClickListener(this);
+        layout.findViewById(R.id.subscription).setOnClickListener(this);
     }
 }

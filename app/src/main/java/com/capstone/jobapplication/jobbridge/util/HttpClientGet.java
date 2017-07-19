@@ -12,6 +12,8 @@ import java.net.URL;
 
 public class HttpClientGet extends AsyncTask<String, Void, String> {
 
+    private static int TIME_OUT_SECONDS = 15*1000;
+
     private static String urlPrefix = "https://jobbridge.herokuapp.com";
     //private static String urlPrefix = "http://192.168.0.10:3000";
     //private static String urlPrefix = "http://142.156.86.79:3000";
@@ -28,7 +30,7 @@ public class HttpClientGet extends AsyncTask<String, Void, String> {
         try {
             url = new URL(urlPrefix + path);
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setConnectTimeout(15);
+            urlConnection.setConnectTimeout(TIME_OUT_SECONDS);
             BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
             byte[] contents = new byte[1024];
 

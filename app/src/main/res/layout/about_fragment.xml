@@ -28,12 +28,14 @@
                     android:layout_height="50dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="18dp"
                     android:drawablePadding="10dp"
                     android:text="@string/profile" />
+
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_height="1.0dip" />
+                    android:layout_height="2dp"
+                    android:background="@color/separator_line"/>
 
                 <TextView
                     android:id="@+id/signup"
@@ -43,13 +45,13 @@
                     android:layout_height="50dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:layout_marginTop="20dp"
                     android:drawablePadding="10dp"
                     android:text="@string/SignUp" />
 
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_height="1.0dip" />
+                    android:layout_height="2dp"
+                    android:background="@color/separator_line"/>
 
                 <TextView
                     android:id="@+id/setting"
@@ -59,13 +61,13 @@
                     android:layout_height="50dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:layout_marginTop="20dp"
                     android:drawablePadding="10dp"
                     android:text="Setting" />
 
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_height="1.0dip" />
+                    android:layout_height="2dp"
+                    android:background="@color/separator_line"/>
 
                 <TextView
                     android:id="@+id/map"
@@ -75,13 +77,29 @@
                     android:layout_height="50dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:layout_marginTop="20dp"
                     android:drawablePadding="10dp"
                     android:text="MAP" />
 
                 <View
                     android:layout_width="fill_parent"
-                    android:layout_height="1.0dip" />
+                    android:layout_height="2dp"
+                    android:background="@color/separator_line"/>
+
+                <TextView
+                    android:id="@+id/subscription"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="50dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:drawablePadding="10dp"
+                    android:text="Subscription" />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/separator_line"/>
 
             </LinearLayout>
         </ScrollView>
