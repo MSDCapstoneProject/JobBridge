@@ -1,7 +1,8 @@
 <resources>
     <string name="jobs">Posts</string>
-    <string name="about">about</string>
+    <string name="about">About</string>
     <string name="interest">My Jobs</string>
+    <string name="map">Map</string>
     <string name="profile">Profile</string>
     <string name="SignUp">Sign Up</string>
     <string name="submit">Submit</string>
@@ -13,7 +14,7 @@
     <string name="menu_b">func b</string>
     <string name="menu_c">func c</string>
     <string name="menu_d">func d</string>
-    <string name="map">map</string>
+
     <string name="apply">Apply Now</string>
     <string name="search">job title, keywords, or company</string>
     <string name="searchJobs">Search</string>
