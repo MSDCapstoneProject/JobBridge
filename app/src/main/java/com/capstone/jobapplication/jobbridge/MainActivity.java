@@ -1,6 +1,7 @@
 package com.capstone.jobapplication.jobbridge;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.fragments.AboutFragment;
@@ -37,10 +39,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initData();
+        final LinearLayout layout = (LinearLayout) findViewById(R.id.progressBarLayout);
+
+        new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected void onPreExecute() {
+                initView();
+                viewPager.setVisibility(View.GONE);
+                layout.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                initData();
+                initEvent();
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                viewPager.setAdapter(pageAdapter);
+                layout.setVisibility(View.GONE);
+                viewPager.setVisibility(View.VISIBLE);
+            }
+        }.execute();
+
+
+        /*initData();
         initView();
         viewPager.setAdapter(pageAdapter);
-        initEvent();
+        initEvent();*/
     }
 
     private void initEvent() {

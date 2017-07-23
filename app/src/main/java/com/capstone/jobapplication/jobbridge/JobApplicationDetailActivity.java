@@ -54,6 +54,9 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        addCalendar = (Button) findViewById(R.id.job_application_addCalendar);
+        showMap = (Button) findViewById(R.id.job_application_showMap);
+
         Bundle bundle = getIntent().getExtras();
         int jobApplicationId = (int) bundle.get("jobApplicationId");
 
@@ -75,6 +78,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
 
             action = (Button) findViewById(R.id.job_application_action);
             String text = actionText(jobApplication.getApplicationStatus());
+            setVisible(text);
             action.setText(text);
 
             binding.setJobApplication(jobApplication);
@@ -127,15 +131,10 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
             case DENIED:
                 return "OK";
             case APPROVED:
-                addCalendar = (Button) findViewById(R.id.job_application_addCalendar);
-                addCalendar.setVisibility(View.VISIBLE);
-                showMap = (Button) findViewById(R.id.job_application_showMap);
-                showMap.setVisibility(View.VISIBLE);
+            case APPLIED:
                 return "Cancel";
             case CANCELED:
                 return "Apply Now";
-            case APPLIED:
-                return "Cancel";
             default:
                 return "OK";
         }
@@ -170,7 +169,19 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         }
         binding.setJobApplication(jobApplication);
         String text = actionText(jobApplication.getApplicationStatus());
+        setVisible(text);
         action.setText(text);
+    }
+
+    private void setVisible(String text) {
+        if(text.equals("Cancel")) {
+            addCalendar.setVisibility(View.VISIBLE);
+            showMap.setVisibility(View.VISIBLE);
+        }else {
+            addCalendar.setVisibility(View.GONE);
+            showMap.setVisibility(View.GONE);
+        }
+
     }
 
     public void showNoticeDialog() {

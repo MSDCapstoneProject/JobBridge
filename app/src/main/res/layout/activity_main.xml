@@ -7,6 +7,35 @@
     android:orientation="vertical"
     tools:context="com.capstone.jobapplication.jobbridge.MainActivity">
 
+    <LinearLayout
+        android:id="@+id/progressBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:background="@drawable/loading_bg"
+        android:orientation="vertical">
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:indeterminateBehavior="repeat"
+            android:indeterminateDrawable="@drawable/dialog_loading"
+            android:indeterminate="true" />
+
+        <TextView
+            android:id="@+id/tipTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="LOADING..."
+            android:textColor="#f0f0f0"
+            android:textSize="15sp" />
+    </LinearLayout>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
