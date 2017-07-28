@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.capstone.jobapplication.jobbridge.entity.Job;
 import com.capstone.jobapplication.jobbridge.entity.Subscription;
@@ -129,5 +130,6 @@ public class SubscriptionActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        Toast.makeText(this,"Successfully Subscribed!",Toast.LENGTH_SHORT).show();
     }
 }

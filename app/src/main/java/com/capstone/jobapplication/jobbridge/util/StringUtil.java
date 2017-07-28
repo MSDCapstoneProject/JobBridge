@@ -13,10 +13,10 @@ import java.util.Locale;
 public class StringUtil {
 
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private static Locale locale = Locale.getDefault();
+    private static NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
 
     public static String formatStringCurrency(String wage) {
-        Locale locale = Locale.getDefault();
-        NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(locale);
         String formatted = null;
         try {
             double w = Double.parseDouble(wage);

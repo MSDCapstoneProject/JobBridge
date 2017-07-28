@@ -43,7 +43,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
     private static final String APPLIED = "Applied";
     private static final String APPROVED = "Approved By Employer";
     private static final String DENIED = "Denied By Employer";
-    private static final String CANCELED = "Cancelled";
+    private static final String CANCELED = "Cancelled by Job Seeker";
     private static final String CANCELED2 = "Cancelled By Employer";
 
     @Override
@@ -78,7 +78,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
 
             action = (Button) findViewById(R.id.job_application_action);
             String text = actionText(jobApplication.getApplicationStatus());
-            setVisible(text);
+            setVisible(jobApplication.getApplicationStatus());
             action.setText(text);
 
             binding.setJobApplication(jobApplication);
@@ -99,6 +99,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         String status = jobApplication.getApplicationStatus();
         switch (status) {
             case DENIED:
+            case CANCELED2:
                 onBackPressed();
                 break;
             case CANCELED:
@@ -129,6 +130,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
     private String actionText(String jobApplicationStatus) {
         switch (jobApplicationStatus) {
             case DENIED:
+            case CANCELED2:
                 return "OK";
             case APPROVED:
             case APPLIED:
@@ -169,12 +171,12 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         }
         binding.setJobApplication(jobApplication);
         String text = actionText(jobApplication.getApplicationStatus());
-        setVisible(text);
+        setVisible(jobApplication.getApplicationStatus());
         action.setText(text);
     }
 
     private void setVisible(String text) {
-        if(text.equals("Cancel")) {
+        if(text.equals(APPROVED)) {
             addCalendar.setVisibility(View.VISIBLE);
             showMap.setVisibility(View.VISIBLE);
         }else {
