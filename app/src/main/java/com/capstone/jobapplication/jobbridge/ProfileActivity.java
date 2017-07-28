@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,6 +27,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private String address = null;
     private JobSeeker jobSeeker;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText phoneNo;
+    private EditText email;
+    private EditText sin;
+    private EditText dob;
     private Spinner genderSpinner;
     private Spinner statusSpinner;
 
@@ -34,6 +41,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ActivityProfileBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_profile);
+
+        firstName = (EditText) findViewById(R.id.firstName);
+        lastName = (EditText) findViewById(R.id.lastName);
+        phoneNo = (EditText) findViewById(R.id.phone);
+        email = (EditText) findViewById(R.id.email);
+        sin = (EditText) findViewById(R.id.sin);
+        dob = (EditText) findViewById(R.id.birthidate);
 
         genderSpinner = (Spinner) findViewById(R.id.gender);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.gender,android.R.layout.simple_spinner_item);
@@ -66,7 +80,8 @@ public class ProfileActivity extends AppCompatActivity {
                     System.out.println(status.getStatusMessage());
                 }
             });
-            autocompleteFragment.setText(getAddress(jobSeeker));
+            getAddress();
+            autocompleteFragment.setText(address);
 
             int genderPosition = adapter.getPosition(jobSeeker.getGender());
             genderSpinner.setSelection(genderPosition);
@@ -86,15 +101,26 @@ public class ProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void submit(View view) throws ExecutionException, InterruptedException {
+    public void submit(View view){
         jobSeeker.setAddress(address);
         jobSeeker.setStatus(statusSpinner.getSelectedItem().toString());
         jobSeeker.setGender(genderSpinner.getSelectedItem().toString());
+        jobSeeker.setEmail(email.getText().toString());
+        jobSeeker.setPhone(phoneNo.getText().toString());
+        jobSeeker.setSin(sin.getText().toString());
+        jobSeeker.setDOB(dob.getText().toString());
+        setAddress();
         String json = JsonConverter.convertFromObject(jobSeeker);
-        HttpClientPost client = new HttpClientPost("/jobSeekers/update");
-        AsyncTask task = client.execute(json);
-        String result = (String) task.get();
-        Toast.makeText(this,result,Toast.LENGTH_SHORT);
+        try {
+            HttpClientPost client = new HttpClientPost("/jobSeekers/update");
+            AsyncTask task = client.execute(json);
+            String result = (String) task.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(this,"Profile Updated!",Toast.LENGTH_SHORT).show();
     }
     
     private String getProfileData() {
@@ -110,8 +136,19 @@ public class ProfileActivity extends AppCompatActivity {
         return jsonData;
     }
 
-    private String getAddress(JobSeeker jobSeeker) {
-        String[] objs = {jobSeeker.getStreet(),jobSeeker.getCity(),jobSeeker.getProvince(),jobSeeker.getCountry(),jobSeeker.getPostalCode()};
-        return String.format("%s, %s, %s, %s, %s",objs);
+    private void getAddress() {
+        String[] objs = {jobSeeker.getStreet(),jobSeeker.getCity(),jobSeeker.getProvince(),jobSeeker.getPostalCode(),jobSeeker.getCountry()};
+        address = String.format("%s, %s, %s %s, %s",objs);
+    }
+
+    private void setAddress() {
+        String[] info = address.split(",");
+        if(info.length != 4) return;
+        jobSeeker.setStreet(info[0]);
+        jobSeeker.setCity(info[1]);
+        String[] pc = info[2].split(" ");
+        jobSeeker.setProvince(pc[0]);
+        jobSeeker.setPostalCode(pc[1]+" "+pc[2]);
+        jobSeeker.setCountry(info[3]);
     }
 }
