@@ -43,7 +43,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
     private static final String APPLIED = "Applied";
     private static final String APPROVED = "Approved By Employer";
     private static final String DENIED = "Denied By Employer";
-    private static final String CANCELED = "Cancelled by Job Seeker";
+    private static final String CANCELED = "Cancelled";
     private static final String CANCELED2 = "Cancelled By Employer";
 
     @Override
