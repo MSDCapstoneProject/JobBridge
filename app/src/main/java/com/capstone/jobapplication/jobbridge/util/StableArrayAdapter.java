@@ -29,6 +29,7 @@ import java.util.concurrent.ExecutionException;
 public class StableArrayAdapter extends ArrayAdapter<Job> {
     private static int DIVIDOR_HEIGHT = 50;
     private ListView listView;
+    private Context context;
 
     ColorDrawable drawable = new ColorDrawable(getContext().getResources().getColor(R.color.dividor));
     int like = getContext().getResources().getColor(R.color.color_highlight);
@@ -49,6 +50,7 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
     public StableArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Job> objects, ListView listView) {
         super(context, resource, objects);
         this.listView = listView;
+        this.context = context;
     }
 
     @Override
@@ -89,11 +91,11 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
             @Override
             public void onClick(View v) {
                 JobRating rating = CacheData.getJobRating(job.getId());
-                HttpClientPost post = new HttpClientPost("/jobRatings/add");
+                HttpClientPost post = new HttpClientPost(context.getString(R.string.url_rating));
                 Map<String,String> keyValue = new HashMap<>();
                 int status = 1;
                 if(rating!=null) {
-                    post = new HttpClientPost("/jobRatings/update");
+                    post = new HttpClientPost(context.getString(R.string.url_ratingUpdate));
                     keyValue.put("id",String.valueOf(rating.getId()));
                 }
                 keyValue.put("status",String.valueOf(status));
@@ -119,11 +121,11 @@ public class StableArrayAdapter extends ArrayAdapter<Job> {
             @Override
             public void onClick(View v) {
                 JobRating rating = CacheData.getJobRating(job.getId());
-                HttpClientPost post = new HttpClientPost("/jobRatings/add");
+                HttpClientPost post = new HttpClientPost(context.getString(R.string.url_rating));
                 Map<String,String> keyValue = new HashMap<>();
                 int status = 0;
                 if(rating!=null) {
-                    post = new HttpClientPost("/jobRatings/update");
+                    post = new HttpClientPost(context.getString(R.string.url_ratingUpdate));
                     keyValue.put("id",String.valueOf(rating.getId()));
                 }
                 keyValue.put("status",String.valueOf(status));

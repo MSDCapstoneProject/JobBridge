@@ -261,18 +261,13 @@ public class JobsMapFragment extends Fragment implements GoogleApiClient.Connect
         public View getInfoContents(final Marker marker) {
             // Getting view from the layout file info_window_layout
             View v = getActivity().getLayoutInflater().inflate(R.layout.marker_layout, null);
-
             TextView title = (TextView) v.findViewById(R.id.title);
-
             // Getting reference to the TextView to set longitude
             TextView snippet = (TextView) v.findViewById(R.id.snippet);
-
             // Setting the latitude
             title.setText(marker.getTitle());
-
             // Setting the longitude
             snippet.setText(marker.getSnippet());
-
             // Returning the view containing InfoWindow contents
             return v;
         }

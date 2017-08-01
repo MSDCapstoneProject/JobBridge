@@ -103,7 +103,7 @@ public class InterestFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     private void loadDateFromServer() {
-        String jsonData = getJsonData("/jobApplications?jobSeekerId=3");
+        String jsonData = getJsonData(getString(R.string.url_myJobs));
         if (jsonData != null) {
             Type listType = new TypeToken<ArrayList<JobApplication>>() {
             }.getType();

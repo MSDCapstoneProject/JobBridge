@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, getString(R.string.toast_exit), Toast.LENGTH_SHORT).show();
 
         new Handler().postDelayed(new Runnable() {
 

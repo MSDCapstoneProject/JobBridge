@@ -49,4 +49,29 @@
         <item>5</item>
         <item>10</item>
     </string-array>
+
+    <string name="url_topicGroups">/topicGroups</string>
+    <string name="url_subscribedTopics">/jobSeekerSubscriptions?jobSeekerId=3</string>
+    <string name="url_subsribeTo">/jobSeekerSubscriptions/add</string>
+    <string name="url_profileUpdate">/jobSeekers/update</string>
+    <string name="url_profile">/jobSeekers/3</string>
+    <string name="url_jobApplicationAdd">/jobApplications/add</string>
+    <string name="url_viewUpdate">/jobs/view</string>
+    <string name="url_job">/jobs/</string>
+    <string name="url_jobApplication">/jobapplications?jobApplicationId=</string>
+    <string name="url_jobApplicationUpdate">/jobApplications/update</string>
+    <string name="url_rating">/jobRatings/add</string>
+    <string name="url_ratingUpdate">/jobRatings/update</string>
+    <string name="url_myJobs">/jobApplications?jobSeekerId=3</string>
+    <string name="url_jobsList">/jobs</string>
+    <string name="url_jobTypesList">/jobTypes</string>
+    <string name="url_jobRatings">/jobRatings?jobSeekerId=3</string>
+    <string name="url_token">/jobSeekerTokens/add</string>
+
+    <string name="toast_exit">Please click BACK again to exit</string>
+    <string name="toast_subscribe">Successfully Subscribed!</string>
+    <string name="toast_applySuccess">You have successfully applied for this job</string>
+    <string name="toast_applyFail">Sorry, you failed to applied for this job. Try again later</string>
+    <string name="toast_calendar">You have added this event to Google Calender</string>
+
 </resources>

@@ -3,6 +3,7 @@ package com.capstone.jobapplication.jobbridge.fcm;
 
 import android.util.Log;
 
+import com.capstone.jobapplication.jobbridge.R;
 import com.capstone.jobapplication.jobbridge.util.HttpClientPost;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
@@ -49,7 +50,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         keyValue.put("token",token);
         keyValue.put("jobSeekersId","3");
 
-        HttpClientPost post = new HttpClientPost("/jobSeekerTokens/add");
+        HttpClientPost post = new HttpClientPost(getString(R.string.url_token));
         try {
             String returnValue = post.doPost(keyValue);
         } catch (ExecutionException e) {

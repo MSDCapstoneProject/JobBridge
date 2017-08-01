@@ -44,14 +44,14 @@ public class SubscriptionActivity extends AppCompatActivity {
         for(TopicGroup topicGroup : topicGroups) {
             TextView textView = new TextView(this);
             textView.setText(topicGroup.getDescription());
-            textView.setTextSize(28);
+            textView.setTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_topicGroup));
             layout.addView(textView);
             for(Topic topic: topicGroup.getTopics()) {
                 CheckBox cb = new CheckBox(this);
                 cb.setId(topic.getId());
                 cb.setText(topic.getDescription());
-                cb.setTextSize(18);
-                cb.setLeft(20);
+                cb.setTextSize(getResources().getDimensionPixelSize(R.dimen.text_size_topic));
+                cb.setLeft(getResources().getDimensionPixelSize(R.dimen.margin_left_topic));
                 if(subscribedTopics.contains(String.valueOf(topic.getId()))) {
                     cb.setChecked(true);
                 }
@@ -66,7 +66,7 @@ public class SubscriptionActivity extends AppCompatActivity {
     private List<TopicGroup> getTopicGroups() {
         String jsonData = null;
         try {
-            HttpClientGet client = new HttpClientGet("/topicGroups");
+            HttpClientGet client = new HttpClientGet(getString(R.string.url_topicGroups));
             AsyncTask task = client.execute();
             jsonData = (String) task.get();
         } catch (Exception e) {
@@ -87,7 +87,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         String jsonData = null;
         try {
             //// TODO: 7/17/2017 change to real jobseeker id
-            HttpClientGet client = new HttpClientGet("/jobSeekerSubscriptions?jobSeekerId=3");
+            HttpClientGet client = new HttpClientGet(getString(R.string.url_subscribedTopics));
             AsyncTask task = client.execute();
             jsonData = (String) task.get();
         } catch (Exception e) {
@@ -121,7 +121,7 @@ public class SubscriptionActivity extends AppCompatActivity {
         keyValue.put("jobSeekerId", "3");
         keyValue.put("topicId", ids);
 
-        HttpClientPost post = new HttpClientPost("/jobSeekerSubscriptions/add");
+        HttpClientPost post = new HttpClientPost(getString(R.string.url_subsribeTo));
         try {
             String retrunValue = post.doPost(keyValue);
             System.out.println(retrunValue);
@@ -130,6 +130,6 @@ public class SubscriptionActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Toast.makeText(this,"Successfully Subscribed!",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,getString(R.string.toast_subscribe),Toast.LENGTH_SHORT).show();
     }
 }

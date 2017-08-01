@@ -60,7 +60,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         Bundle bundle = getIntent().getExtras();
         int jobApplicationId = (int) bundle.get("jobApplicationId");
 
-        String jsonData = getJsonData("/jobapplications?jobApplicationId=" + jobApplicationId);
+        String jsonData = getJsonData(getString(R.string.url_jobApplication) + jobApplicationId);
         jobApplication = JsonConverter.convertFromJson(jsonData, JobApplication.class);
 
         if (jobApplication != null) {
@@ -131,14 +131,14 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         switch (jobApplicationStatus) {
             case DENIED:
             case CANCELED2:
-                return "OK";
+                return getString(R.string.ok);
             case APPROVED:
             case APPLIED:
-                return "Cancel";
+                return getString(R.string.cancel);
             case CANCELED:
-                return "Apply Now";
+                return getString(R.string.apply);
             default:
-                return "OK";
+                return getString(R.string.ok);
         }
     }
 
@@ -158,7 +158,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         Map<String, String> keyValue = new HashMap<>();
         keyValue.put("jobApplicationId", String.valueOf(jobApplicationId));
         keyValue.put("applicationStatus", status);
-        HttpClientPost post = new HttpClientPost("/jobApplications/update");
+        HttpClientPost post = new HttpClientPost(getString(R.string.url_jobApplicationUpdate));
         try {
             post.doPost(keyValue);
             Toast.makeText(this, "Job status has changed to " + status, Toast.LENGTH_SHORT).show();
@@ -217,7 +217,7 @@ public class JobApplicationDetailActivity extends AppCompatActivity implements R
         values.put(CalendarContract.Events.HAS_ALARM, 1);
 
         CalendarUtil.addEventToCalendar(this,values,reminderDialogFragment.remindMinutes);
-        Toast.makeText(this,"You have added this event to Google Calender",Toast.LENGTH_SHORT).show();
+        Toast.makeText(this,getString(R.string.toast_calendar),Toast.LENGTH_SHORT).show();
         addCalendar.setVisibility(View.GONE);
     }
 

@@ -207,9 +207,9 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     }
 
     private void loadJobDataFromServer() {
-        String jobsJsonData = getJsonData("/jobs");
-        String jobTypesJsonData = getJsonData("/jobTypes");
-        String jobRatingsJsonData = getJsonData("/jobRatings?jobSeekerId=3");
+        String jobsJsonData = getJsonData(getString(R.string.url_jobsList));
+        String jobTypesJsonData = getJsonData(getString(R.string.url_jobTypesList));
+        String jobRatingsJsonData = getJsonData(getString(R.string.url_jobRatings));
         if (jobsJsonData != null) {
             Type listType = new TypeToken<ArrayList<Job>>() {}.getType();
             jobLists = JsonConverter.convertFromJsonList(jobsJsonData, listType);

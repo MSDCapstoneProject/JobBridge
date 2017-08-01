@@ -55,11 +55,11 @@ public class JobDetailActivity extends AppCompatActivity {
         }
         action = (Button) findViewById(R.id.job_apply);
         boolean jobIsApplied = CacheData.jobIsApplied(job.getId());
-        action.setText(jobIsApplied ? "OK" : getString(R.string.apply));
+        action.setText(jobIsApplied ? getString(R.string.ok) : getString(R.string.apply));
     }
 
     public void applyJob(View view) throws ExecutionException, InterruptedException {
-        if(action.getText().equals("OK")) {
+        if(action.getText().equals(getString(R.string.ok))) {
             onBackPressed();
         }else {
             Map<String, String> keyValue = new HashMap<>();
@@ -68,14 +68,14 @@ public class JobDetailActivity extends AppCompatActivity {
             //// TODO: 6/25/2017 should be changed into real job server's id
             keyValue.put("jobSeekerId", "3");
 
-            HttpClientPost post = new HttpClientPost("/jobApplications/add");
+            HttpClientPost post = new HttpClientPost(getString(R.string.url_jobApplicationAdd));
             String retrunValue = post.doPost(keyValue);
             if (retrunValue.contains("\"jobApplicationStatusId\":1")) {
-                Toast.makeText(this, "You have successfully applied for this job", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_applySuccess), Toast.LENGTH_SHORT).show();
                 CacheData.reSetAppliedJobsCache();
-                action.setText("OK");
+                action.setText(getString(R.string.ok));
             } else {
-                Toast.makeText(this, "Sorry, you failed to applied for this job. Try again later", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.toast_applyFail), Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -94,7 +94,7 @@ public class JobDetailActivity extends AppCompatActivity {
     private void updateJobViewCount(int jobId) {
         Map<String,String> keyValue = new HashMap<>();
         keyValue.put("jobId",String.valueOf(jobId));
-        HttpClientPost post = new HttpClientPost("/jobs/view");
+        HttpClientPost post = new HttpClientPost(getString(R.string.url_viewUpdate));
         try {
             post.doPost(keyValue);
         } catch (ExecutionException | InterruptedException e) {
@@ -103,7 +103,7 @@ public class JobDetailActivity extends AppCompatActivity {
     }
 
     private Job getJobFromServer(int jobId) {
-        String path = "/jobs/"+jobId;
+        String path = getString(R.string.url_job)+jobId;
         HttpClientGet client = new HttpClientGet(path);
         String jobJsonData = client.getJsonData();
         Job jobFromServer = null;

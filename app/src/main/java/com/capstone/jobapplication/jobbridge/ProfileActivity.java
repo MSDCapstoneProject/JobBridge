@@ -112,7 +112,7 @@ public class ProfileActivity extends AppCompatActivity {
         setAddress();
         String json = JsonConverter.convertFromObject(jobSeeker);
         try {
-            HttpClientPost client = new HttpClientPost("/jobSeekers/update");
+            HttpClientPost client = new HttpClientPost(getString(R.string.url_profileUpdate));
             AsyncTask task = client.execute(json);
             String result = (String) task.get();
         } catch (InterruptedException e) {
@@ -127,7 +127,7 @@ public class ProfileActivity extends AppCompatActivity {
         String jsonData = null;
         try {
             // // TODO: 6/25/2017  should be changed into real job server's id 
-            HttpClientGet client = new HttpClientGet("/jobSeekers/3");
+            HttpClientGet client = new HttpClientGet(getString(R.string.url_profile));
             AsyncTask task = client.execute();
             jsonData = (String) task.get();
         } catch (Exception e) {
