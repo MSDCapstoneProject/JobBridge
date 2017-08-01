@@ -28,6 +28,7 @@ public class StringUtil {
     }
 
     public static String formatWage(String wage) {
+        if(wage == null) wage = "0";
         String formattedWage = formatStringCurrency(wage);
         return String.format("%1s/h", formattedWage);
     }
