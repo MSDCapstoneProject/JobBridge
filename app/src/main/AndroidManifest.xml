@@ -86,6 +86,8 @@
             android:windowSoftInputMode="stateUnchanged" />
         <activity android:name=".JobApplicationDetailActivity" />
         <activity android:name=".SubscriptionActivity"></activity>
+        <activity android:name=".SignInActivity"></activity>
+        <activity android:name=".SignOutActivity"></activity>
     </application>
 
 </manifest>

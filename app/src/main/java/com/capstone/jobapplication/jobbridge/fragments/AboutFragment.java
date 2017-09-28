@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import com.capstone.jobapplication.jobbridge.ProfileActivity;
 import com.capstone.jobapplication.jobbridge.R;
+import com.capstone.jobapplication.jobbridge.SignInActivity;
 import com.capstone.jobapplication.jobbridge.SubscriptionActivity;
 import com.capstone.jobapplication.jobbridge.fcm.FcmActivity;
-import com.capstone.jobapplication.jobbridge.map.LocationFragment;
 
 /**
  * Created by Aicun on 5/31/2017.
@@ -47,6 +47,8 @@ public class AboutFragment extends Fragment implements View.OnClickListener {
             case R.id.signup:
                 //// TODO: 6/23/2017 change to sign up story
                 //sendTokenTOServer();
+                Intent signup = new Intent(getActivity(), SignInActivity.class);
+                startActivity(signup);
                 break;
             case R.id.setting:
                 Intent intentSetting = new Intent(getActivity(), FcmActivity.class);
