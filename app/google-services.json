@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "1084557606240-3cqhrr1ojp59pbsbvstrm89ao6s8c106.apps.googleusercontent.com",
+          "client_id": "1084557606240-gks8m32n27ktvupfli6m5n0i7tvirqkt.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.capstone.jobapplication.jobbridge",
-            "certificate_hash": "5015f53172a99c4ebff168ce6feb4f43eb3535e5"
+            "certificate_hash": "2ef020855027ee7f6a8f5e4ac487051f210dac2d"
           }
         },
         {
@@ -33,7 +33,7 @@
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCOjZ3m76P4kNZqM3400cEZKXYdi66uD3A"
+          "current_key": "AIzaSyBRDzI1TvnsWUwdqCjeVdUvbZ3GowJFKac"
         }
       ],
       "services": {
