@@ -24,4 +24,5 @@
         android:id="@+id/action_feedback"
         android:icon="@drawable/menu_feedback_icon"
         android:title="@string/menu_d"/>
+    <item android:id="@+id/action_logout" android:title="@string/action_logout"/>
 </menu>

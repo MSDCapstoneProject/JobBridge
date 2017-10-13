@@ -1,39 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/wallet_dim_foreground_holo_dark"
+    tools:context="com.capstone.jobapplication.jobbridge.SignInActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/cast_expanded_controller_ad_label_background_color"
-        android:visibility="visible">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp" />
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp" />
 
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/googleBtn"
-            android:layout_width="312dp"
-            android:layout_height="49dp"
-            android:layout_marginLeft="16dp"
-            app:layout_constraintLeft_toLeftOf="@+id/guideline2"
-            android:layout_marginRight="16dp"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="24dp" />
-    </android.support.constraint.ConstraintLayout>
-</LinearLayout>
+    <EditText
+        android:id="@+id/userId"
+        android:layout_width="270dp"
+        android:layout_height="47dp"
+        android:backgroundTint="@color/icons"
+        android:hint="@string/userid"
+        android:textColor="@color/icons"
+        android:textColorHint="@color/icons"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="109dp" />
+
+    <EditText
+        android:id="@+id/userPassword"
+        android:layout_width="270dp"
+        android:layout_height="47dp"
+        android:backgroundTint="@color/icons"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textColor="@color/icons"
+        android:textColorHint="@color/icons"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="170dp" />
+
+    <Button
+        android:id="@+id/signupBtn"
+        android:layout_width="271dp"
+        android:layout_height="47dp"
+        android:text="@string/SignUp"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="288dp" />
+    <Button
+        android:id="@+id/loginBtn"
+        android:layout_width="271dp"
+        android:layout_height="47dp"
+        android:text="@string/login"
+        tools:layout_editor_absoluteX="58dp"
+        tools:layout_editor_absoluteY="241dp" />
+
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/googleBtn"
+
+        android:layout_width="271dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="56dp"
+        tools:layout_editor_absoluteY="336dp"></com.google.android.gms.common.SignInButton>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

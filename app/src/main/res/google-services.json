@@ -1,27 +1,39 @@
 {
   "project_info": {
-    "project_number": "791679679548",
-    "firebase_url": "https://jobbridge-1496291625312.firebaseio.com",
-    "project_id": "jobbridge-1496291625312",
-    "storage_bucket": "jobbridge-1496291625312.appspot.com"
+    "project_number": "1084557606240",
+    "firebase_url": "https://jobbridge-169619.firebaseio.com",
+    "project_id": "jobbridge-169619",
+    "storage_bucket": "jobbridge-169619.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:791679679548:android:d859da3d50074cc8",
+        "mobilesdk_app_id": "1:1084557606240:android:d859da3d50074cc8",
         "android_client_info": {
           "package_name": "com.capstone.jobapplication.jobbridge"
         }
       },
       "oauth_client": [
         {
-          "client_id": "791679679548-c5sndj558r2f9pmu678aoon9h1gvrtnk.apps.googleusercontent.com",
+          "client_id": "1084557606240-gks8m32n27ktvupfli6m5n0i7tvirqkt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.capstone.jobapplication.jobbridge",
+            "certificate_hash": "2ef020855027ee7f6a8f5e4ac487051f210dac2d"
+          }
+        },
+        {
+          "client_id": "1084557606240-gh4hf45pg5825nsij1k1eq6oq1bpc6jl.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "1084557606240-8jbc9dgtbfofn6n1l1jr1dfoe5m3drsl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDA-UD7MwZyCKyazd7KUdR2XQSo8Hr8MQs"
+          "current_key": "AIzaSyBRDzI1TvnsWUwdqCjeVdUvbZ3GowJFKac"
         }
       ],
       "services": {
@@ -29,8 +41,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084557606240-gh4hf45pg5825nsij1k1eq6oq1bpc6jl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
