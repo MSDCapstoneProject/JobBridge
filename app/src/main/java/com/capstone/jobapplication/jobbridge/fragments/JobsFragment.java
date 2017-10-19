@@ -39,6 +39,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     private List<Job> jobLists = new ArrayList<Job>();
     private List<String> jobTypeNames = new ArrayList<>();
     private List<Job> searchedJobs = new ArrayList<Job>();
+    private JobsListFragment jobsListFragment;
 
     public JobsFragment() {
     }
@@ -76,7 +77,7 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
         jobTypeFilterSpinner.setAdapter(adapter);
 
         //job list
-        JobsListFragment jobsListFragment = new JobsListFragment();
+        jobsListFragment = new JobsListFragment();
         jobsListFragment.setJobLists(jobLists);
         getFragmentManager().beginTransaction().add(R.id.job_list_fragment, jobsListFragment).commit();
 
@@ -124,7 +125,6 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
     private void searchJobs() {
         String keyWord = search.getText().toString();
         searchedJobs = searchJobs(keyWord);
-        JobsListFragment jobsListFragment = new JobsListFragment();
         jobsListFragment.setJobLists(searchedJobs);
         getFragmentManager().beginTransaction().replace(R.id.job_list_fragment, jobsListFragment).commit();
     }
@@ -154,7 +154,6 @@ public class JobsFragment extends Fragment implements SeekBar.OnSeekBarChangeLis
             }
         }
 
-        JobsListFragment jobsListFragment = new JobsListFragment();
         jobsListFragment.setJobLists(filteredJobs);
         getFragmentManager().beginTransaction().replace(R.id.job_list_fragment, jobsListFragment).commit();
         filter.setVisibility(View.GONE);

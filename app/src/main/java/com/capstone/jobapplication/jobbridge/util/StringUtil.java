@@ -1,5 +1,8 @@
 package com.capstone.jobapplication.jobbridge.util;
 
+import android.os.health.SystemHealthManager;
+import android.util.Log;
+
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -23,6 +26,7 @@ public class StringUtil {
             formatted = currencyFormatter.format(w);
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            Log.e("StringUtil",e.getMessage());
         }
         return formatted;
     }
