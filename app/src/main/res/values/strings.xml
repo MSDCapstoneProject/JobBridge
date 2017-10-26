@@ -73,6 +73,7 @@
     <string name="toast_applySuccess">You have successfully applied for this job</string>
     <string name="toast_applyFail">Sorry, you failed to applied for this job. Try again later</string>
     <string name="toast_calendar">You have added this event to Google Calender</string>
+    <string name="list_empty">No Data Available</string>
 
     <string name="userid">ID</string>
     <string name="password">PASSWORD</string>
