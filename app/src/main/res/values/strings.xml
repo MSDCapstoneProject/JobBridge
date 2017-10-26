@@ -77,5 +77,7 @@
     <string name="userid">ID</string>
     <string name="password">PASSWORD</string>
     <string name="login">login</string>
+    <string name="logout">Logout</string>
+    <string name="loading">Loading</string>
 
 </resources>
