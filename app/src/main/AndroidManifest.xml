@@ -87,7 +87,7 @@
         <activity android:name=".JobApplicationDetailActivity" />
         <activity android:name=".SubscriptionActivity"></activity>
         <activity android:name=".SignInActivity"></activity>
-        <activity android:name=".SignOutActivity"></activity>
+        <activity android:name=".SignUpActivity"></activity>
     </application>
 
 </manifest>
