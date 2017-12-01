@@ -46,7 +46,7 @@
             android:name=".ProfileActivity"
             android:windowSoftInputMode="stateUnchanged" />
 
-        <meta-dataktj
+        <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <!--
@@ -87,7 +87,6 @@
         <activity android:name=".JobApplicationDetailActivity" />
         <activity android:name=".SubscriptionActivity"></activity>
         <activity android:name=".SignInActivity"></activity>
-        <activity android:name=".SignUpActivity"></activity>
     </application>
 
 </manifest>
